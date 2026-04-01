@@ -1,10 +1,10 @@
 const translations = {
     "EXTENSION_NAME": {
-        "en": "Consent-O-Matic",
-        "da": "Consent-O-Matic",
-        "de": "Consent-O-Matic",
-        "pt": "Consent-O-Matic",
-        "fr": "Consent-O-Matic"
+        "en": "Utonomy Consent-O-Matic",
+        "da": "Utonomy Consent-O-Matic",
+        "de": "Utonomy Consent-O-Matic",
+        "pt": "Utonomy Consent-O-Matic",
+        "fr": "Utonomy Consent-O-Matic"
     },
     "EXTENSION_SUBTITLE": {
         "en": "Your Choice - Applied Everywhere",
