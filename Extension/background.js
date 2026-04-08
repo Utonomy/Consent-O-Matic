@@ -242,7 +242,7 @@ GDPRConfig.getDebugValues().then((config)=>{
     if (config.autoOpenOptionsTab){
         config.autoOpenOptionsTab = false;
         GDPRConfig.setDebugValues(config);
-        chrome.tabs.create({ url: chrome.runtime.getURL("options.html") }, function (tab) {
+        chrome.tabs.create({ url: chrome.runtime.getURL("options-utonomy.html") }, function (tab) {
             console.log("Launched initial onboarding page");
         });
     }

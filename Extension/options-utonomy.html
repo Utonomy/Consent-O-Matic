@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+    <title>[[WEBID_CONNECT_TITLE]]</title>
+    <meta charset="utf-8">
+    <meta content="initial-scale=1, width=device-width" name="viewport">
+    <link href="ui.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="prehead">
+        <img src="logo.svg">
+        <div class="title">
+            <h1>[[EXTENSION_NAME]]</h1>
+            <h2>[[EXTENSION_SUBTITLE]]</h2>
+        </div>
+    </div>
+    <div class="header">
+        <ul role="tablist">
+            <li aria-controls="callbackTab" aria-selected="true" class="menuitem choices active" role="tab"
+                tabindex="0">[[WEBID_CONNECT_TITLE]]
+            </li>
+        </ul>
+    </div>
+
+    <div class="configurator">
+        <div class="tab tab_uc" id="callbackTab" role="tabpanel" tabindex="0">
+            <div class="helptext" id="permissions" style="display:none">
+                <p>
+                    [[PERMISSIONS_DESCRIPTION]]:
+                </p>
+                <ul class="permissionslist">
+                    <li><h2>[[PERMISSIONS_READ]]</h2><div>[[PERMISSIONS_READ_DETAIL]]</div></li>
+                    <li><h2>[[PERMISSIONS_TABS]]</h2><div>[[PERMISSIONS_TABS_DETAIL]]</li>
+                    <li><h2>[[PERMISSIONS_STORAGE]]</h2><div>[[PERMISSIONS_STORAGE_DETAIL]]</div></li>
+                </ul>
+                <p>
+                    [[PERMISSIONS_NONE]]
+                </p>
+                <p>
+                    <button>[[PERMISSIONS_GRANT]]</button>
+                </p>
+                <div id="failedpermissions" style="display:none">
+                    <em>Please note:</em>
+                    [[PERMISSIONS_FAIL]]:
+                    <ul>
+                        <li>
+                            <b>Safari (Mac)</b><br>
+                            Settings > Extensions > Consent-O-Matic > Always Allow on Every Website
+                        </li>
+                        <li>
+                            <b>Safari (iOS)</b><br>
+                            Settings > Safari > Extensions > Consent-O-Matic > Permissions > All Websites > Allow
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="helptext webIdUrl">
+                <label for="webIdUrl"><strong>[[WEBID_URL_LABEL]]</strong></label>
+                <div>[[WEBID_URL_DESCRIPTION]]</div>
+                <input id="webIdUrl" placeholder="https://pod.example.com/profile/card#me" type="url" />
+                <button id="solidConnect" type="button">[[WEBID_CONNECT_LABEL]]</button>
+                <span id="connectionStatus" data-status=""></span>
+            </div>
+            <div class="helptext" id="solidStatus" style="display:none"></div>
+        </div>
+        <div style="text-align:right;">
+            <a href="options.html">[[MORE_ADDON_SETTINGS]]</a>
+        </div>
+        <div style="display: none;">
+            <!-- Elements that MUST be present in the DOM to avoid errors from options.js -->
+            <input id="newurl" type="url">
+            <ul class="categorylist"></ul>
+            <div class="tab_rl"><ul class="rulelist"></ul></div>
+            <div class="tab_dbg"><ul class="flags"></ul></div>
+            <button id="clearDebugFlags">Clear Debug flags</button>
+            <button id="urladd"></button>
+            <button id="forceupdate"></button>
+            <button id="clearLog"></button>
+            <button id="rulesEditor"></button>
+            <div id="generalTab"><form id="hideOrPip"><input type="radio" name="hideOrPip" id="hop_pip"/></form></div>
+        </div>
+
+    </div>
+    <script src="ui.js"></script>
+</body>
+
+</html>

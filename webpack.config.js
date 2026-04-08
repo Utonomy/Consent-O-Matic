@@ -19,6 +19,7 @@ module.exports = env=>({
       './Extension/options.js',
       './Extension/popup.js',
       './Extension/ui.scss',
+      './Extension/options-utonomy.js',
       ...glob.sync(__dirname + "/Extension/*.html")
     ],
     editor: [
