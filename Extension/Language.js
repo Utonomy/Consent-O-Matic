@@ -1,4 +1,8 @@
 const translations = {
+    "WEBID_URL_LABEL": { "en": "WebID URL" },
+    "WEBID_URL_DESCRIPTION": { "en": "WebID profile URL to use for Solid integration (for example: https://pod.example.com/profile/card#me)" },
+    "WEBID_CONNECT_TITLE":{ "en": "Connect to Solid Pod", },
+    "WEBID_CONNECT_LABEL": { "en": "Connect", },
     "EXTENSION_NAME": {
         "en": "Utonomy Consent-O-Matic",
         "da": "Utonomy Consent-O-Matic",
