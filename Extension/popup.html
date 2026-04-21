@@ -1,47 +1,103 @@
-<!DOCTYPE html>
+<!doctype html>
 <html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="ui.css" />
+    <style>
+      .popup {
+        min-width: 300px;
+        padding: 16px;
+        font-family: system-ui, sans-serif;
+      }
+      .auth-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        text-align: center;
+      }
+      .auth-container img {
+        width: 64px;
+        height: 64px;
+      }
+      .user-info {
+        font-size: 14px;
+        color: #333;
+      }
+      .user-info strong {
+        display: block;
+        font-size: 16px;
+        margin-bottom: 4px;
+      }
+      .btn {
+        display: inline-block;
+        padding: 8px 24px;
+        border: none;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+      .btn-login {
+        background: #4a90d9;
+        color: white;
+      }
+      .btn-login:hover {
+        background: #357abd;
+      }
+      .btn-logout {
+        background: #e0e0e0;
+        color: #333;
+      }
+      .btn-logout:hover {
+        background: #ccc;
+      }
+      .btn-settings {
+        background: none;
+        border: none;
+        color: #666;
+        font-size: 12px;
+        cursor: pointer;
+        text-decoration: underline;
+      }
+      .hidden {
+        display: none !important;
+      }
+    </style>
+  </head>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="ui.css">
-</head>
+  <body class="popup">
+    <div class="auth-container" id="loading">
+      <img src="logo.svg" />
+      <div>Loading...</div>
+    </div>
 
-<body class="popup">
-    <div class="pane fronttab">
-        <img src="logo.svg">
-        <div class="pane">
-            <div class="notworking">
-                <div>[[AUTOFILL_NOT_WORKING]]</div>
-                <div>
-                    <button id="unhandled">[[LET_US_KNOW]]</button>
-                </div>
-            </div>
-            <div class="keeprunning">
-                <div>[[KEEP_RUNNING]]</div>
-                <label class="siteselector"><input type="checkbox" checked><span id="site"></label>
-            </div>
-            <div>
-                <button id="settings">[[MORE_ADDON_SETTINGS]]</button>
-            </div>
-        </div>
+    <div class="auth-container hidden" id="logged-out">
+      <img src="logo.svg" />
+      <h2>Consent-O-Matic</h2>
+      <p style="font-size: 13px; color: #666; margin: 0">
+        Sign in with your Upod account
+      </p>
+      <button class="btn btn-login" id="login-btn">Login with Upod</button>
+      <button class="btn-settings" id="settings-btn-out">
+        Extension Settings
+      </button>
     </div>
-    <div class="pane unhandledtab" style="display:none">
-        <div>[[ARE_YOU_SURE]]</div>
-        <em><span id="unhandled_site"></span></em>
-        <div>[[UNHANDLED_EXPLAINER]]</div>
-        <div>
-            <button id="unhandled_cancel">[[CANCEL]]</button>
-            <button id="unhandled_send">[[SEND]]</button>
-        </div>
-        <div class="centeredlabel"><input type="checkbox" id="no-confirmation"><label
-                for="no-confirmation">[[NO-CONFIRM]]</label></div>
+
+    <div class="auth-container hidden" id="logged-in">
+      <img src="logo.svg" />
+      <div class="user-info">
+        <strong id="user-name"></strong>
+        <span id="user-email"></span>
+      </div>
+      <button class="btn btn-logout" id="logout-btn">Logout</button>
+      <button class="btn-settings" id="settings-btn-in">
+        Extension Settings
+      </button>
     </div>
-    <div class="pane unhandledtab_complete" style="display:none">
-        <img src="logo.svg">
-        <div>[[THANKS]]</div>
-    </div>
+
     <script src="ui.js"></script>
-</body>
-
+  </body>
 </html>

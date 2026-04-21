@@ -1,63 +1,49 @@
-import GDPRConfig from './GDPRConfig.js';
-import Language from './Language.js';
+const loadingEl = document.querySelector("#loading");
+const loggedOutEl = document.querySelector("#logged-out");
+const loggedInEl = document.querySelector("#logged-in");
 
-let frontTab = document.querySelector(".fronttab");
-if (frontTab){
-    chrome.tabs.query({
-        active: true,
-        currentWindow: true
-    }, (tabs) => {
-        const urlObj = new URL(tabs[0].url);
-        const url = urlObj.host;
+if (loadingEl) {
+  // Check auth state on popup open
+  chrome.runtime.sendMessage("GetAuthState", null, (response) => {
+    loadingEl.classList.add("hidden");
 
-        let activeInput = document.querySelector(".siteselector input");
-        document.querySelector("#site").textContent = url;
-        document.querySelector("#unhandled_site").textContent = url;
-        document.querySelector("#settings").addEventListener("click", function () {
-            chrome.runtime.openOptionsPage();
-            window.close();
-        });
+    if (response && response.loggedIn) {
+      const user = response.user;
+      const nameEl = document.querySelector("#user-name");
+      const emailEl = document.querySelector("#user-email");
 
-        GDPRConfig.isActive(url).then((active) => {
-            activeInput.checked = active;
-        });
-        activeInput.addEventListener("input", () => {
-            GDPRConfig.setPageActive(url, activeInput.checked);
-        });
+      if (nameEl) nameEl.textContent = user?.name || "Logged in";
+      if (emailEl) emailEl.textContent = user?.email || "";
 
-        GDPRConfig.getDebugValues().then((settings) => {
-            let confirmationInput = document.querySelector("#no-confirmation");
-            confirmationInput.checked = (settings.skipSubmitConfirmation === true);
+      loggedInEl.classList.remove("hidden");
+    } else {
+      loggedOutEl.classList.remove("hidden");
+    }
+  });
 
-            confirmationInput.addEventListener("input", () => {
-                settings.skipSubmitConfirmation = confirmationInput.checked;
-                GDPRConfig.setDebugValues(settings);
-            });
-
-            document.querySelector("#unhandled").addEventListener("click", () => {
-                document.querySelector(".fronttab").style.display = "none";
-                document.querySelector(".unhandledtab").style.display = "block";
-                if (settings.skipSubmitConfirmation){
-                    document.querySelector("#unhandled_send").click();
-                }
-            });
-            document.querySelector("#unhandled_cancel").addEventListener("click", () => {
-                document.querySelector(".unhandledtab").style.display = "none";
-                document.querySelector(".fronttab").style.display = "block";
-                window.close();
-            });
-            document.querySelector("#unhandled_send").addEventListener("click", () => {
-                fetch("https://gdprconsent.projects.cavi.au.dk/report.php?url=" + encodeURIComponent(url));
-                document.querySelector(".unhandledtab").style.display = "none";
-                document.querySelector(".unhandledtab_complete").style.display = "block";
-                setTimeout(() => {
-                    window.close();
-                }, 1250);
-            });
-        });
+  // Login button
+  document.querySelector("#login-btn")?.addEventListener("click", () => {
+    console.log("Login button clicked, sending StartLogin message");
+    chrome.runtime.sendMessage("StartLogin", null, () => {
+      window.close();
     });
+  });
 
-    window.addEventListener("DOMContentLoaded", ()=>{
-        Language.doLanguage();
+  // Logout button
+  document.querySelector("#logout-btn")?.addEventListener("click", () => {
+    chrome.runtime.sendMessage("Logout", null, () => {
+      loggedInEl.classList.add("hidden");
+      loggedOutEl.classList.remove("hidden");
     });
+  });
+
+  // Settings buttons
+  document.querySelector("#settings-btn-out")?.addEventListener("click", () => {
+    chrome.runtime.openOptionsPage();
+    window.close();
+  });
+  document.querySelector("#settings-btn-in")?.addEventListener("click", () => {
+    chrome.runtime.openOptionsPage();
+    window.close();
+  });
 }
