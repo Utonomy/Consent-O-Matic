@@ -1,18 +1,17 @@
 {
     "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
-    "linkedin_popup": {
+    "eporner_cookies": {
         "detectors": [
             {
                 "presentMatcher": [
                     {
                         "type": "url",
-                        "url": ["linkedin.com"]
+                        "url": ["eporner.com"]
                     },
                     {
                         "type": "css",
                         "target": {
-                            "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Accept", "Reject", "Accepteren", "Weigeren"]
+                            "selector": "#cookies"
                         }
                     }
                 ],
@@ -20,9 +19,7 @@
                     {
                         "type": "css",
                         "target": {
-                            "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Accept", "Reject", "Accepteren", "Weigeren"],
-                            "displayFilter": true
+                            "selector": "#cookies a, #cookies"
                         }
                     }
                 ]
@@ -34,7 +31,7 @@
                 "action": {
                     "type": "hide",
                     "target": {
-                        "selector": "div[type=\"COOKIE_CONSENT\"], .artdeco-global-alert, [role=\"alertdialog\"]"
+                        "selector": "#cookies"
                     }
                 }
             },
@@ -44,20 +41,10 @@
             {
                 "name": "DO_CONSENT",
                 "action": {
-                    "type": "ifallowall",
-                    "trueAction": {
-                        "type": "click",
-                        "target": {
-                            "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Accept", "Accepteren", "Agree"]
-                        }
-                    },
-                    "falseAction": {
-                        "type": "click",
-                        "target": {
-                            "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Reject", "Weigeren", "Decline"]
-                        }
+                    "type": "click",
+                    "target": {
+                        "selector": "#cookies a, #cookies button",
+                        "textFilter": ["[ X ]", "X", "Close", "OK", "Accept"]
                     }
                 }
             },

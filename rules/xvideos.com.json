@@ -1,17 +1,17 @@
 {
     "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
-    "Instagram": {
+    "xvideos_disclaimer": {
         "detectors": [
             {
                 "presentMatcher": [
                     {
                         "type": "url",
-                        "url": ["instagram.com"]
+                        "url": ["xvideos.com", "xnxx.com"]
                     },
                     {
                         "type": "css",
                         "target": {
-                            "selector": "[aria-label=\"Decline optional cookies\"], .x1qjc9v5.x9f619.x78zum5.xdt5ytf.x1iyjqo2.xl56j7k, ._a9--._a9_0, ._a9--._a9_1"
+                            "selector": "#disclaimer-accept_cookies-btn, #disclaimer-reject_cookies-btn"
                         }
                     }
                 ],
@@ -19,7 +19,7 @@
                     {
                         "type": "css",
                         "target": {
-                            "selector": "[aria-label=\"Decline optional cookies\"], .x1qjc9v5.x9f619.x78zum5.xdt5ytf.x1iyjqo2.xl56j7k, ._a9--._a9_0, ._a9--._a9_1",
+                            "selector": "#disclaimer-accept_cookies-btn, #disclaimer-reject_cookies-btn",
                             "displayFilter": true
                         }
                     }
@@ -28,28 +28,41 @@
         ],
         "methods": [
             {
-                "name": "HIDE_CMP"
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "hide",
+                    "target": {
+                        "selector": "#disclaimer, .disclaimer"
+                    }
+                }
             },
             {
-                "name": "OPEN_OPTIONS"
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": ".disclaimer-manage_cookies, button",
+                        "textFilter": ["Manage cookies"]
+                    }
+                }
             },
             {
+                "name": "DO_CONSENT",
                 "action": {
                     "type": "ifallowall",
                     "trueAction": {
                         "type": "click",
                         "target": {
-                            "selector": "[aria-label=\"Allow all cookies\"], ._a9--._a9_1"
+                            "selector": "#disclaimer-accept_cookies-btn"
                         }
                     },
                     "falseAction": {
                         "type": "click",
                         "target": {
-                            "selector": "[aria-label=\"Decline optional cookies\"], ._a9--._a9_0"
+                            "selector": "#disclaimer-reject_cookies-btn"
                         }
                     }
-                },
-                "name": "DO_CONSENT"
+                }
             },
             {
                 "name": "SAVE_CONSENT"

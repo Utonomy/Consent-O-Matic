@@ -1,18 +1,17 @@
 {
     "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
-    "linkedin_popup": {
+    "zalando_nl": {
         "detectors": [
             {
                 "presentMatcher": [
                     {
                         "type": "url",
-                        "url": ["linkedin.com"]
+                        "url": ["zalando.nl", "zalando.com"]
                     },
                     {
                         "type": "css",
                         "target": {
-                            "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Accept", "Reject", "Accepteren", "Weigeren"]
+                            "selector": "#usercentrics-root, .uc-banner-wrapper, .uc-banner-content, [data-testid=\"uc-banner\"]"
                         }
                     }
                 ],
@@ -20,8 +19,7 @@
                     {
                         "type": "css",
                         "target": {
-                            "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Accept", "Reject", "Accepteren", "Weigeren"],
+                            "selector": ".uc-banner-wrapper, .uc-banner-content, [data-testid=\"uc-banner\"], #uc-btn-accept-banner, #uc-btn-deny-banner",
                             "displayFilter": true
                         }
                     }
@@ -30,16 +28,17 @@
         ],
         "methods": [
             {
-                "name": "HIDE_CMP",
-                "action": {
-                    "type": "hide",
-                    "target": {
-                        "selector": "div[type=\"COOKIE_CONSENT\"], .artdeco-global-alert, [role=\"alertdialog\"]"
-                    }
-                }
+                "name": "HIDE_CMP"
             },
             {
-                "name": "OPEN_OPTIONS"
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "#uc-btn-more-info-banner, button",
+                        "textFilter": ["Instellingen", "Settings", "More"]
+                    }
+                }
             },
             {
                 "name": "DO_CONSENT",
@@ -48,21 +47,28 @@
                     "trueAction": {
                         "type": "click",
                         "target": {
-                            "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Accept", "Accepteren", "Agree"]
+                            "selector": "#uc-btn-accept-banner, button",
+                            "textFilter": ["Alles accepteren", "Accept all", "Akkoord", "Accept"]
                         }
                     },
                     "falseAction": {
                         "type": "click",
                         "target": {
-                            "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Reject", "Weigeren", "Decline"]
+                            "selector": "#uc-btn-deny-banner, button",
+                            "textFilter": ["Weigeren", "Reject", "Decline", "Essential", "Deny"]
                         }
                     }
                 }
             },
             {
-                "name": "SAVE_CONSENT"
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "#uc-btn-save, button",
+                        "textFilter": ["Opslaan", "Save", "Confirm"]
+                    }
+                }
             },
             {
                 "name": "UTILITY"

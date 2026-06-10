@@ -1,17 +1,18 @@
 {
     "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
-    "Instagram": {
+    "rabobank_nl": {
         "detectors": [
             {
                 "presentMatcher": [
                     {
                         "type": "url",
-                        "url": ["instagram.com"]
+                        "url": ["rabobank.nl"]
                     },
                     {
                         "type": "css",
                         "target": {
-                            "selector": "[aria-label=\"Decline optional cookies\"], .x1qjc9v5.x9f619.x78zum5.xdt5ytf.x1iyjqo2.xl56j7k, ._a9--._a9_0, ._a9--._a9_1"
+                            "selector": ".cookiebanner-consent-level-button, [id*=\"cookiebanner\"], button",
+                            "textFilter": ["WEIGEREN", "ACCEPTEREN", "Accept", "Reject"]
                         }
                     }
                 ],
@@ -19,7 +20,8 @@
                     {
                         "type": "css",
                         "target": {
-                            "selector": "[aria-label=\"Decline optional cookies\"], .x1qjc9v5.x9f619.x78zum5.xdt5ytf.x1iyjqo2.xl56j7k, ._a9--._a9_0, ._a9--._a9_1",
+                            "selector": ".cookiebanner-consent-level-button, button",
+                            "textFilter": ["WEIGEREN", "ACCEPTEREN", "Accept", "Reject"],
                             "displayFilter": true
                         }
                     }
@@ -28,28 +30,36 @@
         ],
         "methods": [
             {
-                "name": "HIDE_CMP"
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "hide",
+                    "target": {
+                        "selector": "[id*=\"cookiebanner\"], .cookiebanner"
+                    }
+                }
             },
             {
                 "name": "OPEN_OPTIONS"
             },
             {
+                "name": "DO_CONSENT",
                 "action": {
                     "type": "ifallowall",
                     "trueAction": {
                         "type": "click",
                         "target": {
-                            "selector": "[aria-label=\"Allow all cookies\"], ._a9--._a9_1"
+                            "selector": "button, .cookiebanner-consent-level-button",
+                            "textFilter": ["ACCEPTEREN", "Accept", "Agree"]
                         }
                     },
                     "falseAction": {
                         "type": "click",
                         "target": {
-                            "selector": "[aria-label=\"Decline optional cookies\"], ._a9--._a9_0"
+                            "selector": "button, .cookiebanner-consent-level-button",
+                            "textFilter": ["WEIGEREN", "Reject", "Decline"]
                         }
                     }
-                },
-                "name": "DO_CONSENT"
+                }
             },
             {
                 "name": "SAVE_CONSENT"

@@ -1,17 +1,18 @@
 {
     "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
-    "Instagram": {
+    "chaturbate_entrance": {
         "detectors": [
             {
                 "presentMatcher": [
                     {
                         "type": "url",
-                        "url": ["instagram.com"]
+                        "url": ["chaturbate.com"]
                     },
                     {
                         "type": "css",
                         "target": {
-                            "selector": "[aria-label=\"Decline optional cookies\"], .x1qjc9v5.x9f619.x78zum5.xdt5ytf.x1iyjqo2.xl56j7k, ._a9--._a9_0, ._a9--._a9_1"
+                            "selector": "#close_entrance_terms, button",
+                            "textFilter": ["I AGREE", "Agree"]
                         }
                     }
                 ],
@@ -19,7 +20,8 @@
                     {
                         "type": "css",
                         "target": {
-                            "selector": "[aria-label=\"Decline optional cookies\"], .x1qjc9v5.x9f619.x78zum5.xdt5ytf.x1iyjqo2.xl56j7k, ._a9--._a9_0, ._a9--._a9_1",
+                            "selector": "#close_entrance_terms, button",
+                            "textFilter": ["I AGREE", "Agree"],
                             "displayFilter": true
                         }
                     }
@@ -28,28 +30,26 @@
         ],
         "methods": [
             {
-                "name": "HIDE_CMP"
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "hide",
+                    "target": {
+                        "selector": "#entrance_terms, .entrance_terms, [id*=\"entrance\"]"
+                    }
+                }
             },
             {
                 "name": "OPEN_OPTIONS"
             },
             {
+                "name": "DO_CONSENT",
                 "action": {
-                    "type": "ifallowall",
-                    "trueAction": {
-                        "type": "click",
-                        "target": {
-                            "selector": "[aria-label=\"Allow all cookies\"], ._a9--._a9_1"
-                        }
-                    },
-                    "falseAction": {
-                        "type": "click",
-                        "target": {
-                            "selector": "[aria-label=\"Decline optional cookies\"], ._a9--._a9_0"
-                        }
+                    "type": "click",
+                    "target": {
+                        "selector": "#close_entrance_terms, button",
+                        "textFilter": ["I AGREE", "Agree"]
                     }
-                },
-                "name": "DO_CONSENT"
+                }
             },
             {
                 "name": "SAVE_CONSENT"

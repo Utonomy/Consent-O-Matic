@@ -1,17 +1,18 @@
 {
     "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
-    "Instagram": {
+    "xhamster": {
         "detectors": [
             {
                 "presentMatcher": [
                     {
                         "type": "url",
-                        "url": ["instagram.com"]
+                        "url": ["xhamster.com"]
                     },
                     {
                         "type": "css",
                         "target": {
-                            "selector": "[aria-label=\"Decline optional cookies\"], .x1qjc9v5.x9f619.x78zum5.xdt5ytf.x1iyjqo2.xl56j7k, ._a9--._a9_0, ._a9--._a9_1"
+                            "selector": "button, [role=\"button\"]",
+                            "textFilter": ["Accept", "Reject"]
                         }
                     }
                 ],
@@ -19,7 +20,8 @@
                     {
                         "type": "css",
                         "target": {
-                            "selector": "[aria-label=\"Decline optional cookies\"], .x1qjc9v5.x9f619.x78zum5.xdt5ytf.x1iyjqo2.xl56j7k, ._a9--._a9_0, ._a9--._a9_1",
+                            "selector": "button, [role=\"button\"]",
+                            "textFilter": ["Accept", "Reject"],
                             "displayFilter": true
                         }
                     }
@@ -34,22 +36,24 @@
                 "name": "OPEN_OPTIONS"
             },
             {
+                "name": "DO_CONSENT",
                 "action": {
                     "type": "ifallowall",
                     "trueAction": {
                         "type": "click",
                         "target": {
-                            "selector": "[aria-label=\"Allow all cookies\"], ._a9--._a9_1"
+                            "selector": "button, [role=\"button\"]",
+                            "textFilter": ["Accept"]
                         }
                     },
                     "falseAction": {
                         "type": "click",
                         "target": {
-                            "selector": "[aria-label=\"Decline optional cookies\"], ._a9--._a9_0"
+                            "selector": "button, [role=\"button\"]",
+                            "textFilter": ["Reject"]
                         }
                     }
-                },
-                "name": "DO_CONSENT"
+                }
             },
             {
                 "name": "SAVE_CONSENT"

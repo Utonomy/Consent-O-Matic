@@ -146,7 +146,11 @@ export default class ConsentEngine {
 
         this.stopEngineId = setTimeout(() => {
             if (ConsentEngine.debugValues.debugLog) {
-                console.log("No CMP detected in 5 seconds, stopping engine...");
+                console.log(
+                    "No CMP detected in " +
+                        (ConsentEngine.stopTimeoutMs ?? 5000) / 1000 +
+                        " seconds, stopping engine...",
+                );
             }
 
             if(self.queueId != null) {
@@ -159,7 +163,7 @@ export default class ConsentEngine {
                 handled: false
             });
             this.stopObserver();
-        }, 5000);
+        }, ConsentEngine.stopTimeoutMs ?? 5000);
     }
 
     async handleMutations(mutations) {
@@ -474,3 +478,4 @@ export default class ConsentEngine {
 }
 
 ConsentEngine.singleton = null;
+ConsentEngine.stopTimeoutMs = 5000;

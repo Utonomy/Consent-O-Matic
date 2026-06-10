@@ -5,9 +5,13 @@
             {
                 "presentMatcher": [
                     {
+                        "type": "url",
+                        "url": ["facebook.com"]
+                    },
+                    {
                         "type": "css",
                         "target": {
-                            "selector": "[data-testid=\"cookie-policy-manage-dialog\"]"
+                            "selector": "[aria-label=\"Decline optional cookies\"], [data-testid=\"cookie-policy-manage-dialog\"], [data-cookiebanner=\"accept_only_essential_button\"]"
                         }
                     }
                 ],
@@ -15,7 +19,7 @@
                     {
                         "type": "css",
                         "target": {
-                            "selector": "[data-testid=\"cookie-policy-manage-dialog\"]",
+                            "selector": "[aria-label=\"Decline optional cookies\"], [data-testid=\"cookie-policy-manage-dialog\"], [data-cookiebanner=\"accept_only_essential_button\"]",
                             "displayFilter": true
                         }
                     }
@@ -27,7 +31,7 @@
                 "action": {
                     "type": "hide",
                     "target": {
-                        "selector": "[data-testid=\"cookie-policy-manage-dialog\"]"
+                        "selector": "[data-testid=\"cookie-policy-manage-dialog\"], [role=\"dialog\"]"
                     }
                 },
                 "name": "HIDE_CMP"
@@ -41,13 +45,13 @@
                     "trueAction": {
                         "type": "click",
                         "target": {
-                            "selector": "[data-cookiebanner=\"accept_only_essential_button\"]"
+                            "selector": "[aria-label=\"Allow all cookies\"], [data-cookiebanner=\"accept_button\"]"
                         }
                     },
                     "falseAction": {
                         "type": "click",
                         "target": {
-                            "selector": "[data-cookiebanner=\"accept_button\"]"
+                            "selector": "[aria-label=\"Decline optional cookies\"], [data-cookiebanner=\"accept_only_essential_button\"]"
                         }
                     }
                 },

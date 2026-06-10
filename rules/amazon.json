@@ -5,9 +5,13 @@
             {
                 "presentMatcher": [
                     {
+                        "type": "url",
+                        "url": ["amazon.nl", "amazon.com", "amazon.de", "amazon.co.uk"]
+                    },
+                    {
                         "type": "css",
                         "target": {
-                            "selector": "#sp-cc, [data-testid='consent-manager-main-content']"
+                            "selector": "#sp-cc, [data-testid='consent-manager-main-content'], #sp-cc-wrapper, form[action*='privacyprefs'], input[name='accept']"
                         }
                     }
                 ],
@@ -15,7 +19,7 @@
                     {
                         "type": "css",
                         "target": {
-                            "selector": "#sp-cc, [data-testid='consent-manager-main-content']",
+                            "selector": "#sp-cc, [data-testid='consent-manager-main-content'], #sp-cc-wrapper, form[action*='privacyprefs']",
                             "displayFilter": true
                         }
                     }
@@ -42,35 +46,21 @@
                         }
                     },
                     "falseAction": {
-                        "type": "list",
-                        "actions": [
-                            {
-                                "type": "consent",
-                                "consents": [
-                                    {
-                                        "matcher": {
-                                            "type": "css",
-                                            "target": {
-                                                "selector": "[data-a-input-name='ADVERTISING'] [value='on'][checked='']"
-                                            }
-                                        },
-                                        "trueAction": {
-                                            "type": "click",
-                                            "target": {
-                                                "selector": "[data-a-input-name='ADVERTISING'] [value='on']"
-                                            }
-                                        },
-                                        "falseAction": {
-                                            "type": "click",
-                                            "target": {
-                                                "selector": "[data-a-input-name='ADVERTISING'] [value='off']"
-                                            }
-                                        },
-                                        "type": "A"
-                                    }
-                                ]
+                        "type": "ifallowall",
+                        "trueAction": {
+                            "type": "click",
+                            "target": {
+                                "selector": "#sp-cc-accept, input[name='accept'], button",
+                                "textFilter": ["Accept", "Accepteren", "Agree"]
                             }
-                        ]
+                        },
+                        "falseAction": {
+                            "type": "click",
+                            "target": {
+                                "selector": "#sp-cc-rejectall-link, input[name='decline'], button",
+                                "textFilter": ["Reject", "Decline", "Weigeren", "Essential"]
+                            }
+                        }
                     }
                 },
                 "name": "DO_CONSENT"
@@ -79,7 +69,7 @@
                 "action": {
                     "type": "click",
                     "target": {
-                        "selector": "#savePrefs .a-button-input"
+                        "selector": "#savePrefs .a-button-input, input[type='submit']"
                     }
                 },
                 "name": "SAVE_CONSENT"
