@@ -241,6 +241,17 @@ export default class ConsentEngine {
                                 }
                             }
 
+<<<<<<< Updated upstream
+=======
+                            clearTimeout(self.stopEngineId);
+                            self.handledCallback({
+                                handled: true,
+                                cmpName: cmp.name,
+                                clicks: self.numClicks,
+                                consentCategories: cmp.getConsentCategoryTypes()
+                            });
+
+>>>>>>> Stashed changes
                             self.checkRunning = false;
 
                             self.startObserver();
@@ -318,7 +329,8 @@ export default class ConsentEngine {
                                 self.handledCallback({
                                     handled: true,
                                     cmpName: cmp.name,
-                                    clicks: self.numClicks
+                                    clicks: self.numClicks,
+                                    consentCategories: cmp.getConsentCategoryTypes()
                                 });
                             } catch (e) {
                                 console.log("Error during consent handling:", e);
