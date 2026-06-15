@@ -241,8 +241,6 @@ export default class ConsentEngine {
                                 }
                             }
 
-<<<<<<< Updated upstream
-=======
                             clearTimeout(self.stopEngineId);
                             self.handledCallback({
                                 handled: true,
@@ -251,7 +249,6 @@ export default class ConsentEngine {
                                 consentCategories: cmp.getConsentCategoryTypes()
                             });
 
->>>>>>> Stashed changes
                             self.checkRunning = false;
 
                             self.startObserver();
