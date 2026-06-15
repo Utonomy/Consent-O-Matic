@@ -144,9 +144,11 @@ export default class ConsentEngine {
             clearTimeout(this.stopEngineId);
         }
 
+        const stopTimeoutMs = ConsentEngine.stopTimeoutMs ?? 5000;
+
         this.stopEngineId = setTimeout(() => {
             if (ConsentEngine.debugValues.debugLog) {
-                console.log("No CMP detected in 5 seconds, stopping engine...");
+                console.log("No CMP detected in " + (stopTimeoutMs / 1000) + " seconds, stopping engine...");
             }
 
             if(self.queueId != null) {
@@ -156,10 +158,11 @@ export default class ConsentEngine {
             clearInterval(self.domScannerIntervalID);
 
             self.handledCallback({
-                handled: false
+                handled: false,
+                error: self.triedCMPs.size > 0
             });
             this.stopObserver();
-        }, 5000);
+        }, stopTimeoutMs);
     }
 
     async handleMutations(mutations) {
@@ -202,6 +205,11 @@ export default class ConsentEngine {
         });
 
         if (cmps.length > 0) {
+            if (self.stopEngineId != null) {
+                clearTimeout(self.stopEngineId);
+                self.stopEngineId = null;
+            }
+
             this.stopObserver();
 
             if (cmps.length > 1) {
@@ -218,7 +226,7 @@ export default class ConsentEngine {
             this.triedCMPs.add(cmp.name);
 
             //Check if popup shows, then do consent stuff
-            let numberOfTries = 5;
+            let numberOfTries = 3;
             async function checkIsShowing() {
                 if (cmp.isShowing()) {
                     self.currentCMP = cmp;
