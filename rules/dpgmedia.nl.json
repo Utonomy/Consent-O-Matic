@@ -1,18 +1,12 @@
 {
     "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
-    "dpgmedia": {
+    "dpgmedia.nl": {
         "detectors": [
             {
                 "presentMatcher": [
                     {
                         "type": "url",
-                        "url": [
-                            "ad.nl",
-                            "gelderlander.nl",
-                            "destentor.nl",
-                            "nu.nl",
-                            "volkskrant.nl"
-                        ]
+                        "url": "dpgmedia.nl"
                     },
                     {
                         "type": "css",
