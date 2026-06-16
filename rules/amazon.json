@@ -11,7 +11,7 @@
                     {
                         "type": "css",
                         "target": {
-                            "selector": "#sp-cc, [data-testid='consent-manager-main-content'], #sp-cc-wrapper, form[action*='privacyprefs'], input[name='accept']"
+                            "selector": "#glitter-form"
                         }
                     }
                 ],
@@ -19,7 +19,30 @@
                     {
                         "type": "css",
                         "target": {
-                            "selector": "#sp-cc, [data-testid='consent-manager-main-content'], #sp-cc-wrapper, form[action*='privacyprefs']",
+                            "selector": "#glitter-form input[type=\"submit\"]",
+                            "displayFilter": true
+                        }
+                    }
+                ]
+            },
+            {
+                "presentMatcher": [
+                    {
+                        "type": "url",
+                        "url": ["amazon.nl", "amazon.com", "amazon.de", "amazon.co.uk"]
+                    },
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "#sp-cc-header, #sp-cc-accept, #sp-cc-customize"
+                        }
+                    }
+                ],
+                "showingMatcher": [
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "#sp-cc-header, #sp-cc-accept, #sp-cc-customize",
                             "displayFilter": true
                         }
                     }
@@ -28,51 +51,338 @@
         ],
         "methods": [
             {
-                "name": "HIDE_CMP"
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "hide",
+                    "target": {
+                        "selector": "#sp-cc-wrapper"
+                    }
+                }
             },
             {
-                "name": "OPEN_OPTIONS"
-            },
-            {
+                "name": "OPEN_OPTIONS",
                 "action": {
                     "type": "ifcss",
                     "target": {
-                        "selector": "#sp-cc-customize"
+                        "selector": "#sp-cc-customize",
+                        "displayFilter": true
                     },
                     "trueAction": {
-                        "type": "click",
-                        "target": {
-                            "selector": "#sp-cc-customize"
+                        "type": "ifallowall",
+                        "falseAction": {
+                            "type": "ifallownone",
+                            "falseAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "#sp-cc-customize"
+                                }
+                            }
                         }
+                    }
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "ifcss",
+                    "target": {
+                        "selector": "#glitter-form",
+                        "displayFilter": true
+                    },
+                    "trueAction": {
+                        "type": "list",
+                        "actions": [
+                            {
+                                "type": "waitcss",
+                                "target": {
+                                    "selector": "#glitter-form h1[id$=\"-title\"]",
+                                    "displayFilter": true
+                                },
+                                "retries": 50,
+                                "waitTime": 200
+                            },
+                            {
+                                "type": "consent",
+                                "consents": [
+                                        {
+                                            "type": "F",
+                                            "matcher": {
+                                                "type": "onoff",
+                                                "onMatcher": {
+                                                    "target": {
+                                                        "selector": "input[type=\"hidden\"][id$=\"-parent\"][value=\"on\"]"
+                                                    },
+                                                    "parent": {
+                                                        "selector": ".customize-container",
+                                                        "childFilter": {
+                                                            "target": {
+                                                                "selector": "[id=\"a6227bb3-d218-4846-ac82-d695926ee4ca-title\"]"
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "offMatcher": {
+                                                    "target": {
+                                                        "selector": "input[type=\"hidden\"][id$=\"-parent\"][value=\"off\"]"
+                                                    },
+                                                    "parent": {
+                                                        "selector": ".customize-container",
+                                                        "childFilter": {
+                                                            "target": {
+                                                                "selector": "[id=\"a6227bb3-d218-4846-ac82-d695926ee4ca-title\"]"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "trueAction": {
+                                                "type": "click",
+                                                "target": {
+                                                    "selector": "button[role=\"radio\"][value=\"on\"]"
+                                                },
+                                                "parent": {
+                                                    "selector": ".customize-container",
+                                                    "childFilter": {
+                                                        "target": {
+                                                            "selector": "[id=\"a6227bb3-d218-4846-ac82-d695926ee4ca-title\"]"
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "falseAction": {
+                                                "type": "click",
+                                                "target": {
+                                                    "selector": "button[role=\"radio\"][value=\"off\"]"
+                                                },
+                                                "parent": {
+                                                    "selector": ".customize-container",
+                                                    "childFilter": {
+                                                        "target": {
+                                                            "selector": "[id=\"a6227bb3-d218-4846-ac82-d695926ee4ca-title\"]"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "F",
+                                            "matcher": {
+                                                "type": "onoff",
+                                                "onMatcher": {
+                                                    "target": {
+                                                        "selector": "input[type=\"hidden\"][id$=\"-parent\"][value=\"on\"]"
+                                                    },
+                                                    "parent": {
+                                                        "selector": ".customize-container",
+                                                        "childFilter": {
+                                                            "target": {
+                                                                "selector": "[id=\"d37af854-aadc-4cac-bfa7-310804c1a88d-title\"]"
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "offMatcher": {
+                                                    "target": {
+                                                        "selector": "input[type=\"hidden\"][id$=\"-parent\"][value=\"off\"]"
+                                                    },
+                                                    "parent": {
+                                                        "selector": ".customize-container",
+                                                        "childFilter": {
+                                                            "target": {
+                                                                "selector": "[id=\"d37af854-aadc-4cac-bfa7-310804c1a88d-title\"]"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "trueAction": {
+                                                "type": "click",
+                                                "target": {
+                                                    "selector": "button[role=\"radio\"][value=\"on\"]"
+                                                },
+                                                "parent": {
+                                                    "selector": ".customize-container",
+                                                    "childFilter": {
+                                                        "target": {
+                                                            "selector": "[id=\"d37af854-aadc-4cac-bfa7-310804c1a88d-title\"]"
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "falseAction": {
+                                                "type": "click",
+                                                "target": {
+                                                    "selector": "button[role=\"radio\"][value=\"off\"]"
+                                                },
+                                                "parent": {
+                                                    "selector": ".customize-container",
+                                                    "childFilter": {
+                                                        "target": {
+                                                            "selector": "[id=\"d37af854-aadc-4cac-bfa7-310804c1a88d-title\"]"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "E",
+                                            "matcher": {
+                                                "type": "onoff",
+                                                "onMatcher": {
+                                                    "target": {
+                                                        "selector": "input[type=\"hidden\"][id$=\"-parent\"][value=\"on\"]"
+                                                    },
+                                                    "parent": {
+                                                        "selector": ".customize-container",
+                                                        "childFilter": {
+                                                            "target": {
+                                                                "selector": "[id=\"25387b04-8809-4690-a5d2-e23810f1cfcf-title\"]"
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "offMatcher": {
+                                                    "target": {
+                                                        "selector": "input[type=\"hidden\"][id$=\"-parent\"][value=\"off\"]"
+                                                    },
+                                                    "parent": {
+                                                        "selector": ".customize-container",
+                                                        "childFilter": {
+                                                            "target": {
+                                                                "selector": "[id=\"25387b04-8809-4690-a5d2-e23810f1cfcf-title\"]"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "trueAction": {
+                                                "type": "click",
+                                                "target": {
+                                                    "selector": "button[role=\"radio\"][value=\"on\"]"
+                                                },
+                                                "parent": {
+                                                    "selector": ".customize-container",
+                                                    "childFilter": {
+                                                        "target": {
+                                                            "selector": "[id=\"25387b04-8809-4690-a5d2-e23810f1cfcf-title\"]"
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "falseAction": {
+                                                "type": "click",
+                                                "target": {
+                                                    "selector": "button[role=\"radio\"][value=\"off\"]"
+                                                },
+                                                "parent": {
+                                                    "selector": ".customize-container",
+                                                    "childFilter": {
+                                                        "target": {
+                                                            "selector": "[id=\"25387b04-8809-4690-a5d2-e23810f1cfcf-title\"]"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "F",
+                                            "matcher": {
+                                                "type": "onoff",
+                                                "onMatcher": {
+                                                    "target": {
+                                                        "selector": "input[type=\"hidden\"][id$=\"-parent\"][value=\"on\"]"
+                                                    },
+                                                    "parent": {
+                                                        "selector": ".customize-container",
+                                                        "childFilter": {
+                                                            "target": {
+                                                                "selector": "[id=\"895fa38b-9e5b-485d-9059-d8bf299e4bf6-title\"]"
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "offMatcher": {
+                                                    "target": {
+                                                        "selector": "input[type=\"hidden\"][id$=\"-parent\"][value=\"off\"]"
+                                                    },
+                                                    "parent": {
+                                                        "selector": ".customize-container",
+                                                        "childFilter": {
+                                                            "target": {
+                                                                "selector": "[id=\"895fa38b-9e5b-485d-9059-d8bf299e4bf6-title\"]"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "trueAction": {
+                                                "type": "click",
+                                                "target": {
+                                                    "selector": "button[role=\"radio\"][value=\"on\"]"
+                                                },
+                                                "parent": {
+                                                    "selector": ".customize-container",
+                                                    "childFilter": {
+                                                        "target": {
+                                                            "selector": "[id=\"895fa38b-9e5b-485d-9059-d8bf299e4bf6-title\"]"
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "falseAction": {
+                                                "type": "click",
+                                                "target": {
+                                                    "selector": "button[role=\"radio\"][value=\"off\"]"
+                                                },
+                                                "parent": {
+                                                    "selector": ".customize-container",
+                                                    "childFilter": {
+                                                        "target": {
+                                                            "selector": "[id=\"895fa38b-9e5b-485d-9059-d8bf299e4bf6-title\"]"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
                     },
                     "falseAction": {
                         "type": "ifallowall",
                         "trueAction": {
                             "type": "click",
                             "target": {
-                                "selector": "#sp-cc-accept, input[name='accept'], button",
-                                "textFilter": ["Accept", "Accepteren", "Agree"]
+                                "selector": "#sp-cc-accept, input[name='accept']"
                             }
                         },
                         "falseAction": {
-                            "type": "click",
-                            "target": {
-                                "selector": "#sp-cc-rejectall-link, input[name='decline'], button",
-                                "textFilter": ["Reject", "Decline", "Weigeren", "Essential"]
+                            "type": "ifallownone",
+                            "trueAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "#sp-cc-rejectall-link, input[name='decline']"
+                                }
                             }
                         }
                     }
-                },
-                "name": "DO_CONSENT"
+                }
             },
             {
+                "name": "SAVE_CONSENT",
                 "action": {
-                    "type": "click",
+                    "type": "ifcss",
                     "target": {
-                        "selector": "#savePrefs .a-button-input, input[type='submit']"
+                        "selector": "#glitter-form input[type=\"submit\"], #savePrefs .a-button-input",
+                        "displayFilter": true
+                    },
+                    "trueAction": {
+                        "type": "click",
+                        "target": {
+                            "selector": "#glitter-form input[type=\"submit\"], #savePrefs .a-button-input"
+                        }
                     }
-                },
-                "name": "SAVE_CONSENT"
+                }
             },
             {
                 "name": "UTILITY"
