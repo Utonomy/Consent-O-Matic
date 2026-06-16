@@ -181,6 +181,28 @@ export default class CMP {
         return 0;
     }
 
+    getConsentCategoryTypes() {
+        const action = this.methods.get("DO_CONSENT");
+
+        if (action == null || !Array.isArray(action.consents)) {
+            return [];
+        }
+
+        const types = [];
+        const seen = new Set();
+
+        for (const consent of action.consents) {
+            const type = consent.type;
+
+            if (type && !seen.has(type)) {
+                seen.add(type);
+                types.push(type);
+            }
+        }
+
+        return types;
+    }
+
     getNumSteps() {
         let totalSteps = 0;
 

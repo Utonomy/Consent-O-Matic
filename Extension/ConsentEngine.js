@@ -253,7 +253,8 @@ export default class ConsentEngine {
                             self.handledCallback({
                                 handled: true,
                                 cmpName: cmp.name,
-                                clicks: self.numClicks
+                                clicks: self.numClicks,
+                                consentCategories: cmp.getConsentCategoryTypes()
                             });
 
                             self.checkRunning = false;
@@ -333,7 +334,8 @@ export default class ConsentEngine {
                                 self.handledCallback({
                                     handled: true,
                                     cmpName: cmp.name,
-                                    clicks: self.numClicks
+                                    clicks: self.numClicks,
+                                    consentCategories: cmp.getConsentCategoryTypes()
                                 });
                             } catch (e) {
                                 console.log("Error during consent handling:", e);
