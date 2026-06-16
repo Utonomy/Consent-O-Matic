@@ -11,7 +11,10 @@
                     {
                         "type": "css",
                         "target": {
-                            "selector": "#usercentrics-root, .uc-banner-wrapper, .uc-banner-content, [data-testid=\"uc-banner\"]"
+                            "selector": "[data-testid=\"uc-default-banner\"], [data-testid=\"uc-default-settings\"], [data-testid=\"uc-banner-content\"]"
+                        },
+                        "parent": {
+                            "selector": "#usercentrics-root"
                         }
                     }
                 ],
@@ -19,8 +22,11 @@
                     {
                         "type": "css",
                         "target": {
-                            "selector": ".uc-banner-wrapper, .uc-banner-content, [data-testid=\"uc-banner\"], #uc-btn-accept-banner, #uc-btn-deny-banner",
+                            "selector": "[data-testid=\"uc-accept-all-button\"], [data-testid=\"uc-deny-all-button\"], [data-testid=\"uc-more-button\"], [data-testid=\"uc-save-button\"]",
                             "displayFilter": true
+                        },
+                        "parent": {
+                            "selector": "#usercentrics-root"
                         }
                     }
                 ]
@@ -28,15 +34,32 @@
         ],
         "methods": [
             {
-                "name": "HIDE_CMP"
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "hide",
+                    "target": {
+                        "selector": "[data-testid=\"uc-default-banner\"], [data-testid=\"uc-default-settings\"]"
+                    },
+                    "parent": {
+                        "selector": "#usercentrics-root"
+                    }
+                }
             },
             {
                 "name": "OPEN_OPTIONS",
                 "action": {
-                    "type": "click",
-                    "target": {
-                        "selector": "#uc-btn-more-info-banner, button",
-                        "textFilter": ["Instellingen", "Settings", "More"]
+                    "type": "ifallowall",
+                    "falseAction": {
+                        "type": "ifallownone",
+                        "falseAction": {
+                            "type": "click",
+                            "target": {
+                                "selector": "[data-testid=\"uc-more-button\"]"
+                            },
+                            "parent": {
+                                "selector": "#usercentrics-root"
+                            }
+                        }
                     }
                 }
             },
@@ -47,15 +70,106 @@
                     "trueAction": {
                         "type": "click",
                         "target": {
-                            "selector": "#uc-btn-accept-banner, button",
-                            "textFilter": ["Alles accepteren", "Accept all", "Akkoord", "Accept"]
+                            "selector": "[data-testid=\"uc-accept-all-button\"]"
+                        },
+                        "parent": {
+                            "selector": "#usercentrics-root"
                         }
                     },
                     "falseAction": {
-                        "type": "click",
-                        "target": {
-                            "selector": "#uc-btn-deny-banner, button",
-                            "textFilter": ["Weigeren", "Reject", "Decline", "Essential", "Deny"]
+                        "type": "ifallownone",
+                        "trueAction": {
+                            "type": "click",
+                            "target": {
+                                "selector": "[data-testid=\"uc-deny-all-button\"]"
+                            },
+                            "parent": {
+                                "selector": "#usercentrics-root"
+                            }
+                        },
+                        "falseAction": {
+                            "type": "list",
+                            "actions": [
+                                {
+                                    "type": "waitcss",
+                                    "target": {
+                                        "selector": "[data-testid=\"uc-panel-categories\"], [data-testid=\"uc-save-button\"]",
+                                        "displayFilter": true
+                                    },
+                                    "parent": {
+                                        "selector": "#usercentrics-root"
+                                    },
+                                    "retries": 30,
+                                    "waitTime": 100
+                                },
+                                {
+                                    "type": "consent",
+                                    "consents": [
+                                        {
+                                            "type": "B",
+                                            "matcher": {
+                                                "type": "onoff",
+                                                "onMatcher": {
+                                                    "target": {
+                                                        "selector": "[data-testid^=\"uc-toggle-toggle-custom-category\"][aria-checked=\"true\"]"
+                                                    },
+                                                    "parent": {
+                                                        "selector": "#usercentrics-root"
+                                                    }
+                                                },
+                                                "offMatcher": {
+                                                    "target": {
+                                                        "selector": "[data-testid^=\"uc-toggle-toggle-custom-category\"][aria-checked=\"false\"]"
+                                                    },
+                                                    "parent": {
+                                                        "selector": "#usercentrics-root"
+                                                    }
+                                                }
+                                            },
+                                            "toggleAction": {
+                                                "type": "click",
+                                                "target": {
+                                                    "selector": "[data-testid^=\"uc-toggle-toggle-custom-category\"]"
+                                                },
+                                                "parent": {
+                                                    "selector": "#usercentrics-root"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "F",
+                                            "matcher": {
+                                                "type": "onoff",
+                                                "onMatcher": {
+                                                    "target": {
+                                                        "selector": "[data-testid=\"uc-toggle-toggle-marketing\"][aria-checked=\"true\"]"
+                                                    },
+                                                    "parent": {
+                                                        "selector": "#usercentrics-root"
+                                                    }
+                                                },
+                                                "offMatcher": {
+                                                    "target": {
+                                                        "selector": "[data-testid=\"uc-toggle-toggle-marketing\"][aria-checked=\"false\"]"
+                                                    },
+                                                    "parent": {
+                                                        "selector": "#usercentrics-root"
+                                                    }
+                                                }
+                                            },
+                                            "toggleAction": {
+                                                "type": "click",
+                                                "target": {
+                                                    "selector": "[data-testid=\"uc-toggle-toggle-marketing\"]"
+                                                },
+                                                "parent": {
+                                                    "selector": "#usercentrics-root"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     }
                 }
@@ -63,10 +177,22 @@
             {
                 "name": "SAVE_CONSENT",
                 "action": {
-                    "type": "click",
+                    "type": "ifcss",
                     "target": {
-                        "selector": "#uc-btn-save, button",
-                        "textFilter": ["Opslaan", "Save", "Confirm"]
+                        "selector": "[data-testid=\"uc-save-button\"]",
+                        "displayFilter": true
+                    },
+                    "parent": {
+                        "selector": "#usercentrics-root"
+                    },
+                    "trueAction": {
+                        "type": "click",
+                        "target": {
+                            "selector": "[data-testid=\"uc-save-button\"]"
+                        },
+                        "parent": {
+                            "selector": "#usercentrics-root"
+                        }
                     }
                 }
             },
