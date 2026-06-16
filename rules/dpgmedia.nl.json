@@ -1,9 +1,13 @@
 {
     "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
-    "dpgmedia": {
+    "dpgmedia.nl": {
         "detectors": [
             {
                 "presentMatcher": [
+                    {
+                        "type": "url",
+                        "url": "dpgmedia.nl"
+                    },
                     {
                         "type": "css",
                         "target": {
