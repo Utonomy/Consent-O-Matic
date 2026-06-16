@@ -3,83 +3,21 @@
     "nos_nl": {
         "detectors": [
             {
-                "presentMatcher": [
-                    {
-                        "type": "url",
-                        "url": ["nos.nl"]
-                    },
-                    {
-                        "type": "css",
-                        "target": {
-                            "selector": "#ccm_notification_host, #ccm_notification, button, [role=\"button\"]",
-                            "textFilter": [
-                                "Alles accepteren",
-                                "Accept all",
-                                "Akkoord",
-                                "Alleen noodzakelijk",
-                                "Weigeren",
-                                "Reject"
-                            ]
-                        }
-                    }
-                ],
-                "showingMatcher": [
-                    {
-                        "type": "css",
-                        "target": {
-                            "selector": "button, [role=\"button\"]",
-                            "textFilter": [
-                                "Alles accepteren",
-                                "Accept all",
-                                "Akkoord",
-                                "Alleen noodzakelijk",
-                                "Weigeren",
-                                "Reject"
-                            ],
-                            "displayFilter": true
-                        }
-                    }
-                ]
+                "presentMatcher": {
+                    "type": "url",
+                    "url": ["nos.nl"]
+                }
             }
         ],
         "methods": [
             {
-                "name": "HIDE_CMP",
-                "action": {
-                    "type": "hide",
-                    "target": {
-                        "selector": "#ccm_notification_host, #ccm_notification"
-                    }
-                }
+                "name": "HIDE_CMP"
             },
             {
                 "name": "OPEN_OPTIONS"
             },
             {
-                "name": "DO_CONSENT",
-                "action": {
-                    "type": "ifallowall",
-                    "trueAction": {
-                        "type": "click",
-                        "target": {
-                            "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Alles accepteren", "Accept all", "Akkoord"]
-                        }
-                    },
-                    "falseAction": {
-                        "type": "click",
-                        "target": {
-                            "selector": "button, [role=\"button\"]",
-                            "textFilter": [
-                                "Alleen noodzakelijk",
-                                "Weigeren",
-                                "Reject",
-                                "Decline",
-                                "Essential only"
-                            ]
-                        }
-                    }
-                }
+                "name": "DO_CONSENT"
             },
             {
                 "name": "SAVE_CONSENT"
