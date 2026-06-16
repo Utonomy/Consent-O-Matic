@@ -45,7 +45,7 @@
                     "trueAction": {
                         "type": "click",
                         "target": {
-                            "selector": "div[role=\"button\"]",
+                            "selector": "button, [role=\"button\"]",
                             "textFilter": [
                                 "Accept all cookies"
                             ]
@@ -65,7 +65,7 @@
                     "falseAction": {
                         "type": "click",
                         "target": {
-                            "selector": "div[role=\"button\"]",
+                            "selector": "button, [role=\"button\"]",
                             "textFilter": [
                                 "Refuse non-essential cookies"
                             ]
