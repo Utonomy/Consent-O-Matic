@@ -5,9 +5,31 @@
             {
                 "presentMatcher": [
                     {
+                        "type": "url",
+                        "url": ["instagram.com"]
+                    },
+                    {
                         "type": "css",
                         "target": {
-                            "selector": ".x1qjc9v5.x9f619.x78zum5.xdt5ytf.x1iyjqo2.xl56j7k"
+                            "selector": "button",
+                            "textFilter": [
+                                "Allow all cookies",
+                                "Allow selected cookies",
+                                "Decline optional cookies",
+                                "Choose cookies by category"
+                            ]
+                        },
+                        "parent": {
+                            "selector": "[role=\"dialog\"]",
+                            "childFilter": {
+                                "target": {
+                                    "selector": "h1, h2, h3",
+                                    "textFilter": [
+                                        "Allow the use of cookies",
+                                        "cookies from Instagram"
+                                    ]
+                                }
+                            }
                         }
                     }
                 ],
@@ -15,7 +37,7 @@
                     {
                         "type": "css",
                         "target": {
-                            "selector": ".x1qjc9v5.x9f619.x78zum5.xdt5ytf.x1iyjqo2.xl56j7k",
+                            "selector": "input[role=\"switch\"][aria-label=\"Cookies from other companies\"], input[role=\"switch\"][aria-label=\"Advertising\"]",
                             "displayFilter": true
                         }
                     }
@@ -24,31 +46,301 @@
         ],
         "methods": [
             {
-                "name": "HIDE_CMP"
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "hide",
+                    "target": {
+                        "selector": "[role=\"dialog\"]"
+                    },
+                    "parent": {
+                        "selector": "[role=\"dialog\"]",
+                        "childFilter": {
+                            "target": {
+                                "selector": "h1, h2, h3",
+                                "textFilter": [
+                                    "Allow the use of cookies",
+                                    "cookies from Instagram"
+                                ]
+                            }
+                        }
+                    }
+                }
             },
             {
-                "name": "OPEN_OPTIONS"
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "ifallowall",
+                    "falseAction": {
+                        "type": "ifallownone",
+                        "falseAction": {
+                            "type": "click",
+                            "target": {
+                                "selector": "button",
+                                "textFilter": [
+                                    "Choose cookies by category",
+                                    "Kies cookies per categorie"
+                                ]
+                            },
+                            "parent": {
+                                "selector": "[role=\"dialog\"]",
+                                "childFilter": {
+                                    "target": {
+                                        "selector": "h1, h2, h3",
+                                        "textFilter": [
+                                            "Allow the use of cookies",
+                                            "cookies from Instagram"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             },
             {
-                "name": "DO_CONSENT"
-            },
-            {
+                "name": "DO_CONSENT",
                 "action": {
                     "type": "ifallowall",
                     "trueAction": {
                         "type": "click",
                         "target": {
-                            "selector": "._a9--._a9_0"
+                            "selector": "button",
+                            "textFilter": [
+                                "Allow all cookies",
+                                "Alle cookies toestaan"
+                            ]
+                        },
+                        "parent": {
+                            "selector": "[role=\"dialog\"]",
+                            "childFilter": {
+                                "target": {
+                                    "selector": "h1, h2, h3",
+                                    "textFilter": [
+                                        "Allow the use of cookies",
+                                        "cookies from Instagram"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "falseAction": {
+                        "type": "ifallownone",
+                        "trueAction": {
+                            "type": "click",
+                            "target": {
+                                "selector": "button",
+                                "textFilter": [
+                                    "Decline optional cookies",
+                                    "Optionele cookies weigeren"
+                                ]
+                            },
+                            "parent": {
+                                "selector": "[role=\"dialog\"]",
+                                "childFilter": {
+                                    "target": {
+                                        "selector": "h1, h2, h3",
+                                        "textFilter": [
+                                            "Allow the use of cookies",
+                                            "cookies from Instagram"
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "falseAction": {
+                            "type": "list",
+                            "actions": [
+                                {
+                                    "type": "waitcss",
+                                    "target": {
+                                        "selector": "input[role=\"switch\"][aria-label=\"Advertising\"]",
+                                        "displayFilter": true
+                                    },
+                                    "retries": 30,
+                                    "waitTime": 100
+                                },
+                                {
+                                    "type": "consent",
+                                    "consents": [
+                                        {
+                                            "type": "F",
+                                            "matcher": {
+                                                "type": "onoff",
+                                                "onMatcher": {
+                                                    "target": {
+                                                        "selector": "input[role=\"switch\"][aria-label=\"Advertising\"][aria-checked=\"true\"]"
+                                                    }
+                                                },
+                                                "offMatcher": {
+                                                    "target": {
+                                                        "selector": "input[role=\"switch\"][aria-label=\"Advertising\"][aria-checked=\"false\"]"
+                                                    }
+                                                }
+                                            },
+                                            "toggleAction": {
+                                                "type": "click",
+                                                "target": {
+                                                    "selector": "input[role=\"switch\"][aria-label=\"Advertising\"]"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "B",
+                                            "matcher": {
+                                                "type": "onoff",
+                                                "onMatcher": {
+                                                    "target": {
+                                                        "selector": "input[role=\"switch\"][aria-label=\"Analytics\"][aria-checked=\"true\"]"
+                                                    }
+                                                },
+                                                "offMatcher": {
+                                                    "target": {
+                                                        "selector": "input[role=\"switch\"][aria-label=\"Analytics\"][aria-checked=\"false\"]"
+                                                    }
+                                                }
+                                            },
+                                            "toggleAction": {
+                                                "type": "click",
+                                                "target": {
+                                                    "selector": "input[role=\"switch\"][aria-label=\"Analytics\"]"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "E",
+                                            "matcher": {
+                                                "type": "onoff",
+                                                "onMatcher": {
+                                                    "target": {
+                                                        "selector": "input[role=\"switch\"][aria-label=\"Content and media\"][aria-checked=\"true\"]"
+                                                    }
+                                                },
+                                                "offMatcher": {
+                                                    "target": {
+                                                        "selector": "input[role=\"switch\"][aria-label=\"Content and media\"][aria-checked=\"false\"]"
+                                                    }
+                                                }
+                                            },
+                                            "toggleAction": {
+                                                "type": "click",
+                                                "target": {
+                                                    "selector": "input[role=\"switch\"][aria-label=\"Content and media\"]"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "X",
+                                            "matcher": {
+                                                "type": "onoff",
+                                                "onMatcher": {
+                                                    "target": {
+                                                        "selector": "input[role=\"switch\"][aria-label=\"Productivity\"][aria-checked=\"true\"]"
+                                                    }
+                                                },
+                                                "offMatcher": {
+                                                    "target": {
+                                                        "selector": "input[role=\"switch\"][aria-label=\"Productivity\"][aria-checked=\"false\"]"
+                                                    }
+                                                }
+                                            },
+                                            "toggleAction": {
+                                                "type": "click",
+                                                "target": {
+                                                    "selector": "input[role=\"switch\"][aria-label=\"Productivity\"]"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "click",
+                                    "target": {
+                                        "selector": "button",
+                                        "textFilter": ["Close", "Sluiten"]
+                                    },
+                                    "parent": {
+                                        "selector": "[role=\"dialog\"]",
+                                        "childFilter": {
+                                            "target": {
+                                                "selector": "input[role=\"switch\"][aria-label=\"Advertising\"]"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "ifcss",
+                    "target": {
+                        "selector": "button",
+                        "textFilter": [
+                            "Allow selected cookies",
+                            "Geselecteerde cookies toestaan"
+                        ],
+                        "displayFilter": true
+                    },
+                    "parent": {
+                        "selector": "[role=\"dialog\"]",
+                        "childFilter": {
+                            "target": {
+                                "selector": "h1, h2, h3",
+                                "textFilter": [
+                                    "Allow the use of cookies",
+                                    "cookies from Instagram"
+                                ]
+                            }
+                        }
+                    },
+                    "trueAction": {
+                        "type": "click",
+                        "target": {
+                            "selector": "button",
+                            "textFilter": [
+                                "Allow selected cookies",
+                                "Geselecteerde cookies toestaan"
+                            ]
+                        },
+                        "parent": {
+                            "selector": "[role=\"dialog\"]",
+                            "childFilter": {
+                                "target": {
+                                    "selector": "h1, h2, h3",
+                                    "textFilter": [
+                                        "Allow the use of cookies",
+                                        "cookies from Instagram"
+                                    ]
+                                }
+                            }
                         }
                     },
                     "falseAction": {
                         "type": "click",
                         "target": {
-                            "selector": "._a9--._a9_1"
+                            "selector": "button",
+                            "textFilter": [
+                                "Decline optional cookies",
+                                "Optionele cookies weigeren"
+                            ]
+                        },
+                        "parent": {
+                            "selector": "[role=\"dialog\"]",
+                            "childFilter": {
+                                "target": {
+                                    "selector": "h1, h2, h3",
+                                    "textFilter": [
+                                        "Allow the use of cookies",
+                                        "cookies from Instagram"
+                                    ]
+                                }
+                            }
                         }
                     }
-                },
-                "name": "SAVE_CONSENT"
+                }
             },
             {
                 "name": "UTILITY"

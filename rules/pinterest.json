@@ -1,18 +1,18 @@
 {
     "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
-    "linkedin_popup": {
+    "pinterest": {
         "detectors": [
             {
                 "presentMatcher": [
                     {
                         "type": "url",
-                        "url": ["linkedin.com"]
+                        "url": ["pinterest.com"]
                     },
                     {
                         "type": "css",
                         "target": {
                             "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Accept", "Reject", "Accepteren", "Weigeren"]
+                            "textFilter": ["Accept all", "Reject all"]
                         }
                     }
                 ],
@@ -21,7 +21,7 @@
                         "type": "css",
                         "target": {
                             "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Accept", "Reject", "Accepteren", "Weigeren"],
+                            "textFilter": ["Accept all", "Reject all"],
                             "displayFilter": true
                         }
                     }
@@ -30,13 +30,7 @@
         ],
         "methods": [
             {
-                "name": "HIDE_CMP",
-                "action": {
-                    "type": "hide",
-                    "target": {
-                        "selector": "div[type=\"COOKIE_CONSENT\"], .artdeco-global-alert, [role=\"alertdialog\"]"
-                    }
-                }
+                "name": "HIDE_CMP"
             },
             {
                 "name": "OPEN_OPTIONS"
@@ -49,14 +43,14 @@
                         "type": "click",
                         "target": {
                             "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Accept", "Accepteren", "Agree"]
+                            "textFilter": ["Accept all"]
                         }
                     },
                     "falseAction": {
                         "type": "click",
                         "target": {
                             "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Reject", "Weigeren", "Decline"]
+                            "textFilter": ["Reject all"]
                         }
                     }
                 }

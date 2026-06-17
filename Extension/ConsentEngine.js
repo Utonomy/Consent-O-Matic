@@ -491,3 +491,4 @@ export default class ConsentEngine {
 }
 
 ConsentEngine.singleton = null;
+ConsentEngine.stopTimeoutMs = 5000;

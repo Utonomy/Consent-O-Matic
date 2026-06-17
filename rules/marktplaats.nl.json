@@ -1,18 +1,25 @@
 {
     "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
-    "linkedin_popup": {
+    "marktplaats_nl": {
         "detectors": [
             {
                 "presentMatcher": [
                     {
                         "type": "url",
-                        "url": ["linkedin.com"]
+                        "url": ["marktplaats.nl"]
                     },
                     {
                         "type": "css",
                         "target": {
-                            "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Accept", "Reject", "Accepteren", "Weigeren"]
+                            "selector": "[class^=\"sp_message_container\"], #sp-cc, button, [role=\"button\"]",
+                            "textFilter": [
+                                "Accepteren",
+                                "Accept",
+                                "Akkoord",
+                                "Weigeren",
+                                "Reject",
+                                "Doorgaan zonder"
+                            ]
                         }
                     }
                 ],
@@ -20,8 +27,15 @@
                     {
                         "type": "css",
                         "target": {
-                            "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Accept", "Reject", "Accepteren", "Weigeren"],
+                            "selector": "[class^=\"sp_message_container\"], #sp-cc, button, [role=\"button\"]",
+                            "textFilter": [
+                                "Accepteren",
+                                "Accept",
+                                "Akkoord",
+                                "Weigeren",
+                                "Reject",
+                                "Doorgaan zonder"
+                            ],
                             "displayFilter": true
                         }
                     }
@@ -34,7 +48,7 @@
                 "action": {
                     "type": "hide",
                     "target": {
-                        "selector": "div[type=\"COOKIE_CONSENT\"], .artdeco-global-alert, [role=\"alertdialog\"]"
+                        "selector": "[class^=\"sp_message_container\"], #sp-cc"
                     }
                 }
             },
@@ -49,14 +63,20 @@
                         "type": "click",
                         "target": {
                             "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Accept", "Accepteren", "Agree"]
+                            "textFilter": ["Accepteren", "Accept", "Akkoord", "Agree"]
                         }
                     },
                     "falseAction": {
                         "type": "click",
                         "target": {
                             "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Reject", "Weigeren", "Decline"]
+                            "textFilter": [
+                                "Weigeren",
+                                "Reject",
+                                "Decline",
+                                "Essential",
+                                "Doorgaan zonder"
+                            ]
                         }
                     }
                 }

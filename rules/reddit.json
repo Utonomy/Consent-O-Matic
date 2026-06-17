@@ -5,9 +5,14 @@
             {
                 "presentMatcher": [
                     {
+                        "type": "url",
+                        "url": ["reddit.com"]
+                    },
+                    {
                         "type": "css",
                         "target": {
-                            "selector": "section a[href=\"https://www.redditinc.com/policies/cookie-notice\"]"
+                            "selector": "button",
+                            "textFilter": ["Accept All", "Reject Optional Cookies"]
                         }
                     }
                 ],
@@ -15,7 +20,8 @@
                     {
                         "type": "css",
                         "target": {
-                            "selector": "section a[href=\"https://www.redditinc.com/policies/cookie-notice\"]",
+                            "selector": "button",
+                            "textFilter": ["Accept All", "Reject Optional Cookies"],
                             "displayFilter": true
                         }
                     }
@@ -24,50 +30,36 @@
         ],
         "methods": [
             {
-                "name": "HIDE_CMP"
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "hide",
+                    "target": {
+                        "selector": "#data-protection-consent-dialog, #data-protection-consent-sheet, [id^=\"data-protection-consent\"]"
+                    }
+                }
             },
             {
                 "name": "OPEN_OPTIONS"
             },
             {
+                "name": "DO_CONSENT",
                 "action": {
                     "type": "ifallowall",
                     "trueAction": {
                         "type": "click",
                         "target": {
                             "selector": "button",
-                            "textFilter": [
-                                "Accept all"
-                            ]
-                        },
-                        "parent": {
-                            "childFilter": {
-                                "target": {
-                                    "selector": "a[href=\"https://www.redditinc.com/policies/cookie-notice\"]"
-                                }
-                            },
-                            "selector": "section"
+                            "textFilter": ["Accept All"]
                         }
                     },
                     "falseAction": {
                         "type": "click",
                         "target": {
                             "selector": "button",
-                            "textFilter": [
-                                "Reject non-essential"
-                            ]
-                        },
-                        "parent": {
-                            "childFilter": {
-                                "target": {
-                                    "selector": "a[href=\"https://www.redditinc.com/policies/cookie-notice\"]"
-                                }
-                            },
-                            "selector": "section"
+                            "textFilter": ["Reject Optional Cookies"]
                         }
                     }
-                },
-                "name": "DO_CONSENT"
+                }
             },
             {
                 "name": "SAVE_CONSENT"

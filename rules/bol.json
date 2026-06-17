@@ -5,9 +5,14 @@
             {
                 "presentMatcher": [
                     {
+                        "type": "url",
+                        "url": ["bol.com"]
+                    },
+                    {
                         "type": "css",
                         "target": {
-                            "selector": "wsp-consent-modal-ofc"
+                            "selector": "button",
+                            "textFilter": ["Weigeren"]
                         }
                     }
                 ],
@@ -15,7 +20,8 @@
                     {
                         "type": "css",
                         "target": {
-                            "selector": "wsp-consent-modal-ofc",
+                            "selector": "button",
+                            "textFilter": ["Weigeren"],
                             "displayFilter": true
                         }
                     }
@@ -24,95 +30,38 @@
         ],
         "methods": [
             {
+                "name": "HIDE_CMP",
                 "action": {
-                    "type": "list",
-                    "actions": [
-                        {
-                            "type": "hide",
-                            "target": {
-                                "selector": "wsp-modal-window"
-                            }
-                        },
-                        {
-                            "type": "hide",
-                            "target": {
-                                "selector": ".modal__overlay"
-                            }
-                        }
-                    ]
-                },
-                "name": "HIDE_CMP"
+                    "type": "hide",
+                    "target": {
+                        "selector": "[role=\"dialog\"]"
+                    }
+                }
             },
             {
-                "action": {
-                    "type": "click",
-                    "target": {
-                        "selector": "#js-select-button"
-                    }
-                },
                 "name": "OPEN_OPTIONS"
             },
             {
+                "name": "DO_CONSENT",
                 "action": {
-                    "type": "foreach",
-                    "target": {
-                        "selector": ".consent-modal-ofc__consent-toggle-container"
+                    "type": "ifallowall",
+                    "trueAction": {
+                        "type": "click",
+                        "target": {
+                            "selector": "button",
+                            "textFilter": ["Alles accepteren"]
+                        }
                     },
-                    "action": {
-                        "type": "list",
-                        "actions": [
-                            {
-                                "type": "consent",
-                                "consents": [
-                                    {
-                                        "matcher": {
-                                            "type": "checkbox",
-                                            "target": {
-                                                "selector": "#js-internal-transactional-consent, #js-external-transactional-consent"
-                                            }
-                                        },
-                                        "toggleAction": {
-                                            "type": "click",
-                                            "target": {
-                                                "selector": "#js-internal-transactional-consent, #js-external-transactional-consent"
-                                            }
-                                        },
-                                        "type": "E"
-                                    }
-                                ]
-                            },
-                            {
-                                "type": "consent",
-                                "consents": [
-                                    {
-                                        "matcher": {
-                                            "type": "checkbox",
-                                            "target": {
-                                                "selector": "#js-internal-behavioural-consent, #js-external-behavioural-consent"
-                                            }
-                                        },
-                                        "toggleAction": {
-                                            "type": "click",
-                                            "target": {
-                                                "selector": "#js-internal-behavioural-consent, #js-external-behavioural-consent"
-                                            }
-                                        },
-                                        "type": "F"
-                                    }
-                                ]
-                            }
-                        ]
+                    "falseAction": {
+                        "type": "click",
+                        "target": {
+                            "selector": "button",
+                            "textFilter": ["Weigeren"]
+                        }
                     }
-                },
-                "name": "DO_CONSENT"
+                }
             },
             {
-                "action": {
-                    "type": "click",
-                    "target": {
-                        "selector": "#js-accept-selected-button"
-                    }
-                },
                 "name": "SAVE_CONSENT"
             },
             {

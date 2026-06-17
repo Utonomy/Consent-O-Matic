@@ -5,9 +5,13 @@
             {
                 "presentMatcher": [
                     {
+                        "type": "url",
+                        "url": ["whatsapp.com", "web.whatsapp.com"]
+                    },
+                    {
                         "type": "css",
                         "target": {
-                            "selector": "[data-testid='wa_cookies_banner_modal']"
+                            "selector": "[aria-label=\"Decline optional cookies\"], [data-testid=\"wa_cookies_banner_modal\"]"
                         }
                     }
                 ],
@@ -15,7 +19,7 @@
                     {
                         "type": "css",
                         "target": {
-                            "selector": "[data-testid='wa_cookies_banner_modal']",
+                            "selector": "[aria-label=\"Decline optional cookies\"], [data-testid=\"wa_cookies_banner_modal\"]",
                             "displayFilter": true
                         }
                     }
@@ -24,21 +28,36 @@
         ],
         "methods": [
             {
-                "name": "HIDE_CMP"
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "hide",
+                    "target": {
+                        "selector": "[role=\"dialog\"], [data-testid=\"wa_cookies_banner_modal\"]"
+                    }
+                }
             },
             {
                 "name": "OPEN_OPTIONS"
             },
             {
-                "name": "DO_CONSENT"
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "ifallowall",
+                    "trueAction": {
+                        "type": "click",
+                        "target": {
+                            "selector": "[aria-label=\"Allow all cookies\"], [data-cookiebanner=\"accept_button\"]"
+                        }
+                    },
+                    "falseAction": {
+                        "type": "click",
+                        "target": {
+                            "selector": "[aria-label=\"Decline optional cookies\"], [data-cookiebanner=\"accept_only_essential_button\"]"
+                        }
+                    }
+                }
             },
             {
-                "action": {
-                    "type": "click",
-                    "target": {
-                        "selector": "[data-cookiebanner='accept_button']"
-                    }
-                },
                 "name": "SAVE_CONSENT"
             },
             {

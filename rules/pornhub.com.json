@@ -1,18 +1,21 @@
 {
     "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
-    "linkedin_popup": {
+    "pornhub": {
         "detectors": [
             {
                 "presentMatcher": [
                     {
                         "type": "url",
-                        "url": ["linkedin.com"]
+                        "url": ["pornhub.com"]
                     },
                     {
                         "type": "css",
                         "target": {
-                            "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Accept", "Reject", "Accepteren", "Weigeren"]
+                            "selector": "#cookieBanner, .cbPrimaryCTA, .cbSecondaryCTA, button",
+                            "textFilter": [
+                                "Accept all cookies",
+                                "Accept only essential cookies"
+                            ]
                         }
                     }
                 ],
@@ -20,8 +23,11 @@
                     {
                         "type": "css",
                         "target": {
-                            "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Accept", "Reject", "Accepteren", "Weigeren"],
+                            "selector": "#cookieBanner, button",
+                            "textFilter": [
+                                "Accept all cookies",
+                                "Accept only essential cookies"
+                            ],
                             "displayFilter": true
                         }
                     }
@@ -34,12 +40,19 @@
                 "action": {
                     "type": "hide",
                     "target": {
-                        "selector": "div[type=\"COOKIE_CONSENT\"], .artdeco-global-alert, [role=\"alertdialog\"]"
+                        "selector": "#cookieBanner, #cookieBannerWrapper"
                     }
                 }
             },
             {
-                "name": "OPEN_OPTIONS"
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": ".cbThirdCTA, button",
+                        "textFilter": ["Customize Cookies"]
+                    }
+                }
             },
             {
                 "name": "DO_CONSENT",
@@ -48,15 +61,15 @@
                     "trueAction": {
                         "type": "click",
                         "target": {
-                            "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Accept", "Accepteren", "Agree"]
+                            "selector": ".cbPrimaryCTA, button",
+                            "textFilter": ["Accept all cookies"]
                         }
                     },
                     "falseAction": {
                         "type": "click",
                         "target": {
-                            "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Reject", "Weigeren", "Decline"]
+                            "selector": ".cbSecondaryCTA, button",
+                            "textFilter": ["Accept only essential cookies"]
                         }
                     }
                 }

@@ -30,7 +30,22 @@
                 "name": "OPEN_OPTIONS"
             },
             {
-                "name": "DO_CONSENT"
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "ifallowall",
+                    "trueAction": {
+                        "type": "click",
+                        "target": {
+                            "selector": "#onetrust-accept-btn-handler"
+                        }
+                    },
+                    "falseAction": {
+                        "type": "click",
+                        "target": {
+                            "selector": ".ot-pc-refuse-all-handler, #onetrust-reject-all-handler"
+                        }
+                    }
+                }
             },
             {
                 "name": "SAVE_CONSENT"

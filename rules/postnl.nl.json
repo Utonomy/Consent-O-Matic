@@ -1,0 +1,250 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "postnl_nl": {
+        "detectors": [
+            {
+                "presentMatcher": [
+                    {
+                        "type": "url",
+                        "url": ["postnl.nl"]
+                    },
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "#cookiewall, #cookiesettings, .pnl-cookie-wall"
+                        },
+                        "parent": {
+                            "selector": "pnl-cookie-wall-widget"
+                        }
+                    }
+                ],
+                "showingMatcher": [
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "button.stamp-button",
+                            "textFilter": [
+                                "Alles accepteren",
+                                "Accept all",
+                                "Alles weigeren",
+                                "Reject all",
+                                "Instellingen aanpassen",
+                                "Adjust settings",
+                                "Instellingen opslaan",
+                                "Save settings"
+                            ],
+                            "displayFilter": true
+                        },
+                        "parent": {
+                            "selector": "pnl-cookie-wall-widget"
+                        }
+                    }
+                ]
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "hide",
+                    "target": {
+                        "selector": ".pnl-cookie-wall"
+                    },
+                    "parent": {
+                        "selector": "pnl-cookie-wall-widget"
+                    }
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "ifallowall",
+                    "falseAction": {
+                        "type": "ifallownone",
+                        "falseAction": {
+                            "type": "click",
+                            "target": {
+                                "selector": "button",
+                                "textFilter": [
+                                    "Instellingen aanpassen",
+                                    "Adjust settings"
+                                ]
+                            },
+                            "parent": {
+                                "selector": "pnl-cookie-wall-widget"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "ifallowall",
+                    "trueAction": {
+                        "type": "click",
+                        "target": {
+                            "selector": "button",
+                            "textFilter": ["Alles accepteren", "Accept all"]
+                        },
+                        "parent": {
+                            "selector": "pnl-cookie-wall-widget"
+                        }
+                    },
+                    "falseAction": {
+                        "type": "ifallownone",
+                        "trueAction": {
+                            "type": "click",
+                            "target": {
+                                "selector": "button",
+                                "textFilter": ["Alles weigeren", "Reject all"]
+                            },
+                            "parent": {
+                                "selector": "pnl-cookie-wall-widget"
+                            }
+                        },
+                        "falseAction": {
+                            "type": "list",
+                            "actions": [
+                                {
+                                    "type": "waitcss",
+                                    "target": {
+                                        "selector": "#cookiesettings, .cookie-settings__dialog",
+                                        "displayFilter": true
+                                    },
+                                    "parent": {
+                                        "selector": "pnl-cookie-wall-widget"
+                                    },
+                                    "retries": 30,
+                                    "waitTime": 100
+                                },
+                                {
+                                    "type": "consent",
+                                    "consents": [
+                                        {
+                                            "type": "B",
+                                            "matcher": {
+                                                "type": "checkbox",
+                                                "target": {
+                                                    "selector": "input.stamp-checkbox[value=\"Cat.7\"]"
+                                                },
+                                                "parent": {
+                                                    "selector": "pnl-cookie-wall-widget"
+                                                }
+                                            },
+                                            "toggleAction": {
+                                                "type": "click",
+                                                "target": {
+                                                    "selector": "input.stamp-checkbox[value=\"Cat.7\"]"
+                                                },
+                                                "parent": {
+                                                    "selector": "pnl-cookie-wall-widget"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "E",
+                                            "matcher": {
+                                                "type": "checkbox",
+                                                "target": {
+                                                    "selector": "input.stamp-checkbox[value=\"Cat.10\"]"
+                                                },
+                                                "parent": {
+                                                    "selector": "pnl-cookie-wall-widget"
+                                                }
+                                            },
+                                            "toggleAction": {
+                                                "type": "click",
+                                                "target": {
+                                                    "selector": "input.stamp-checkbox[value=\"Cat.10\"]"
+                                                },
+                                                "parent": {
+                                                    "selector": "pnl-cookie-wall-widget"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "F",
+                                            "matcher": {
+                                                "type": "checkbox",
+                                                "target": {
+                                                    "selector": "input.stamp-checkbox[value=\"Cat.12\"]"
+                                                },
+                                                "parent": {
+                                                    "selector": "pnl-cookie-wall-widget"
+                                                }
+                                            },
+                                            "toggleAction": {
+                                                "type": "click",
+                                                "target": {
+                                                    "selector": "input.stamp-checkbox[value=\"Cat.12\"]"
+                                                },
+                                                "parent": {
+                                                    "selector": "pnl-cookie-wall-widget"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "F",
+                                            "matcher": {
+                                                "type": "checkbox",
+                                                "target": {
+                                                    "selector": "input.stamp-checkbox[value=\"Cat.11\"]"
+                                                },
+                                                "parent": {
+                                                    "selector": "pnl-cookie-wall-widget"
+                                                }
+                                            },
+                                            "toggleAction": {
+                                                "type": "click",
+                                                "target": {
+                                                    "selector": "input.stamp-checkbox[value=\"Cat.11\"]"
+                                                },
+                                                "parent": {
+                                                    "selector": "pnl-cookie-wall-widget"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "ifcss",
+                    "target": {
+                        "selector": "button",
+                        "textFilter": [
+                            "Instellingen opslaan",
+                            "Save settings"
+                        ],
+                        "displayFilter": true
+                    },
+                    "parent": {
+                        "selector": "pnl-cookie-wall-widget"
+                    },
+                    "trueAction": {
+                        "type": "click",
+                        "target": {
+                            "selector": "button",
+                            "textFilter": [
+                                "Instellingen opslaan",
+                                "Save settings"
+                            ]
+                        },
+                        "parent": {
+                            "selector": "pnl-cookie-wall-widget"
+                        }
+                    }
+                }
+            },
+            {
+                "name": "UTILITY"
+            }
+        ]
+    }
+}

@@ -1,18 +1,18 @@
 {
     "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
-    "linkedin_popup": {
+    "chaturbate_entrance": {
         "detectors": [
             {
                 "presentMatcher": [
                     {
                         "type": "url",
-                        "url": ["linkedin.com"]
+                        "url": ["chaturbate.com"]
                     },
                     {
                         "type": "css",
                         "target": {
-                            "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Accept", "Reject", "Accepteren", "Weigeren"]
+                            "selector": "#close_entrance_terms, button",
+                            "textFilter": ["I AGREE", "Agree"]
                         }
                     }
                 ],
@@ -20,8 +20,8 @@
                     {
                         "type": "css",
                         "target": {
-                            "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Accept", "Reject", "Accepteren", "Weigeren"],
+                            "selector": "#close_entrance_terms, button",
+                            "textFilter": ["I AGREE", "Agree"],
                             "displayFilter": true
                         }
                     }
@@ -34,7 +34,7 @@
                 "action": {
                     "type": "hide",
                     "target": {
-                        "selector": "div[type=\"COOKIE_CONSENT\"], .artdeco-global-alert, [role=\"alertdialog\"]"
+                        "selector": "#entrance_terms, .entrance_terms, [id*=\"entrance\"]"
                     }
                 }
             },
@@ -44,20 +44,10 @@
             {
                 "name": "DO_CONSENT",
                 "action": {
-                    "type": "ifallowall",
-                    "trueAction": {
-                        "type": "click",
-                        "target": {
-                            "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Accept", "Accepteren", "Agree"]
-                        }
-                    },
-                    "falseAction": {
-                        "type": "click",
-                        "target": {
-                            "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Reject", "Weigeren", "Decline"]
-                        }
+                    "type": "click",
+                    "target": {
+                        "selector": "#close_entrance_terms, button",
+                        "textFilter": ["I AGREE", "Agree"]
                     }
                 }
             },

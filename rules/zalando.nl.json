@@ -1,0 +1,204 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "zalando_nl": {
+        "detectors": [
+            {
+                "presentMatcher": [
+                    {
+                        "type": "url",
+                        "url": ["zalando.nl", "zalando.com"]
+                    },
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "[data-testid=\"uc-default-banner\"], [data-testid=\"uc-default-settings\"], [data-testid=\"uc-banner-content\"]"
+                        },
+                        "parent": {
+                            "selector": "#usercentrics-root"
+                        }
+                    }
+                ],
+                "showingMatcher": [
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "[data-testid=\"uc-accept-all-button\"], [data-testid=\"uc-deny-all-button\"], [data-testid=\"uc-more-button\"], [data-testid=\"uc-save-button\"]",
+                            "displayFilter": true
+                        },
+                        "parent": {
+                            "selector": "#usercentrics-root"
+                        }
+                    }
+                ]
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "hide",
+                    "target": {
+                        "selector": "[data-testid=\"uc-default-banner\"], [data-testid=\"uc-default-settings\"]"
+                    },
+                    "parent": {
+                        "selector": "#usercentrics-root"
+                    }
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "ifallowall",
+                    "falseAction": {
+                        "type": "ifallownone",
+                        "falseAction": {
+                            "type": "click",
+                            "target": {
+                                "selector": "[data-testid=\"uc-more-button\"]"
+                            },
+                            "parent": {
+                                "selector": "#usercentrics-root"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "ifallowall",
+                    "trueAction": {
+                        "type": "click",
+                        "target": {
+                            "selector": "[data-testid=\"uc-accept-all-button\"]"
+                        },
+                        "parent": {
+                            "selector": "#usercentrics-root"
+                        }
+                    },
+                    "falseAction": {
+                        "type": "ifallownone",
+                        "trueAction": {
+                            "type": "click",
+                            "target": {
+                                "selector": "[data-testid=\"uc-deny-all-button\"]"
+                            },
+                            "parent": {
+                                "selector": "#usercentrics-root"
+                            }
+                        },
+                        "falseAction": {
+                            "type": "list",
+                            "actions": [
+                                {
+                                    "type": "waitcss",
+                                    "target": {
+                                        "selector": "[data-testid=\"uc-panel-categories\"], [data-testid=\"uc-save-button\"]",
+                                        "displayFilter": true
+                                    },
+                                    "parent": {
+                                        "selector": "#usercentrics-root"
+                                    },
+                                    "retries": 30,
+                                    "waitTime": 100
+                                },
+                                {
+                                    "type": "consent",
+                                    "consents": [
+                                        {
+                                            "type": "B",
+                                            "matcher": {
+                                                "type": "onoff",
+                                                "onMatcher": {
+                                                    "target": {
+                                                        "selector": "[data-testid^=\"uc-toggle-toggle-custom-category\"][aria-checked=\"true\"]"
+                                                    },
+                                                    "parent": {
+                                                        "selector": "#usercentrics-root"
+                                                    }
+                                                },
+                                                "offMatcher": {
+                                                    "target": {
+                                                        "selector": "[data-testid^=\"uc-toggle-toggle-custom-category\"][aria-checked=\"false\"]"
+                                                    },
+                                                    "parent": {
+                                                        "selector": "#usercentrics-root"
+                                                    }
+                                                }
+                                            },
+                                            "toggleAction": {
+                                                "type": "click",
+                                                "target": {
+                                                    "selector": "[data-testid^=\"uc-toggle-toggle-custom-category\"]"
+                                                },
+                                                "parent": {
+                                                    "selector": "#usercentrics-root"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "F",
+                                            "matcher": {
+                                                "type": "onoff",
+                                                "onMatcher": {
+                                                    "target": {
+                                                        "selector": "[data-testid=\"uc-toggle-toggle-marketing\"][aria-checked=\"true\"]"
+                                                    },
+                                                    "parent": {
+                                                        "selector": "#usercentrics-root"
+                                                    }
+                                                },
+                                                "offMatcher": {
+                                                    "target": {
+                                                        "selector": "[data-testid=\"uc-toggle-toggle-marketing\"][aria-checked=\"false\"]"
+                                                    },
+                                                    "parent": {
+                                                        "selector": "#usercentrics-root"
+                                                    }
+                                                }
+                                            },
+                                            "toggleAction": {
+                                                "type": "click",
+                                                "target": {
+                                                    "selector": "[data-testid=\"uc-toggle-toggle-marketing\"]"
+                                                },
+                                                "parent": {
+                                                    "selector": "#usercentrics-root"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "ifcss",
+                    "target": {
+                        "selector": "[data-testid=\"uc-save-button\"]",
+                        "displayFilter": true
+                    },
+                    "parent": {
+                        "selector": "#usercentrics-root"
+                    },
+                    "trueAction": {
+                        "type": "click",
+                        "target": {
+                            "selector": "[data-testid=\"uc-save-button\"]"
+                        },
+                        "parent": {
+                            "selector": "#usercentrics-root"
+                        }
+                    }
+                }
+            },
+            {
+                "name": "UTILITY"
+            }
+        ]
+    }
+}

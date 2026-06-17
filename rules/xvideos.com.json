@@ -1,18 +1,17 @@
 {
     "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
-    "linkedin_popup": {
+    "xvideos_disclaimer": {
         "detectors": [
             {
                 "presentMatcher": [
                     {
                         "type": "url",
-                        "url": ["linkedin.com"]
+                        "url": ["xvideos.com", "xnxx.com"]
                     },
                     {
                         "type": "css",
                         "target": {
-                            "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Accept", "Reject", "Accepteren", "Weigeren"]
+                            "selector": "#disclaimer-accept_cookies-btn, #disclaimer-reject_cookies-btn"
                         }
                     }
                 ],
@@ -20,8 +19,7 @@
                     {
                         "type": "css",
                         "target": {
-                            "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Accept", "Reject", "Accepteren", "Weigeren"],
+                            "selector": "#disclaimer-accept_cookies-btn, #disclaimer-reject_cookies-btn",
                             "displayFilter": true
                         }
                     }
@@ -34,12 +32,19 @@
                 "action": {
                     "type": "hide",
                     "target": {
-                        "selector": "div[type=\"COOKIE_CONSENT\"], .artdeco-global-alert, [role=\"alertdialog\"]"
+                        "selector": "#disclaimer, .disclaimer"
                     }
                 }
             },
             {
-                "name": "OPEN_OPTIONS"
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": ".disclaimer-manage_cookies, button",
+                        "textFilter": ["Manage cookies"]
+                    }
+                }
             },
             {
                 "name": "DO_CONSENT",
@@ -48,15 +53,13 @@
                     "trueAction": {
                         "type": "click",
                         "target": {
-                            "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Accept", "Accepteren", "Agree"]
+                            "selector": "#disclaimer-accept_cookies-btn"
                         }
                     },
                     "falseAction": {
                         "type": "click",
                         "target": {
-                            "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Reject", "Weigeren", "Decline"]
+                            "selector": "#disclaimer-reject_cookies-btn"
                         }
                     }
                 }

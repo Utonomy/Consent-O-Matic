@@ -1,18 +1,18 @@
 {
     "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
-    "linkedin_popup": {
+    "ideal_nl": {
         "detectors": [
             {
                 "presentMatcher": [
                     {
                         "type": "url",
-                        "url": ["linkedin.com"]
+                        "url": ["ideal.nl"]
                     },
                     {
                         "type": "css",
                         "target": {
-                            "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Accept", "Reject", "Accepteren", "Weigeren"]
+                            "selector": ".cookiebanner-consent-level-button, [id*=\"cookiebanner\"], button",
+                            "textFilter": ["WEIGEREN", "AKKOORD", "Accept", "Reject"]
                         }
                     }
                 ],
@@ -20,8 +20,8 @@
                     {
                         "type": "css",
                         "target": {
-                            "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Accept", "Reject", "Accepteren", "Weigeren"],
+                            "selector": ".cookiebanner-consent-level-button, button",
+                            "textFilter": ["WEIGEREN", "AKKOORD", "Accept", "Reject"],
                             "displayFilter": true
                         }
                     }
@@ -34,7 +34,7 @@
                 "action": {
                     "type": "hide",
                     "target": {
-                        "selector": "div[type=\"COOKIE_CONSENT\"], .artdeco-global-alert, [role=\"alertdialog\"]"
+                        "selector": "[id*=\"cookiebanner\"], .cookiebanner"
                     }
                 }
             },
@@ -48,15 +48,15 @@
                     "trueAction": {
                         "type": "click",
                         "target": {
-                            "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Accept", "Accepteren", "Agree"]
+                            "selector": "button, .cookiebanner-consent-level-button",
+                            "textFilter": ["AKKOORD", "Accept", "Agree"]
                         }
                     },
                     "falseAction": {
                         "type": "click",
                         "target": {
-                            "selector": "button, [role=\"button\"]",
-                            "textFilter": ["Reject", "Weigeren", "Decline"]
+                            "selector": "button, .cookiebanner-consent-level-button",
+                            "textFilter": ["WEIGEREN", "Reject", "Decline"]
                         }
                     }
                 }
