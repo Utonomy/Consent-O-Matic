@@ -104,249 +104,169 @@
                             {
                                 "type": "consent",
                                 "consents": [
-                                        {
-                                            "type": "F",
-                                            "matcher": {
-                                                "type": "onoff",
-                                                "onMatcher": {
-                                                    "target": {
-                                                        "selector": "input[type=\"hidden\"][id$=\"-parent\"][value=\"on\"]"
-                                                    },
+                                    {
+                                        "type": "F",
+                                        "matcher": {
+                                            "type": "onoff",
+                                            "onMatcher": {
+                                                "target": {
+                                                    "selector": "input[type=\"hidden\"][id$=\"-parent\"][value=\"on\"]",
                                                     "parent": {
-                                                        "selector": ".customize-container",
-                                                        "childFilter": {
-                                                            "target": {
-                                                                "selector": "[id=\"a6227bb3-d218-4846-ac82-d695926ee4ca-title\"]"
-                                                            }
-                                                        }
-                                                    }
-                                                },
-                                                "offMatcher": {
-                                                    "target": {
-                                                        "selector": "input[type=\"hidden\"][id$=\"-parent\"][value=\"off\"]"
-                                                    },
-                                                    "parent": {
-                                                        "selector": ".customize-container",
-                                                        "childFilter": {
-                                                            "target": {
-                                                                "selector": "[id=\"a6227bb3-d218-4846-ac82-d695926ee4ca-title\"]"
-                                                            }
-                                                        }
+                                                        "selector": "#glitter-form > div:nth-of-type(4) .customize-container"
                                                     }
                                                 }
                                             },
-                                            "trueAction": {
-                                                "type": "click",
+                                            "offMatcher": {
                                                 "target": {
-                                                    "selector": "button[role=\"radio\"][value=\"on\"]"
-                                                },
-                                                "parent": {
-                                                    "selector": ".customize-container",
-                                                    "childFilter": {
-                                                        "target": {
-                                                            "selector": "[id=\"a6227bb3-d218-4846-ac82-d695926ee4ca-title\"]"
-                                                        }
-                                                    }
-                                                }
-                                            },
-                                            "falseAction": {
-                                                "type": "click",
-                                                "target": {
-                                                    "selector": "button[role=\"radio\"][value=\"off\"]"
-                                                },
-                                                "parent": {
-                                                    "selector": ".customize-container",
-                                                    "childFilter": {
-                                                        "target": {
-                                                            "selector": "[id=\"a6227bb3-d218-4846-ac82-d695926ee4ca-title\"]"
-                                                        }
+                                                    "selector": "input[type=\"hidden\"][id$=\"-parent\"][value=\"off\"]",
+                                                    "parent": {
+                                                        "selector": "#glitter-form > div:nth-of-type(4) .customize-container"
                                                     }
                                                 }
                                             }
                                         },
-                                        {
-                                            "type": "F",
-                                            "matcher": {
-                                                "type": "onoff",
-                                                "onMatcher": {
-                                                    "target": {
-                                                        "selector": "input[type=\"hidden\"][id$=\"-parent\"][value=\"on\"]"
-                                                    },
-                                                    "parent": {
-                                                        "selector": ".customize-container",
-                                                        "childFilter": {
-                                                            "target": {
-                                                                "selector": "[id=\"d37af854-aadc-4cac-bfa7-310804c1a88d-title\"]"
-                                                            }
-                                                        }
-                                                    }
-                                                },
-                                                "offMatcher": {
-                                                    "target": {
-                                                        "selector": "input[type=\"hidden\"][id$=\"-parent\"][value=\"off\"]"
-                                                    },
-                                                    "parent": {
-                                                        "selector": ".customize-container",
-                                                        "childFilter": {
-                                                            "target": {
-                                                                "selector": "[id=\"d37af854-aadc-4cac-bfa7-310804c1a88d-title\"]"
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            },
-                                            "trueAction": {
-                                                "type": "click",
-                                                "target": {
-                                                    "selector": "button[role=\"radio\"][value=\"on\"]"
-                                                },
+                                        "trueAction": {
+                                            "type": "click",
+                                            "target": {
+                                                "selector": "button[role=\"radio\"][value=\"on\"]",
                                                 "parent": {
-                                                    "selector": ".customize-container",
-                                                    "childFilter": {
-                                                        "target": {
-                                                            "selector": "[id=\"d37af854-aadc-4cac-bfa7-310804c1a88d-title\"]"
-                                                        }
-                                                    }
-                                                }
-                                            },
-                                            "falseAction": {
-                                                "type": "click",
-                                                "target": {
-                                                    "selector": "button[role=\"radio\"][value=\"off\"]"
-                                                },
-                                                "parent": {
-                                                    "selector": ".customize-container",
-                                                    "childFilter": {
-                                                        "target": {
-                                                            "selector": "[id=\"d37af854-aadc-4cac-bfa7-310804c1a88d-title\"]"
-                                                        }
-                                                    }
+                                                    "selector": "#glitter-form > div:nth-of-type(4) .customize-container"
                                                 }
                                             }
                                         },
-                                        {
-                                            "type": "E",
-                                            "matcher": {
-                                                "type": "onoff",
-                                                "onMatcher": {
-                                                    "target": {
-                                                        "selector": "input[type=\"hidden\"][id$=\"-parent\"][value=\"on\"]"
-                                                    },
-                                                    "parent": {
-                                                        "selector": ".customize-container",
-                                                        "childFilter": {
-                                                            "target": {
-                                                                "selector": "[id=\"25387b04-8809-4690-a5d2-e23810f1cfcf-title\"]"
-                                                            }
-                                                        }
-                                                    }
-                                                },
-                                                "offMatcher": {
-                                                    "target": {
-                                                        "selector": "input[type=\"hidden\"][id$=\"-parent\"][value=\"off\"]"
-                                                    },
-                                                    "parent": {
-                                                        "selector": ".customize-container",
-                                                        "childFilter": {
-                                                            "target": {
-                                                                "selector": "[id=\"25387b04-8809-4690-a5d2-e23810f1cfcf-title\"]"
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            },
-                                            "trueAction": {
-                                                "type": "click",
-                                                "target": {
-                                                    "selector": "button[role=\"radio\"][value=\"on\"]"
-                                                },
+                                        "falseAction": {
+                                            "type": "click",
+                                            "target": {
+                                                "selector": "button[role=\"radio\"][value=\"off\"]",
                                                 "parent": {
-                                                    "selector": ".customize-container",
-                                                    "childFilter": {
-                                                        "target": {
-                                                            "selector": "[id=\"25387b04-8809-4690-a5d2-e23810f1cfcf-title\"]"
-                                                        }
-                                                    }
-                                                }
-                                            },
-                                            "falseAction": {
-                                                "type": "click",
-                                                "target": {
-                                                    "selector": "button[role=\"radio\"][value=\"off\"]"
-                                                },
-                                                "parent": {
-                                                    "selector": ".customize-container",
-                                                    "childFilter": {
-                                                        "target": {
-                                                            "selector": "[id=\"25387b04-8809-4690-a5d2-e23810f1cfcf-title\"]"
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        },
-                                        {
-                                            "type": "F",
-                                            "matcher": {
-                                                "type": "onoff",
-                                                "onMatcher": {
-                                                    "target": {
-                                                        "selector": "input[type=\"hidden\"][id$=\"-parent\"][value=\"on\"]"
-                                                    },
-                                                    "parent": {
-                                                        "selector": ".customize-container",
-                                                        "childFilter": {
-                                                            "target": {
-                                                                "selector": "[id=\"895fa38b-9e5b-485d-9059-d8bf299e4bf6-title\"]"
-                                                            }
-                                                        }
-                                                    }
-                                                },
-                                                "offMatcher": {
-                                                    "target": {
-                                                        "selector": "input[type=\"hidden\"][id$=\"-parent\"][value=\"off\"]"
-                                                    },
-                                                    "parent": {
-                                                        "selector": ".customize-container",
-                                                        "childFilter": {
-                                                            "target": {
-                                                                "selector": "[id=\"895fa38b-9e5b-485d-9059-d8bf299e4bf6-title\"]"
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            },
-                                            "trueAction": {
-                                                "type": "click",
-                                                "target": {
-                                                    "selector": "button[role=\"radio\"][value=\"on\"]"
-                                                },
-                                                "parent": {
-                                                    "selector": ".customize-container",
-                                                    "childFilter": {
-                                                        "target": {
-                                                            "selector": "[id=\"895fa38b-9e5b-485d-9059-d8bf299e4bf6-title\"]"
-                                                        }
-                                                    }
-                                                }
-                                            },
-                                            "falseAction": {
-                                                "type": "click",
-                                                "target": {
-                                                    "selector": "button[role=\"radio\"][value=\"off\"]"
-                                                },
-                                                "parent": {
-                                                    "selector": ".customize-container",
-                                                    "childFilter": {
-                                                        "target": {
-                                                            "selector": "[id=\"895fa38b-9e5b-485d-9059-d8bf299e4bf6-title\"]"
-                                                        }
-                                                    }
+                                                    "selector": "#glitter-form > div:nth-of-type(4) .customize-container"
                                                 }
                                             }
                                         }
-                                    ]
-                                }
-                            ]
+                                    },
+                                    {
+                                        "type": "F",
+                                        "matcher": {
+                                            "type": "onoff",
+                                            "onMatcher": {
+                                                "target": {
+                                                    "selector": "input[type=\"hidden\"][id$=\"-parent\"][value=\"on\"]",
+                                                    "parent": {
+                                                        "selector": "#glitter-form > div:nth-of-type(5) .customize-container"
+                                                    }
+                                                }
+                                            },
+                                            "offMatcher": {
+                                                "target": {
+                                                    "selector": "input[type=\"hidden\"][id$=\"-parent\"][value=\"off\"]",
+                                                    "parent": {
+                                                        "selector": "#glitter-form > div:nth-of-type(5) .customize-container"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "trueAction": {
+                                            "type": "click",
+                                            "target": {
+                                                "selector": "button[role=\"radio\"][value=\"on\"]",
+                                                "parent": {
+                                                    "selector": "#glitter-form > div:nth-of-type(5) .customize-container"
+                                                }
+                                            }
+                                        },
+                                        "falseAction": {
+                                            "type": "click",
+                                            "target": {
+                                                "selector": "button[role=\"radio\"][value=\"off\"]",
+                                                "parent": {
+                                                    "selector": "#glitter-form > div:nth-of-type(5) .customize-container"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "type": "E",
+                                        "matcher": {
+                                            "type": "onoff",
+                                            "onMatcher": {
+                                                "target": {
+                                                    "selector": "input[type=\"hidden\"][id$=\"-parent\"][value=\"on\"]",
+                                                    "parent": {
+                                                        "selector": "#glitter-form > div:nth-of-type(6) .customize-container"
+                                                    }
+                                                }
+                                            },
+                                            "offMatcher": {
+                                                "target": {
+                                                    "selector": "input[type=\"hidden\"][id$=\"-parent\"][value=\"off\"]",
+                                                    "parent": {
+                                                        "selector": "#glitter-form > div:nth-of-type(6) .customize-container"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "trueAction": {
+                                            "type": "click",
+                                            "target": {
+                                                "selector": "button[role=\"radio\"][value=\"on\"]",
+                                                "parent": {
+                                                    "selector": "#glitter-form > div:nth-of-type(6) .customize-container"
+                                                }
+                                            }
+                                        },
+                                        "falseAction": {
+                                            "type": "click",
+                                            "target": {
+                                                "selector": "button[role=\"radio\"][value=\"off\"]",
+                                                "parent": {
+                                                    "selector": "#glitter-form > div:nth-of-type(6) .customize-container"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "type": "F",
+                                        "matcher": {
+                                            "type": "onoff",
+                                            "onMatcher": {
+                                                "target": {
+                                                    "selector": "input[type=\"hidden\"][id$=\"-parent\"][value=\"on\"]",
+                                                    "parent": {
+                                                        "selector": "#glitter-form > div:nth-of-type(7) .customize-container"
+                                                    }
+                                                }
+                                            },
+                                            "offMatcher": {
+                                                "target": {
+                                                    "selector": "input[type=\"hidden\"][id$=\"-parent\"][value=\"off\"]",
+                                                    "parent": {
+                                                        "selector": "#glitter-form > div:nth-of-type(7) .customize-container"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "trueAction": {
+                                            "type": "click",
+                                            "target": {
+                                                "selector": "button[role=\"radio\"][value=\"on\"]",
+                                                "parent": {
+                                                    "selector": "#glitter-form > div:nth-of-type(7) .customize-container"
+                                                }
+                                            }
+                                        },
+                                        "falseAction": {
+                                            "type": "click",
+                                            "target": {
+                                                "selector": "button[role=\"radio\"][value=\"off\"]",
+                                                "parent": {
+                                                    "selector": "#glitter-form > div:nth-of-type(7) .customize-container"
+                                                }
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
                     },
                     "falseAction": {
                         "type": "ifallowall",
