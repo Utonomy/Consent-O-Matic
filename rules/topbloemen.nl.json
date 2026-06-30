@@ -1,0 +1,50 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"rule_topbloemen_nl": {
+		"detectors": [
+			{
+				"presentMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "#cookie-consent-cookie-bar-center"
+					}
+				},
+				"showingMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "#cookie-consent-cookie-bar-center"
+					}
+				}
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": ".cookie-consent-cookie-settings"
+							}
+						},
+						{
+							"type": "click",
+							"target": {
+								"selector": "#CookieConsentIOReject"
+							}
+						}
+					]
+				}
+			}
+		]
+	}
+}

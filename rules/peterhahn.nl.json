@@ -1,0 +1,194 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "peterhahn_nl": {
+        "detectors": [
+            {
+                "presentMatcher": [
+                    {
+                        "type": "url",
+                        "url": ["peterhahn.nl"]
+                    },
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "[data-testid=\"uc-default-wall\"], [data-testid=\"uc-default-settings\"]"
+                        },
+                        "parent": {
+                            "selector": "#usercentrics-root"
+                        }
+                    }
+                ]
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "click",
+                            "target": {
+                                "selector": "[data-testid=\"uc-customize-anchor\"]"
+                            },
+                            "parent": {
+                                "selector": "#usercentrics-root"
+                            }
+                        },
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "[data-testid=\"uc-default-settings\"]"
+                            },
+                            "parent": {
+                                "selector": "#usercentrics-root"
+                            },
+                            "retries": 30,
+                            "waitTime": 100
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "ifallowall",
+                    "trueAction": {
+                        "type": "click",
+                        "target": {
+                            "selector": "[data-testid=\"uc-accept-all-button\"]"
+                        },
+                        "parent": {
+                            "selector": "#usercentrics-root"
+                        }
+                    },
+                    "falseAction": {
+                        "type": "list",
+                        "actions": [
+                            {
+                                "type": "consent",
+                                "consents": [
+                                    {
+                                        "type": "A",
+                                        "matcher": {
+                                            "type": "onoff",
+                                            "onMatcher": {
+                                                "target": {
+                                                    "selector": "[data-testid^=\"uc-toggle-toggle-custom-category\"][aria-checked=\"true\"]"
+                                                },
+                                                "parent": {
+                                                    "selector": "#usercentrics-root"
+                                                }
+                                            },
+                                            "offMatcher": {
+                                                "target": {
+                                                    "selector": "[data-testid^=\"uc-toggle-toggle-custom-category\"][aria-checked=\"false\"]"
+                                                },
+                                                "parent": {
+                                                    "selector": "#usercentrics-root"
+                                                }
+                                            }
+                                        },
+                                        "toggleAction": {
+                                            "type": "click",
+                                            "target": {
+                                                "selector": "[data-testid^=\"uc-toggle-toggle-custom-category\"]"
+                                            },
+                                            "parent": {
+                                                "selector": "#usercentrics-root"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "type": "B",
+                                        "matcher": {
+                                            "type": "onoff",
+                                            "onMatcher": {
+                                                "target": {
+                                                    "selector": "[data-testid=\"uc-toggle-toggle-functional\"][aria-checked=\"true\"]"
+                                                },
+                                                "parent": {
+                                                    "selector": "#usercentrics-root"
+                                                }
+                                            },
+                                            "offMatcher": {
+                                                "target": {
+                                                    "selector": "[data-testid=\"uc-toggle-toggle-functional\"][aria-checked=\"false\"]"
+                                                },
+                                                "parent": {
+                                                    "selector": "#usercentrics-root"
+                                                }
+                                            }
+                                        },
+                                        "toggleAction": {
+                                            "type": "click",
+                                            "target": {
+                                                "selector": "[data-testid=\"uc-toggle-toggle-functional\"]"
+                                            },
+                                            "parent": {
+                                                "selector": "#usercentrics-root"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "type": "F",
+                                        "matcher": {
+                                            "type": "onoff",
+                                            "onMatcher": {
+                                                "target": {
+                                                    "selector": "[data-testid=\"uc-toggle-toggle-marketing\"][aria-checked=\"true\"]"
+                                                },
+                                                "parent": {
+                                                    "selector": "#usercentrics-root"
+                                                }
+                                            },
+                                            "offMatcher": {
+                                                "target": {
+                                                    "selector": "[data-testid=\"uc-toggle-toggle-marketing\"][aria-checked=\"false\"]"
+                                                },
+                                                "parent": {
+                                                    "selector": "#usercentrics-root"
+                                                }
+                                            }
+                                        },
+                                        "toggleAction": {
+                                            "type": "click",
+                                            "target": {
+                                                "selector": "[data-testid=\"uc-toggle-toggle-marketing\"]"
+                                            },
+                                            "parent": {
+                                                "selector": "#usercentrics-root"
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "[data-testid=\"uc-save-button\"]"
+                    },
+                    "parent": {
+                        "selector": "#usercentrics-root"
+                    }
+                }
+            },
+            {
+                "name": "UTILITY"
+            }
+        ]
+    }
+}

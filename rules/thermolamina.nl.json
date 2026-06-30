@@ -1,0 +1,62 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"rule_thermolamina_nl": {
+		"detectors": [
+			{
+				"presentMatcher": [
+					{
+						"type": "url",
+						"url": "thermolamina.nl"
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": "#cmplz-cookiebanner-container"
+						}
+					}
+				]
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": ".cmplz-deny"
+							}
+						},
+						{
+							"type": "wait",
+							"waitTime": 3000
+						},
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": ".cmplz-cookiebanner:not(.cmplz-hidden)"
+							},
+							"retries": 10,
+							"waitTime": 300
+						},
+						{
+							"type": "click",
+							"target": {
+								"selector": ".cmplz-deny"
+							}
+						}
+					]
+				}
+			}
+		]
+	}
+}

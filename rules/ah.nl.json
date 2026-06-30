@@ -1,0 +1,53 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"ah.nl": {
+		"detectors": [
+			{
+				"presentMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "[data-testid='decline-cookies']"
+					}
+				},
+				"showingMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "[data-testid='decline-cookies']",
+						"displayFilter": true
+					}
+				}
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": "[data-testid='decline-cookies']"
+							},
+							"retries": 10,
+							"waitTime": 500
+						},
+						{
+							"type": "click",
+							"target": {
+								"selector": "[data-testid='decline-cookies']"
+							}
+						}
+					]
+				}
+			}
+		]
+	}
+}

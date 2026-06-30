@@ -1,0 +1,39 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"rule_guidinc_nl": {
+		"detectors": [
+			{
+				"presentMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "div[data-v-app] .C0e2nA"
+					}
+				},
+				"showingMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "div[data-v-app] .C0e2nA"
+					}
+				}
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "click",
+					"target": {
+						"selector": "button[class*=\"jPIk7P\"]"
+					}
+				}
+			}
+		]
+	}
+}

@@ -1,0 +1,39 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "rule_pureluxe_nl": {
+        "detectors": [
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "#cmpbox"
+                    }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "#cmpbox .cmpboxbtnyes"
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "#cmpbox .cmpboxbtnyescustom"
+                    }
+                }
+            }
+        ]
+    }
+}

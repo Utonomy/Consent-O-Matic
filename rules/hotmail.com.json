@@ -1,0 +1,40 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "rule_hotmail_com": {
+        "detectors": [
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "#wcpConsentBannerCtrl"
+                    }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "#wcpConsentBannerCtrl",
+                        "displayFilter": true
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "#wcpConsentBannerCtrl button._1XuCi2WhiqeWRUVp3pnFG3:nth-child(2)"
+                    }
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,52 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"rule_qniq_nl": {
+		"detectors": [
+			{
+				"presentMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "#cookieConsentBanner"
+					}
+				},
+				"showingMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "#cookieConsentBanner.visible"
+					}
+				}
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": "button.consent-button-nee"
+							},
+							"retries": 10,
+							"waitTime": 500
+						},
+						{
+							"type": "click",
+							"target": {
+								"selector": "button.consent-button-nee"
+							}
+						}
+					]
+				}
+			}
+		]
+	}
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+  "rule_cloudpillo_nl": {
+    "detectors": [
+      {
+        "presentMatcher": {
+          "type": "css",
+          "target": {
+            "selector": "div.cookie-banner"
+          }
+        },
+        "showingMatcher": {
+          "type": "css",
+          "target": {
+            "selector": "div.cookie-banner",
+            "displayFilter": true
+          }
+        }
+      }
+    ],
+    "methods": [
+      {
+        "name": "HIDE_CMP",
+        "action": {
+          "type": "list",
+          "actions": []
+        }
+      },
+      {
+        "name": "DO_CONSENT",
+        "action": {
+          "type": "click",
+          "target": {
+            "selector": "button#additional-cookies"
+          }
+        }
+      }
+    ]
+  }
+}

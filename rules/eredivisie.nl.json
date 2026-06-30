@@ -1,0 +1,80 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"rule_eredivisie_nl": {
+		"detectors": [
+			{
+				"presentMatcher": {
+					"type": "css",
+					"target": {
+						"selector": ".tdecc"
+					}
+				},
+				"showingMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "body.show-tdecc-overlay .tdecc"
+					}
+				}
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": "button[data-tdeccoverlay-show-manage]"
+							}
+						},
+						{
+							"type": "click",
+							"target": {
+								"selector": "label[for=\"tdecc-option-1-off\"]"
+							}
+						},
+						{
+							"type": "click",
+							"target": {
+								"selector": "label[for=\"tdecc-option-2-off\"]"
+							}
+						},
+						{
+							"type": "click",
+							"target": {
+								"selector": "label[for=\"tdecc-option-3-off\"]"
+							}
+						},
+						{
+							"type": "click",
+							"target": {
+								"selector": "label[for=\"tdecc-option-4-off\"]"
+							}
+						},
+						{
+							"type": "click",
+							"target": {
+								"selector": "label[for=\"tdecc-option-5-off\"]"
+							}
+						},
+						{
+							"type": "click",
+							"target": {
+								"selector": "button[data-tdeccoverlay-save]"
+							}
+						}
+					]
+				}
+			}
+		]
+	}
+}
