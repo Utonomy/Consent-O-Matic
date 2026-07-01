@@ -1,20 +1,15 @@
 {
 	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
-	"ah.nl": {
+	"foodello.nl": {
 		"detectors": [
 			{
 				"presentMatcher": {
-					"type": "css",
-					"target": {
-						"selector": "[data-testid='cookie-popup']"
-					}
+					"type": "url",
+					"url": ["foodello.nl"]
 				},
 				"showingMatcher": {
-					"type": "css",
-					"target": {
-						"selector": "[data-testid='cookie-popup']",
-						"displayFilter": true
-					}
+					"type": "url",
+					"url": ["foodello.nl"]
 				}
 			}
 		],
@@ -34,21 +29,21 @@
 						{
 							"type": "waitcss",
 							"target": {
-								"selector": "[data-testid='cookie-anchor-config']"
+								"selector": "#onetrust-pc-btn-handler"
 							},
-							"retries": 10,
+							"retries": 40,
 							"waitTime": 500
 						},
 						{
 							"type": "click",
 							"target": {
-								"selector": "[data-testid='cookie-anchor-config']"
+								"selector": "#onetrust-pc-btn-handler"
 							}
 						},
 						{
 							"type": "waitcss",
 							"target": {
-								"selector": "#analyticsPA"
+								"selector": "#ot-group-id-C0002"
 							},
 							"retries": 10,
 							"waitTime": 300
@@ -65,13 +60,28 @@
 							"matcher": {
 								"type": "checkbox",
 								"target": {
-									"selector": "#analyticsPA"
+									"selector": "#ot-group-id-C0002"
 								}
 							},
 							"toggleAction": {
 								"type": "click",
 								"target": {
-									"selector": "#analyticsPA"
+									"selector": "label[for='ot-group-id-C0002']"
+								}
+							},
+							"type": "B"
+						},
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "#ot-group-id-C0003"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "label[for='ot-group-id-C0003']"
 								}
 							},
 							"type": "A"
@@ -80,13 +90,13 @@
 							"matcher": {
 								"type": "checkbox",
 								"target": {
-									"selector": "#marketingAH"
+									"selector": "#ot-group-id-C0004"
 								}
 							},
 							"toggleAction": {
 								"type": "click",
 								"target": {
-									"selector": "#marketingAH"
+									"selector": "label[for='ot-group-id-C0004']"
 								}
 							},
 							"type": "F"
@@ -95,16 +105,16 @@
 							"matcher": {
 								"type": "checkbox",
 								"target": {
-									"selector": "#marketing3P"
+									"selector": "#ot-group-id-C0005"
 								}
 							},
 							"toggleAction": {
 								"type": "click",
 								"target": {
-									"selector": "#marketing3P"
+									"selector": "label[for='ot-group-id-C0005']"
 								}
 							},
-							"type": "F"
+							"type": "X"
 						}
 					]
 				}
@@ -112,23 +122,10 @@
 			{
 				"name": "SAVE_CONSENT",
 				"action": {
-					"type": "list",
-					"actions": [
-						{
-							"type": "waitcss",
-							"target": {
-								"selector": "[data-testid='confirm-config']"
-							},
-							"retries": 10,
-							"waitTime": 300
-						},
-						{
-							"type": "click",
-							"target": {
-								"selector": "[data-testid='confirm-config']"
-							}
-						}
-					]
+					"type": "click",
+					"target": {
+						"selector": ".save-preference-btn-handler.onetrust-close-btn-handler"
+					}
 				}
 			}
 		]

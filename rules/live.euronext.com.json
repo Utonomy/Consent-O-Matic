@@ -1,0 +1,75 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "euronext": {
+        "detectors": [
+            {
+                "presentMatcher": [
+                    {
+                        "type": "url",
+                        "url": "euronext.com"
+                    }
+                ],
+                "showingMatcher": [
+                    {
+                        "type": "url",
+                        "url": "euronext.com"
+                    }
+                ]
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "#onetrust-reject-all-handler"
+                            },
+                            "retries": 40,
+                            "waitTime": 250
+                        },
+                        {
+                            "type": "ifallowall",
+                            "trueAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "#onetrust-accept-btn-handler"
+                                }
+                            },
+                            "falseAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "#onetrust-reject-all-handler"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            }
+        ]
+    }
+}

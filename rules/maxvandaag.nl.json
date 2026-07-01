@@ -1,0 +1,90 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "maxvandaag.nl": {
+        "detectors": [
+            {
+                "presentMatcher": [
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "ccm-notification"
+                        }
+                    }
+                ],
+                "showingMatcher": [
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "#ccm_notification",
+                            "displayFilter": true
+                        },
+                        "parent": {
+                            "selector": "ccm-notification"
+                        }
+                    }
+                ]
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "button.ccm_btn--more-options",
+                        "textFilter": ["Cookie instellingen"]
+                    },
+                    "parent": {
+                        "selector": "ccm-notification"
+                    }
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "click",
+                            "target": {
+                                "selector": "input[name='social'][value='false']"
+                            },
+                            "parent": {
+                                "selector": "ccm-notification"
+                            }
+                        },
+                        {
+                            "type": "click",
+                            "target": {
+                                "selector": "input[name='analytics'][value='false']"
+                            },
+                            "parent": {
+                                "selector": "ccm-notification"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "button.ccm_btn--save",
+                        "textFilter": ["Voorkeuren opslaan"]
+                    },
+                    "parent": {
+                        "selector": "ccm-notification"
+                    }
+                }
+            }
+        ]
+    }
+}

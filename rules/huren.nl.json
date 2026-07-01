@@ -4,17 +4,10 @@
 		"detectors": [
 			{
 				"presentMatcher": {
-					"type": "css",
-					"target": {
-						"selector": "div.cookie-notice"
-					}
+					"type": "url",
+					"url": "huren.nl"
 				},
-				"showingMatcher": {
-					"type": "css",
-					"target": {
-						"selector": "div.cookie-notice:not(.hidden):not([hidden])"
-					}
-				}
+				"showingMatcher": []
 			}
 		],
 		"methods": [
@@ -28,9 +21,16 @@
 			{
 				"name": "DO_CONSENT",
 				"action": {
-					"type": "click",
+					"type": "runrooted",
 					"target": {
-						"selector": "[data-deny-button]"
+						"selector": "div.cookie-notice"
+					},
+					"ignoreOldRoot": true,
+					"action": {
+						"type": "click",
+						"target": {
+							"selector": "[data-deny-button]"
+						}
 					}
 				}
 			}

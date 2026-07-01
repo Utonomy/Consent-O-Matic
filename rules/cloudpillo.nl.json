@@ -27,11 +27,84 @@
         }
       },
       {
+        "name": "OPEN_OPTIONS",
+        "action": {
+          "type": "list",
+          "actions": [
+            {
+              "type": "click",
+              "target": {
+                "selector": "button#additional-cookies"
+              }
+            },
+            {
+              "type": "waitcss",
+              "target": {
+                "selector": "input#analytics_active"
+              }
+            }
+          ]
+        }
+      },
+      {
         "name": "DO_CONSENT",
+        "action": {
+          "type": "consent",
+          "consents": [
+            {
+              "matcher": {
+                "type": "checkbox",
+                "target": {
+                  "selector": "input#analytics_active"
+                }
+              },
+              "toggleAction": {
+                "type": "click",
+                "target": {
+                  "selector": "input#analytics_active"
+                }
+              },
+              "type": "A"
+            },
+            {
+              "matcher": {
+                "type": "checkbox",
+                "target": {
+                  "selector": "input#adStorage_active"
+                }
+              },
+              "toggleAction": {
+                "type": "click",
+                "target": {
+                  "selector": "input#adStorage_active"
+                }
+              },
+              "type": "B"
+            },
+            {
+              "matcher": {
+                "type": "checkbox",
+                "target": {
+                  "selector": "input#personalization_active"
+                }
+              },
+              "toggleAction": {
+                "type": "click",
+                "target": {
+                  "selector": "input#personalization_active"
+                }
+              },
+              "type": "E"
+            }
+          ]
+        }
+      },
+      {
+        "name": "SAVE_CONSENT",
         "action": {
           "type": "click",
           "target": {
-            "selector": "button#additional-cookies"
+            "selector": "button#save-consent"
           }
         }
       }

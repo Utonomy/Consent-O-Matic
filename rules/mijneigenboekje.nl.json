@@ -3,18 +3,30 @@
 	"rule_mijneigenboekje_nl": {
 		"detectors": [
 			{
-				"presentMatcher": {
-					"type": "css",
-					"target": {
-						"selector": "[aria-label=\"Cookie banner\"]"
+				"presentMatcher": [
+					{
+						"type": "url",
+						"url": "mijneigenboekje.nl"
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": "[aria-label=\"Cookie banner\"]"
+						}
 					}
-				},
-				"showingMatcher": {
-					"type": "css",
-					"target": {
-						"selector": "[aria-label=\"Cookie banner\"]"
+				],
+				"showingMatcher": [
+					{
+						"type": "url",
+						"url": "mijneigenboekje.nl"
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": "[aria-label=\"Cookie banner\"]"
+						}
 					}
-				}
+				]
 			}
 		],
 		"methods": [
