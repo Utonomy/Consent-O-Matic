@@ -3,12 +3,18 @@
 	"rule_brandnewday_nl": {
 		"detectors": [
 			{
-				"presentMatcher": {
-					"type": "css",
-					"target": {
-						"selector": "#usercentrics-cmp-ui"
+				"presentMatcher": [
+					{
+						"type": "url",
+						"url": ["brandnewday.nl"]
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": "#usercentrics-cmp-ui"
+						}
 					}
-				},
+				],
 				"showingMatcher": {
 					"type": "css",
 					"target": {

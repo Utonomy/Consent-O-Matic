@@ -1,0 +1,45 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "yahoo_consent": {
+        "detectors": [
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "#consent-page .consent-form, .con-wizard"
+                    }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "button.reject-all, button[name=\"reject\"]"
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS"
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "button.reject-all, button[name=\"reject\"]"
+                    }
+                }
+            },
+            {
+                "name": "SAVE_CONSENT"
+            }
+        ]
+    }
+}

@@ -1,0 +1,66 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"rule_vriendenloterij_nl": {
+		"detectors": [
+			{
+				"presentMatcher": [
+					{
+						"type": "url",
+						"url": ["vriendenloterij.nl", "postcodeloterij.nl"]
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": "#usercentrics-cmp-ui"
+						}
+					}
+				],
+				"showingMatcher": [
+					{
+						"type": "css",
+						"target": {
+							"selector": "#deny",
+							"displayFilter": true
+						},
+						"parent": {
+							"selector": "#usercentrics-cmp-ui"
+						}
+					}
+				]
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "ifallowall",
+					"trueAction": {
+						"type": "click",
+						"target": {
+							"selector": "#accept"
+						},
+						"parent": {
+							"selector": "#usercentrics-cmp-ui"
+						}
+					},
+					"falseAction": {
+						"type": "click",
+						"target": {
+							"selector": "#deny"
+						},
+						"parent": {
+							"selector": "#usercentrics-cmp-ui"
+						}
+					}
+				}
+			}
+		]
+	}
+}
