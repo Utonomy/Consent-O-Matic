@@ -1,0 +1,171 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "www.meubelzorg.nl": {
+        "detectors": [
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "#cmpwrapper"
+                    }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "#cmpbox",
+                        "displayFilter": true
+                    },
+                    "parent": {
+                        "selector": "#cmpwrapper"
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "a.cmpmorelink.cmptxt_btn_custom"
+                            },
+                            "parent": {
+                                "selector": "#cmpwrapper"
+                            },
+                            "retries": 20,
+                            "waitTime": 200
+                        },
+                        {
+                            "type": "click",
+                            "target": {
+                                "selector": "a.cmpmorelink.cmptxt_btn_custom"
+                            },
+                            "parent": {
+                                "selector": "#cmpwrapper"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "a.cmptogglelink[data-cmp-purpose='c52']"
+                            },
+                            "parent": {
+                                "selector": "#cmpwrapper"
+                            },
+                            "retries": 20,
+                            "waitTime": 200
+                        },
+                        {
+                            "type": "consent",
+                            "consents": [
+                                {
+                                    "matcher": {
+                                        "type": "onoff",
+                                        "onMatcher": {
+                                            "target": {
+                                                "selector": "a.cmptogglelink[data-cmp-purpose='c52'][aria-checked='true']"
+                                            },
+                                            "parent": {
+                                                "selector": "#cmpwrapper"
+                                            }
+                                        },
+                                        "offMatcher": {
+                                            "target": {
+                                                "selector": "a.cmptogglelink[data-cmp-purpose='c52'][aria-checked='false']"
+                                            },
+                                            "parent": {
+                                                "selector": "#cmpwrapper"
+                                            }
+                                        }
+                                    },
+                                    "falseAction": {
+                                        "type": "list",
+                                        "actions": []
+                                    },
+                                    "trueAction": {
+                                        "type": "click",
+                                        "target": {
+                                            "selector": "a.cmptogglelink[data-cmp-purpose='c52']"
+                                        },
+                                        "parent": {
+                                            "selector": "#cmpwrapper"
+                                        }
+                                    },
+                                    "type": "F"
+                                },
+                                {
+                                    "matcher": {
+                                        "type": "onoff",
+                                        "onMatcher": {
+                                            "target": {
+                                                "selector": "a.cmptogglelink[data-cmp-purpose='c54'][aria-checked='true']"
+                                            },
+                                            "parent": {
+                                                "selector": "#cmpwrapper"
+                                            }
+                                        },
+                                        "offMatcher": {
+                                            "target": {
+                                                "selector": "a.cmptogglelink[data-cmp-purpose='c54'][aria-checked='false']"
+                                            },
+                                            "parent": {
+                                                "selector": "#cmpwrapper"
+                                            }
+                                        }
+                                    },
+                                    "falseAction": {
+                                        "type": "list",
+                                        "actions": []
+                                    },
+                                    "trueAction": {
+                                        "type": "click",
+                                        "target": {
+                                            "selector": "a.cmptogglelink[data-cmp-purpose='c54']"
+                                        },
+                                        "parent": {
+                                            "selector": "#cmpwrapper"
+                                        }
+                                    },
+                                    "type": "B"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "a.cmpboxbtn.cmpboxbtnyescustomchoices"
+                    },
+                    "parent": {
+                        "selector": "#cmpwrapper"
+                    }
+                }
+            },
+            {
+                "name": "UTILITY"
+            }
+        ]
+    }
+}

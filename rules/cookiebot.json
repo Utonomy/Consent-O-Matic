@@ -5,6 +5,11 @@
             {
                 "presentMatcher": [
                     {
+                        "type": "url",
+                        "url": ["roompot.nl"],
+                        "negated": true
+                    },
+                    {
                         "type": "css",
                         "target": {
                             "selector": "#CybotCookiebotDialogBodyButtonAccept, #CybotCookiebotDialogBody, #CybotCookiebotDialogBodyLevelButtonPreferences, #cb-cookieoverlay, #CybotCookiebotDialog"

@@ -6,7 +6,7 @@
         "presentMatcher": {
           "type": "css",
           "target": {
-            "selector": "#cookieconsent"
+            "selector": "#cookieconsent #cookie-consent-button"
           }
         },
         "showingMatcher": {
@@ -24,6 +24,15 @@
         "action": {
           "type": "list",
           "actions": []
+        }
+      },
+      {
+        "name": "OPEN_OPTIONS",
+        "action": {
+          "type": "click",
+          "target": {
+            "selector": "#cookie-consent-button"
+          }
         }
       },
       {
@@ -54,14 +63,17 @@
                   "selector": "#cookie_category_marketing"
                 }
               }
-            },
-            {
-              "type": "click",
-              "target": {
-                "selector": "#cookie-consent-submit"
-              }
             }
           ]
+        }
+      },
+      {
+        "name": "SAVE_CONSENT",
+        "action": {
+          "type": "click",
+          "target": {
+            "selector": "#cookie-consent-submit"
+          }
         }
       }
     ]

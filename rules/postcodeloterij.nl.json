@@ -1,29 +1,32 @@
 {
 	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
-	"rule_mijneigenboekje_nl": {
+	"postcodeloterij_nl": {
 		"detectors": [
 			{
 				"presentMatcher": [
 					{
 						"type": "url",
-						"url": "mijneigenboekje.nl"
+						"url": ["postcodeloterij.nl"]
 					},
 					{
 						"type": "css",
 						"target": {
-							"selector": "[aria-label=\"Cookie banner\"]"
+							"selector": "button#deny"
+						},
+						"parent": {
+							"selector": "#usercentrics-cmp-ui"
 						}
 					}
 				],
 				"showingMatcher": [
 					{
-						"type": "url",
-						"url": "mijneigenboekje.nl"
-					},
-					{
 						"type": "css",
 						"target": {
-							"selector": "[aria-label=\"Cookie banner\"]"
+							"selector": "button#deny",
+							"displayFilter": true
+						},
+						"parent": {
+							"selector": "#usercentrics-cmp-ui"
 						}
 					}
 				]
@@ -42,7 +45,10 @@
 				"action": {
 					"type": "click",
 					"target": {
-						"selector": "[aria-label=\"Cookie banner\"] button.border-gray-300"
+						"selector": "button#deny"
+					},
+					"parent": {
+						"selector": "#usercentrics-cmp-ui"
 					}
 				}
 			}

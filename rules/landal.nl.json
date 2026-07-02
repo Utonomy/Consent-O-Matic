@@ -1,0 +1,135 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "landal.nl": {
+        "detectors": [
+            {
+                "presentMatcher": [
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "consent-slide-in-component"
+                        }
+                    }
+                ],
+                "showingMatcher": [
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": ".consent-slide-in-container",
+                            "displayFilter": true
+                        },
+                        "parent": {
+                            "selector": "consent-slide-in-component"
+                        }
+                    }
+                ]
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "button.consent-slide-in-button",
+                        "textFilter": ["Voorkeuren kiezen"]
+                    },
+                    "parent": {
+                        "selector": "consent-slide-in-component"
+                    }
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "consent",
+                    "consents": [
+                        {
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "input[value='6']"
+                                },
+                                "parent": {
+                                    "selector": "consent-slide-in-component"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "input[value='6']"
+                                },
+                                "parent": {
+                                    "selector": "consent-slide-in-component"
+                                }
+                            },
+                            "type": "B"
+                        },
+                        {
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "input[value='4']"
+                                },
+                                "parent": {
+                                    "selector": "consent-slide-in-component"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "input[value='4']"
+                                },
+                                "parent": {
+                                    "selector": "consent-slide-in-component"
+                                }
+                            },
+                            "type": "F"
+                        },
+                        {
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "input[value='5']"
+                                },
+                                "parent": {
+                                    "selector": "consent-slide-in-component"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "input[value='5']"
+                                },
+                                "parent": {
+                                    "selector": "consent-slide-in-component"
+                                }
+                            },
+                            "type": "E"
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "button.consent-slide-in-button",
+                        "textFilter": ["Voorkeuren opslaan"]
+                    },
+                    "parent": {
+                        "selector": "consent-slide-in-component"
+                    }
+                }
+            }
+        ]
+    }
+}

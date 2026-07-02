@@ -1,0 +1,207 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "rule_ing_nl": {
+        "detectors": [
+            {
+                "presentMatcher": [
+                    {
+                        "type": "url",
+                        "url": "ing.nl"
+                    },
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "body.overlays-scroll-lock"
+                        }
+                    }
+                ],
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "body.overlays-scroll-lock"
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "wait",
+                            "waitTime": 2000
+                        },
+                        {
+                            "type": "runrooted",
+                            "target": {
+                                "selector": "ing-app-open-page"
+                            },
+                            "action": {
+                                "type": "runrooted",
+                                "target": {
+                                    "selector": "ing-app-open-cookie-dialog"
+                                },
+                                "action": {
+                                    "type": "runrooted",
+                                    "target": {
+                                        "selector": "ing-feat-cookie-dialog-nl"
+                                    },
+                                    "action": {
+                                        "type": "runrooted",
+                                        "target": {
+                                            "selector": "ing-feat-global-cookie-preference"
+                                        },
+                                        "action": {
+                                            "type": "list",
+                                            "actions": [
+                                                {
+                                                    "type": "runrooted",
+                                                    "target": {
+                                                        "selector": "cookie-preference-main"
+                                                    },
+                                                    "action": {
+                                                        "type": "click",
+                                                        "target": {
+                                                            "selector": "[data-testid='manage-preferences']"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "type": "wait",
+                                                    "waitTime": 800
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "runrooted",
+                    "target": {
+                        "selector": "ing-app-open-page"
+                    },
+                    "action": {
+                        "type": "runrooted",
+                        "target": {
+                            "selector": "ing-app-open-cookie-dialog"
+                        },
+                        "action": {
+                            "type": "runrooted",
+                            "target": {
+                                "selector": "ing-feat-cookie-dialog-nl"
+                            },
+                            "action": {
+                                "type": "runrooted",
+                                "target": {
+                                    "selector": "ing-feat-global-cookie-preference"
+                                },
+                                "action": {
+                                    "type": "runrooted",
+                                    "target": {
+                                        "selector": "cookie-preference-details"
+                                    },
+                                    "action": {
+                                        "type": "list",
+                                        "actions": [
+                                            {
+                                                "type": "ifcss",
+                                                "target": {
+                                                    "selector": "ing-switch[name='COOKIE_PREF_ANL'] ing-switch-button[aria-checked='true']"
+                                                },
+                                                "trueAction": {
+                                                    "type": "click",
+                                                    "target": {
+                                                        "selector": "ing-switch[name='COOKIE_PREF_ANL'] ing-switch-button"
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "type": "ifcss",
+                                                "target": {
+                                                    "selector": "ing-switch[name='COOKIE_PREF_PSN'] ing-switch-button[aria-checked='true']"
+                                                },
+                                                "trueAction": {
+                                                    "type": "click",
+                                                    "target": {
+                                                        "selector": "ing-switch[name='COOKIE_PREF_PSN'] ing-switch-button"
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "type": "ifcss",
+                                                "target": {
+                                                    "selector": "ing-switch[name='COOKIE_PREF_PRTN'] ing-switch-button[aria-checked='true']"
+                                                },
+                                                "trueAction": {
+                                                    "type": "click",
+                                                    "target": {
+                                                        "selector": "ing-switch[name='COOKIE_PREF_PRTN'] ing-switch-button"
+                                                    }
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "runrooted",
+                    "target": {
+                        "selector": "ing-app-open-page"
+                    },
+                    "action": {
+                        "type": "runrooted",
+                        "target": {
+                            "selector": "ing-app-open-cookie-dialog"
+                        },
+                        "action": {
+                            "type": "runrooted",
+                            "target": {
+                                "selector": "ing-feat-cookie-dialog-nl"
+                            },
+                            "action": {
+                                "type": "runrooted",
+                                "target": {
+                                    "selector": "ing-feat-global-cookie-preference"
+                                },
+                                "action": {
+                                    "type": "runrooted",
+                                    "target": {
+                                        "selector": "cookie-preference-details"
+                                    },
+                                    "action": {
+                                        "type": "click",
+                                        "target": {
+                                            "selector": "[role='button']",
+                                            "textFilter": ["Selectie bevestigen"]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        ]
+    }
+}

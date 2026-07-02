@@ -1,18 +1,18 @@
 {
     "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
-    "rule_pureluxe_nl": {
+    "yahoo_consent": {
         "detectors": [
             {
                 "presentMatcher": {
                     "type": "css",
                     "target": {
-                        "selector": "#cmpbox"
+                        "selector": "#consent-page .consent-form, .con-wizard"
                     }
                 },
                 "showingMatcher": {
                     "type": "css",
                     "target": {
-                        "selector": "#cmpbox .cmpboxbtnyes"
+                        "selector": "button.reject-all, button[name=\"reject\"]"
                     }
                 }
             }
@@ -26,13 +26,19 @@
                 }
             },
             {
+                "name": "OPEN_OPTIONS"
+            },
+            {
                 "name": "DO_CONSENT",
                 "action": {
                     "type": "click",
                     "target": {
-                        "selector": "#cmpbox .cmpboxbtnyescustom"
+                        "selector": "button.reject-all, button[name=\"reject\"]"
                     }
                 }
+            },
+            {
+                "name": "SAVE_CONSENT"
             }
         ]
     }

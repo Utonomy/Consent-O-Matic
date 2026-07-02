@@ -1,0 +1,152 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "wehkamp_nl": {
+        "detectors": [
+            {
+                "presentMatcher": [
+                    {
+                        "type": "url",
+                        "url": ["wehkamp.nl"]
+                    },
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "[data-testid=\"consent-dialog\"]"
+                        }
+                    }
+                ],
+                "showingMatcher": [
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "[data-testid=\"consent-dialog\"]",
+                            "displayFilter": true
+                        }
+                    }
+                ]
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "ifallowall",
+                    "falseAction": {
+                        "type": "ifallownone",
+                        "falseAction": {
+                            "type": "click",
+                            "target": {
+                                "selector": "button",
+                                "textFilter": ["Voorkeuren instellen"]
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "ifallowall",
+                    "trueAction": {
+                        "type": "click",
+                        "target": {
+                            "selector": "button",
+                            "textFilter": ["Alles accepteren"]
+                        }
+                    },
+                    "falseAction": {
+                        "type": "ifallownone",
+                        "trueAction": {
+                            "type": "list",
+                            "actions": []
+                        },
+                        "falseAction": {
+                            "type": "list",
+                            "actions": [
+                                {
+                                    "type": "consent",
+                                    "consents": [
+                                        {
+                                            "type": "A",
+                                            "matcher": {
+                                                "type": "css",
+                                                "target": {
+                                                    "selector": "#toggle-analytische-cookies[aria-checked=\"true\"]"
+                                                }
+                                            },
+                                            "toggleAction": {
+                                                "type": "click",
+                                                "target": {
+                                                    "selector": "#toggle-analytische-cookies"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "consent",
+                                    "consents": [
+                                        {
+                                            "type": "F",
+                                            "matcher": {
+                                                "type": "css",
+                                                "target": {
+                                                    "selector": "#toggle-marketing-en-personalisatie-cookies[aria-checked=\"true\"]"
+                                                }
+                                            },
+                                            "toggleAction": {
+                                                "type": "click",
+                                                "target": {
+                                                    "selector": "#toggle-marketing-en-personalisatie-cookies"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "ifcss",
+                            "target": {
+                                "selector": "button",
+                                "textFilter": ["Mijn keuzes bevestigen"],
+                                "displayFilter": true
+                            },
+                            "trueAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "button",
+                                    "textFilter": ["Mijn keuzes bevestigen"]
+                                }
+                            }
+                        },
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "[data-testid=\"consent-dialog\"]"
+                            },
+                            "negated": true,
+                            "retries": 20,
+                            "waitTime": 100
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

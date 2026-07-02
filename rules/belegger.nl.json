@@ -1,0 +1,115 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "belegger_nl": {
+        "detectors": [
+            {
+                "presentMatcher": [
+                    {
+                        "type": "url",
+                        "url": ["belegger.nl", "beurs.nl"]
+                    },
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "#cmpwrapper"
+                        }
+                    }
+                ],
+                "showingMatcher": [
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "#cmpbox"
+                        },
+                        "parent": {
+                            "selector": "#cmpwrapper"
+                        }
+                    }
+                ]
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "ifallowall",
+                    "trueAction": {
+                        "type": "click",
+                        "target": {
+                            "selector": "a.cmpboxbtnyes:not(.cmpboxbtnyescustomchoices)"
+                        },
+                        "parent": {
+                            "selector": "#cmpwrapper"
+                        }
+                    },
+                    "falseAction": {
+                        "type": "list",
+                        "actions": [
+                            {
+                                "type": "click",
+                                "target": {
+                                    "selector": "a.cmpboxbtncustom"
+                                },
+                                "parent": {
+                                    "selector": "#cmpwrapper"
+                                }
+                            },
+                            {
+                                "type": "waitcss",
+                                "target": {
+                                    "selector": "a.cmpboxbtnreject"
+                                },
+                                "parent": {
+                                    "selector": "#cmpwrapper"
+                                },
+                                "retries": 10,
+                                "waitTime": 200
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "ifallowall",
+                    "trueAction": {
+                        "type": "click",
+                        "target": {
+                            "selector": "a.cmpboxbtnaccept"
+                        },
+                        "parent": {
+                            "selector": "#cmpwrapper"
+                        }
+                    },
+                    "falseAction": {
+                        "type": "click",
+                        "target": {
+                            "selector": "a.cmpboxbtnreject"
+                        },
+                        "parent": {
+                            "selector": "#cmpwrapper"
+                        }
+                    }
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "UTILITY"
+            }
+        ]
+    }
+}

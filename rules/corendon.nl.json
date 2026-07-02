@@ -71,25 +71,21 @@
             {
                 "name": "DO_CONSENT",
                 "action": {
-                    "type": "list",
-                    "actions": [
-                        {
-                            "type": "waitcss",
-                            "target": {
-                                "selector": "#declineButton",
-                                "iframeFilter": true
-                            },
-                            "retries": 10,
-                            "waitTime": 200
-                        },
-                        {
-                            "type": "click",
-                            "target": {
-                                "selector": "#declineButton",
-                                "iframeFilter": true
-                            }
+                    "type": "ifallowall",
+                    "trueAction": {
+                        "type": "click",
+                        "target": {
+                            "selector": "#acceptButton",
+                            "iframeFilter": true
                         }
-                    ]
+                    },
+                    "falseAction": {
+                        "type": "click",
+                        "target": {
+                            "selector": "#declineButton",
+                            "iframeFilter": true
+                        }
+                    }
                 }
             }
         ]

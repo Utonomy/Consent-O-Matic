@@ -6,13 +6,14 @@
 				"presentMatcher": {
 					"type": "css",
 					"target": {
-						"selector": "div.consentmodal"
+						"selector": "#cookiebanner-decline"
 					}
 				},
 				"showingMatcher": {
 					"type": "css",
 					"target": {
-						"selector": "div.consentmodal #cookiebanner-decline"
+						"selector": "#cookiebanner-decline",
+						"displayFilter": true
 					}
 				}
 			}
