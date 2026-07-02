@@ -1,0 +1,39 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"eneco.nl": {
+		"detectors": [
+			{
+				"presentMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "div[role=\"alertdialog\"] .sparky-button[data-label=\"Weigeren\"]"
+					}
+				},
+				"showingMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "div[role=\"alertdialog\"][data-state=\"open\"] .sparky-button[data-label=\"Weigeren\"]"
+					}
+				}
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "click",
+					"target": {
+						"selector": ".sparky-button[data-label=\"Weigeren\"]"
+					}
+				}
+			}
+		]
+	}
+}

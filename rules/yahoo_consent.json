@@ -26,6 +26,12 @@
                 "name": "HIDE_CMP"
             },
             {
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "#consent-page a.manage-settings, .con-wizard a.manage-settings, a[data-consent-action='manage'], .btn-secondary.manage-settings"
+                    }
+                },
                 "name": "OPEN_OPTIONS"
             },
             {
@@ -231,7 +237,7 @@
                 "action": {
                     "type": "click",
                     "target": {
-                        "selector": ".page-footer .actions button.secondary[value=\"save\"]"
+                        "selector": "button[value=\"save\"], input[value=\"save\"], .page-footer .actions button.secondary, button[name=\"disagree\"], button[value=\"reject\"]"
                     }
                 },
                 "name": "SAVE_CONSENT"

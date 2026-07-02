@@ -1,0 +1,54 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"rule_bigbank_nl": {
+		"detectors": [
+			{
+				"presentMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "#cookie-notification-dialog"
+					}
+				},
+				"showingMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "#cookie_notification",
+						"displayFilter": true
+					}
+				}
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": "#accept-mandatory-cookies"
+							}
+						},
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": "#cookie-notification-dialog"
+							},
+							"negated": true,
+							"retries": 20,
+							"waitTime": 300
+						}
+					]
+				}
+			}
+		]
+	}
+}

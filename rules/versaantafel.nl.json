@@ -1,0 +1,233 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "versaantafel.nl": {
+        "detectors": [
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": ".cc_root"
+                    },
+                    "parent": {
+                        "selector": "cookiecode-banner"
+                    }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": ".cc_root",
+                        "displayFilter": true
+                    },
+                    "parent": {
+                        "selector": "cookiecode-banner"
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": ".cc_button_settings"
+                    },
+                    "parent": {
+                        "selector": "cookiecode-banner"
+                    }
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "consent",
+                    "consents": [
+                        {
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "section.service:nth-of-type(2) .toggle input"
+                                },
+                                "parent": {
+                                    "selector": "cookiecode-settings > *"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "section.service:nth-of-type(2) .toggle label"
+                                },
+                                "parent": {
+                                    "selector": "cookiecode-settings > *"
+                                }
+                            },
+                            "type": "B"
+                        },
+                        {
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "section.service:nth-of-type(3) .toggle input"
+                                },
+                                "parent": {
+                                    "selector": "cookiecode-settings > *"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "section.service:nth-of-type(3) .toggle label"
+                                },
+                                "parent": {
+                                    "selector": "cookiecode-settings > *"
+                                }
+                            },
+                            "type": "B"
+                        },
+                        {
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "section.service:nth-of-type(4) .toggle input"
+                                },
+                                "parent": {
+                                    "selector": "cookiecode-settings > *"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "section.service:nth-of-type(4) .toggle label"
+                                },
+                                "parent": {
+                                    "selector": "cookiecode-settings > *"
+                                }
+                            },
+                            "type": "F"
+                        },
+                        {
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "section.service:nth-of-type(5) .toggle input"
+                                },
+                                "parent": {
+                                    "selector": "cookiecode-settings > *"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "section.service:nth-of-type(5) .toggle label"
+                                },
+                                "parent": {
+                                    "selector": "cookiecode-settings > *"
+                                }
+                            },
+                            "type": "F"
+                        },
+                        {
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "section.service:nth-of-type(6) .toggle input"
+                                },
+                                "parent": {
+                                    "selector": "cookiecode-settings > *"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "section.service:nth-of-type(6) .toggle label"
+                                },
+                                "parent": {
+                                    "selector": "cookiecode-settings > *"
+                                }
+                            },
+                            "type": "F"
+                        },
+                        {
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "section.service:nth-of-type(7) .toggle input"
+                                },
+                                "parent": {
+                                    "selector": "cookiecode-settings > *"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "section.service:nth-of-type(7) .toggle label"
+                                },
+                                "parent": {
+                                    "selector": "cookiecode-settings > *"
+                                }
+                            },
+                            "type": "F"
+                        },
+                        {
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "section.service:nth-of-type(8) .toggle input"
+                                },
+                                "parent": {
+                                    "selector": "cookiecode-settings > *"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "section.service:nth-of-type(8) .toggle label"
+                                },
+                                "parent": {
+                                    "selector": "cookiecode-settings > *"
+                                }
+                            },
+                            "type": "F"
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "footer button"
+                            },
+                            "parent": {
+                                "selector": "cookiecode-settings > *"
+                            },
+                            "retries": 10,
+                            "waitTime": 300
+                        },
+                        {
+                            "type": "click",
+                            "target": {
+                                "selector": "footer button",
+                                "textFilter": "Opslaan"
+                            },
+                            "parent": {
+                                "selector": "cookiecode-settings > *"
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

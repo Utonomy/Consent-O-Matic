@@ -122,6 +122,10 @@ export default class CMP {
             return detector.detect();
         });
 
+        if (detector == null) {
+            return false;
+        }
+
         return detector.isShowing();
     }
 

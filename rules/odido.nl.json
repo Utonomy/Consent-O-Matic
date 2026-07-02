@@ -1,0 +1,105 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "odido.nl": {
+        "detectors": [
+            {
+                "presentMatcher": [
+                    {
+                        "type": "url",
+                        "url": ["odido.nl"]
+                    },
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "aside#usercentrics-cmp-ui"
+                        }
+                    }
+                ],
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "#uc-main-dialog"
+                    },
+                    "parent": {
+                        "selector": "aside#usercentrics-cmp-ui"
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "click",
+                            "target": {
+                                "selector": "button#more"
+                            },
+                            "parent": {
+                                "selector": "aside#usercentrics-cmp-ui"
+                            }
+                        },
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "button#save"
+                            },
+                            "parent": {
+                                "selector": "aside#usercentrics-cmp-ui"
+                            },
+                            "retries": 20,
+                            "waitTime": 200
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "ifcss",
+                            "target": {
+                                "selector": "button#uc-category-marketing-toggle[aria-checked='true']"
+                            },
+                            "parent": {
+                                "selector": "aside#usercentrics-cmp-ui"
+                            },
+                            "trueAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "button#uc-category-marketing-toggle"
+                                },
+                                "parent": {
+                                    "selector": "aside#usercentrics-cmp-ui"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "button#save"
+                    },
+                    "parent": {
+                        "selector": "aside#usercentrics-cmp-ui"
+                    }
+                }
+            }
+        ]
+    }
+}

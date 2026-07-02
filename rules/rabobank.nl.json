@@ -1,72 +1,92 @@
 {
-    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
-    "rabobank_nl": {
-        "detectors": [
-            {
-                "presentMatcher": [
-                    {
-                        "type": "url",
-                        "url": ["rabobank.nl"]
-                    },
-                    {
-                        "type": "css",
-                        "target": {
-                            "selector": ".cookiebanner-consent-level-button, [id*=\"cookiebanner\"], button",
-                            "textFilter": ["WEIGEREN", "ACCEPTEREN", "Accept", "Reject"]
-                        }
-                    }
-                ],
-                "showingMatcher": [
-                    {
-                        "type": "css",
-                        "target": {
-                            "selector": ".cookiebanner-consent-level-button, button",
-                            "textFilter": ["WEIGEREN", "ACCEPTEREN", "Accept", "Reject"],
-                            "displayFilter": true
-                        }
-                    }
-                ]
+  "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+  "rabobank_nl": {
+    "detectors": [
+      {
+        "presentMatcher": [
+          {
+            "type": "url",
+            "url": [
+              "rabobank.nl"
+            ]
+          },
+          {
+            "type": "css",
+            "target": {
+              "selector": ".cookiebanner-consent-level-button, [id*=\"cookiebanner\"], button",
+              "textFilter": [
+                "WEIGEREN",
+                "ACCEPTEREN",
+                "Accept",
+                "Reject"
+              ]
             }
+          }
         ],
-        "methods": [
-            {
-                "name": "HIDE_CMP",
-                "action": {
-                    "type": "hide",
-                    "target": {
-                        "selector": "[id*=\"cookiebanner\"], .cookiebanner"
-                    }
-                }
-            },
-            {
-                "name": "OPEN_OPTIONS"
-            },
-            {
-                "name": "DO_CONSENT",
-                "action": {
-                    "type": "ifallowall",
-                    "trueAction": {
-                        "type": "click",
-                        "target": {
-                            "selector": "button, .cookiebanner-consent-level-button",
-                            "textFilter": ["ACCEPTEREN", "Accept", "Agree"]
-                        }
-                    },
-                    "falseAction": {
-                        "type": "click",
-                        "target": {
-                            "selector": "button, .cookiebanner-consent-level-button",
-                            "textFilter": ["WEIGEREN", "Reject", "Decline"]
-                        }
-                    }
-                }
-            },
-            {
-                "name": "SAVE_CONSENT"
-            },
-            {
-                "name": "UTILITY"
+        "showingMatcher": [
+          {
+            "type": "css",
+            "target": {
+              "selector": ".cookiebanner-consent-level-button, button",
+              "textFilter": [
+                "WEIGEREN",
+                "ACCEPTEREN",
+                "Accept",
+                "Reject"
+              ],
+              "displayFilter": true
             }
+          }
         ]
-    }
+      }
+    ],
+    "methods": [
+      {
+        "name": "HIDE_CMP",
+        "action": {
+          "type": "hide",
+          "target": {
+            "selector": "[id*=\"cookiebanner\"], .cookiebanner"
+          }
+        }
+      },
+      {
+        "name": "OPEN_OPTIONS"
+      },
+      {
+        "name": "DO_CONSENT",
+        "action": {
+          "type": "ifallowall",
+          "trueAction": {
+            "type": "click",
+            "target": {
+              "selector": "button, .cookiebanner-consent-level-button",
+              "textFilter": [
+                "ACCEPTEREN",
+                "Accept",
+                "Agree"
+              ]
+            }
+          },
+          "falseAction": {
+            "type": "click",
+            "target": {
+              "selector": "button, .cookiebanner-consent-level-button",
+              "textFilter": [
+                "WEIGEREN",
+                "Reject",
+                "Decline"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "name": "SAVE_CONSENT"
+      },
+      {
+        "name": "UTILITY"
+      }
+    ]
+  }
 }

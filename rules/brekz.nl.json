@@ -1,0 +1,103 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"brekz.nl": {
+		"detectors": [
+			{
+				"presentMatcher": {
+					"type": "url",
+					"url": ["brekz.nl"]
+				},
+				"showingMatcher": {
+					"type": "url",
+					"url": ["brekz.nl"]
+				}
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": "[data-consent-button='change_settings']"
+							},
+							"retries": 40,
+							"waitTime": 500
+						},
+						{
+							"type": "click",
+							"target": {
+								"selector": "[data-consent-button='change_settings']"
+							}
+						},
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": "input[data-consent-checkbox='analytics_storage']"
+							},
+							"retries": 10,
+							"waitTime": 300
+						}
+					]
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "input[data-consent-checkbox='analytics_storage']"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "input[data-consent-checkbox='analytics_storage']"
+								}
+							},
+							"type": "B"
+						},
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "input[data-consent-checkbox='ad_user_data,ad_personalization,ad_storage,personalization_storage']"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "input[data-consent-checkbox='ad_user_data,ad_personalization,ad_storage,personalization_storage']"
+								}
+							},
+							"type": "F"
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "click",
+					"target": {
+						"selector": "[data-consent-button='apply_settings']"
+					}
+				}
+			}
+		]
+	}
+}

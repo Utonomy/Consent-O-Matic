@@ -1,0 +1,52 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"50plusmatch_nl": {
+		"detectors": [
+			{
+				"presentMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "#btnno"
+					}
+				},
+				"showingMatcher": {
+					"type": "css",
+					"target": {
+						"selector": ".fancybox-is-open"
+					}
+				}
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": "#btnno"
+							},
+							"retries": 20,
+							"waitTime": 500
+						},
+						{
+							"type": "click",
+							"target": {
+								"selector": "#btnno"
+							}
+						}
+					]
+				}
+			}
+		]
+	}
+}

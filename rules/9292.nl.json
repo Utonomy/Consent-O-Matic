@@ -1,0 +1,59 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "9292.nl": {
+        "detectors": [
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "#usercentrics-root"
+                    }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "[data-testid='uc-tcf-first-layer']"
+                    },
+                    "parent": {
+                        "selector": "#usercentrics-root"
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "waitcss",
+                    "target": {
+                        "selector": "[data-testid='uc-deny-all-button']"
+                    },
+                    "parent": {
+                        "selector": "#usercentrics-root"
+                    },
+                    "retries": 160,
+                    "waitTime": 250
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "[data-testid='uc-deny-all-button']"
+                    },
+                    "parent": {
+                        "selector": "#usercentrics-root"
+                    }
+                }
+            }
+        ]
+    }
+}

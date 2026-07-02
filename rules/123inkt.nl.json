@@ -1,0 +1,38 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"123inkt.nl": {
+		"detectors": [
+			{
+				"presentMatcher": {
+					"type": "url",
+					"url": ["123inkt.nl"]
+				},
+				"showingMatcher": {
+					"type": "css",
+					"target": {
+						"selector": ".c-cookie-popup",
+						"displayFilter": true
+					}
+				}
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "click",
+					"target": {
+						"selector": "[data-role='refuse-cookies']"
+					}
+				}
+			}
+		]
+	}
+}

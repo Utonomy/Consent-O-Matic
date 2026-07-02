@@ -18,6 +18,11 @@
                                 "g.co/privacytools"
                             ]
                         }
+                    },
+                    {
+                        "type": "url",
+                        "url": ["youtube.com"],
+                        "negated": true
                     }
                 ],
                 "showingMatcher": [

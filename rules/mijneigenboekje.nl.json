@@ -1,0 +1,51 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"rule_mijneigenboekje_nl": {
+		"detectors": [
+			{
+				"presentMatcher": [
+					{
+						"type": "url",
+						"url": "mijneigenboekje.nl"
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": "[aria-label=\"Cookie banner\"]"
+						}
+					}
+				],
+				"showingMatcher": [
+					{
+						"type": "url",
+						"url": "mijneigenboekje.nl"
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": "[aria-label=\"Cookie banner\"]"
+						}
+					}
+				]
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "click",
+					"target": {
+						"selector": "[aria-label=\"Cookie banner\"] button.border-gray-300"
+					}
+				}
+			}
+		]
+	}
+}

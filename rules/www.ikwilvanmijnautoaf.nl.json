@@ -1,0 +1,162 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "www.ikwilvanmijnautoaf.nl": {
+        "detectors": [
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "cookie-consent-banner"
+                    }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "#cookie-content-wrapper",
+                        "displayFilter": true
+                    },
+                    "parent": {
+                        "selector": "cookie-consent-banner"
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "#cookie-consent-settings-button"
+                            },
+                            "parent": {
+                                "selector": "cookie-consent-banner"
+                            },
+                            "retries": 20,
+                            "waitTime": 200
+                        },
+                        {
+                            "type": "click",
+                            "target": {
+                                "selector": "#cookie-consent-settings-button"
+                            },
+                            "parent": {
+                                "selector": "cookie-consent-banner"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "cookie-category-element"
+                            },
+                            "parent": {
+                                "selector": "cookie-consent-banner"
+                            },
+                            "retries": 20,
+                            "waitTime": 200
+                        },
+                        {
+                            "type": "foreach",
+                            "target": {
+                                "selector": "cookie-category-element"
+                            },
+                            "parent": {
+                                "selector": "cookie-consent-banner"
+                            },
+                            "action": {
+                                "type": "list",
+                                "actions": [
+                                    {
+                                        "type": "ifcss",
+                                        "target": {
+                                            "selector": "cookie-category-element[name='Functional']"
+                                        },
+                                        "trueAction": {
+                                            "type": "consent",
+                                            "consents": [
+                                                {
+                                                    "matcher": {
+                                                        "type": "checkbox",
+                                                        "target": {
+                                                            "selector": "input[type='checkbox']"
+                                                        }
+                                                    },
+                                                    "toggleAction": {
+                                                        "type": "click",
+                                                        "target": {
+                                                            "selector": "input[type='checkbox']"
+                                                        }
+                                                    },
+                                                    "type": "A"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "type": "ifcss",
+                                        "target": {
+                                            "selector": "cookie-category-element[name='Marketing']"
+                                        },
+                                        "trueAction": {
+                                            "type": "consent",
+                                            "consents": [
+                                                {
+                                                    "matcher": {
+                                                        "type": "checkbox",
+                                                        "target": {
+                                                            "selector": "input[type='checkbox']"
+                                                        }
+                                                    },
+                                                    "toggleAction": {
+                                                        "type": "click",
+                                                        "target": {
+                                                            "selector": "input[type='checkbox']"
+                                                        }
+                                                    },
+                                                    "type": "F"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "#cookie-consent-save-preferences"
+                    },
+                    "parent": {
+                        "selector": "cookie-consent-banner"
+                    }
+                }
+            },
+            {
+                "name": "UTILITY"
+            }
+        ]
+    }
+}

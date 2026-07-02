@@ -5,6 +5,11 @@
             {
                 "presentMatcher": [
                     {
+                        "type": "url",
+                        "url": "euronext.com",
+                        "negated": true
+                    },
+                    {
                         "type": "css",
                         "target": {
                             "selector": "#onetrust-banner-sdk, #cookie-consent-wrapper"

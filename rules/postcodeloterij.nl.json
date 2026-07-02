@@ -1,0 +1,57 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"postcodeloterij_nl": {
+		"detectors": [
+			{
+				"presentMatcher": [
+					{
+						"type": "url",
+						"url": ["postcodeloterij.nl"]
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": "button#deny"
+						},
+						"parent": {
+							"selector": "#usercentrics-cmp-ui"
+						}
+					}
+				],
+				"showingMatcher": [
+					{
+						"type": "css",
+						"target": {
+							"selector": "button#deny",
+							"displayFilter": true
+						},
+						"parent": {
+							"selector": "#usercentrics-cmp-ui"
+						}
+					}
+				]
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "click",
+					"target": {
+						"selector": "button#deny"
+					},
+					"parent": {
+						"selector": "#usercentrics-cmp-ui"
+					}
+				}
+			}
+		]
+	}
+}

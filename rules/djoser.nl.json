@@ -1,0 +1,81 @@
+{
+  "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+  "djoser.nl": {
+    "detectors": [
+      {
+        "presentMatcher": {
+          "type": "css",
+          "target": {
+            "selector": "#cookieconsent #cookie-consent-button"
+          }
+        },
+        "showingMatcher": {
+          "type": "css",
+          "target": {
+            "selector": "#cookieconsent",
+            "displayFilter": true
+          }
+        }
+      }
+    ],
+    "methods": [
+      {
+        "name": "HIDE_CMP",
+        "action": {
+          "type": "list",
+          "actions": []
+        }
+      },
+      {
+        "name": "OPEN_OPTIONS",
+        "action": {
+          "type": "click",
+          "target": {
+            "selector": "#cookie-consent-button"
+          }
+        }
+      },
+      {
+        "name": "DO_CONSENT",
+        "action": {
+          "type": "list",
+          "actions": [
+            {
+              "type": "ifcss",
+              "target": {
+                "selector": "#cookie_category_analytic:checked"
+              },
+              "trueAction": {
+                "type": "click",
+                "target": {
+                  "selector": "#cookie_category_analytic"
+                }
+              }
+            },
+            {
+              "type": "ifcss",
+              "target": {
+                "selector": "#cookie_category_marketing:checked"
+              },
+              "trueAction": {
+                "type": "click",
+                "target": {
+                  "selector": "#cookie_category_marketing"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "SAVE_CONSENT",
+        "action": {
+          "type": "click",
+          "target": {
+            "selector": "#cookie-consent-submit"
+          }
+        }
+      }
+    ]
+  }
+}

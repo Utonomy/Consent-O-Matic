@@ -1,0 +1,56 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"rule_bungalowspecials_nl": {
+		"detectors": [
+			{
+				"presentMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "button.consent-mode__open"
+					}
+				},
+				"showingMatcher": {
+					"type": "url",
+					"url": ["bungalowspecials.nl"]
+				}
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": ".ax-discardButton"
+							},
+							"parent": {
+								"selector": "#axeptio_overlay .needsclick"
+							},
+							"retries": 40,
+							"waitTime": 250
+						},
+						{
+							"type": "click",
+							"target": {
+								"selector": ".ax-discardButton"
+							},
+							"parent": {
+								"selector": "#axeptio_overlay .needsclick"
+							}
+						}
+					]
+				}
+			}
+		]
+	}
+}

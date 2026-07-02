@@ -1,0 +1,46 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"rule_hellolease_nl": {
+		"detectors": [
+			{
+				"presentMatcher": [
+					{
+						"type": "css",
+						"target": {
+							"selector": "#cookieBar"
+						}
+					},
+					{
+						"type": "url",
+						"url": "independer.nl",
+						"negated": true
+					}
+				],
+				"showingMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "#cookieBar:not(.d-none):not([hidden])"
+					}
+				}
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "click",
+					"target": {
+						"selector": "#denyCookiesBtn"
+					}
+				}
+			}
+		]
+	}
+}

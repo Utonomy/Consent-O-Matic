@@ -1,0 +1,61 @@
+{
+  "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+  "rule_mobiel_nl": {
+    "detectors": [
+      {
+        "presentMatcher": {
+          "type": "css",
+          "target": {
+            "selector": "#cookie-wall"
+          }
+        },
+        "showingMatcher": {
+          "type": "css",
+          "target": {
+            "selector": "#cookie-wall"
+          }
+        }
+      }
+    ],
+    "methods": [
+      {
+        "name": "HIDE_CMP",
+        "action": {
+          "type": "list",
+          "actions": []
+        }
+      },
+      {
+        "name": "DO_CONSENT",
+        "action": {
+          "type": "list",
+          "actions": [
+            {
+              "type": "click",
+              "target": {
+                "selector": "#cookie-wall button",
+                "textFilter": ["Zelf instellen"]
+              }
+            },
+            {
+              "type": "waitcss",
+              "target": {
+                "selector": "#cookie-wall button",
+                "textFilter": ["Keuze opslaan"]
+              },
+              "retries": 10,
+              "waitTime": 200
+            },
+            {
+              "type": "click",
+              "target": {
+                "selector": "#cookie-wall button",
+                "textFilter": ["Keuze opslaan"]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

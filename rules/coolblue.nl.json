@@ -1,0 +1,59 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"coolblue.nl": {
+		"detectors": [
+			{
+				"presentMatcher": [
+					{
+						"type": "url",
+						"url": "kaartje2go.nl",
+						"negated": true
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": "button",
+							"textFilter": ["Weigeren"]
+						}
+					}
+				],
+				"showingMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "button.css-1tp7620",
+						"displayFilter": true
+					}
+				}
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "ifallowall",
+					"trueAction": {
+						"type": "click",
+						"target": {
+							"selector": "button",
+							"textFilter": ["Oké"]
+						}
+					},
+					"falseAction": {
+						"type": "click",
+						"target": {
+							"selector": "button",
+							"textFilter": ["Weigeren"]
+						}
+					}
+				}
+			}
+		]
+	}
+}

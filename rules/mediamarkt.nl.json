@@ -1,0 +1,40 @@
+{
+  "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+  "rule_mediamarkt_nl": {
+    "detectors": [
+      {
+        "presentMatcher": {
+          "type": "css",
+          "target": {
+            "selector": "#pwa-consent-layer-form"
+          }
+        },
+        "showingMatcher": {
+          "type": "css",
+          "target": {
+            "selector": "[data-test=\"mms-privacy-layer\"]",
+            "displayFilter": true
+          }
+        }
+      }
+    ],
+    "methods": [
+      {
+        "name": "HIDE_CMP",
+        "action": {
+          "type": "list",
+          "actions": []
+        }
+      },
+      {
+        "name": "DO_CONSENT",
+        "action": {
+          "type": "click",
+          "target": {
+            "selector": "[data-test=\"pwa-consent-layer-save-settings\"]"
+          }
+        }
+      }
+    ]
+  }
+}

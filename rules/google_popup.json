@@ -21,6 +21,11 @@
                         "target": {
                             "selector": "[role=\"dialog\"] a[href^=\"https://policies.google.com/terms\"]"
                         }
+                    },
+                    {
+                        "type": "url",
+                        "url": ["youtube.com"],
+                        "negated": true
                     }
                 ],
                 "showingMatcher": [

@@ -1,0 +1,39 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"rule_huren_nl": {
+		"detectors": [
+			{
+				"presentMatcher": {
+					"type": "url",
+					"url": "huren.nl"
+				},
+				"showingMatcher": []
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "runrooted",
+					"target": {
+						"selector": "div.cookie-notice"
+					},
+					"ignoreOldRoot": true,
+					"action": {
+						"type": "click",
+						"target": {
+							"selector": "[data-deny-button]"
+						}
+					}
+				}
+			}
+		]
+	}
+}
