@@ -20,17 +20,238 @@
     ],
     "methods": [
       {
-        "name": "UTILITY",
+        "name": "HIDE_CMP"
+      },
+      {
+        "name": "OPEN_OPTIONS",
         "action": {
-          "type": "click",
-          "target": {
-            "selector": "ytd-consent-bump-v2-lightbox .ytSpecButtonShapeNextFilled",
-            "textFilter": [
-              "Alles afwijzen",
-              "Reject all",
-              "Tout refuser",
-              "Alle ablehnen"
-            ]
+          "type": "ifallowall",
+          "trueAction": {
+            "type": "click",
+            "target": {
+              "selector": "ytd-consent-bump-v2-lightbox .ytSpecButtonShapeNextFilled",
+              "textFilter": [
+                "Alles accepteren",
+                "Accept all",
+                "Tout accepter",
+                "Alle akzeptieren"
+              ]
+            }
+          },
+          "falseAction": {
+            "type": "ifallownone",
+            "trueAction": {
+              "type": "click",
+              "target": {
+                "selector": "ytd-consent-bump-v2-lightbox .ytSpecButtonShapeNextFilled",
+                "textFilter": [
+                  "Alles afwijzen",
+                  "Reject all",
+                  "Tout refuser",
+                  "Alle ablehnen"
+                ]
+              }
+            },
+            "falseAction": {
+              "type": "click",
+              "target": {
+                "selector": "ytd-consent-bump-v2-lightbox a",
+                "textFilter": [
+                  "Meer opsies",
+                  "Digər seçimlər",
+                  "Više opcija",
+                  "Més opcions",
+                  "Další možnosti",
+                  "Rhagor o ddewisiadau",
+                  "Flere valgmuligheder",
+                  "Weitere Optionen",
+                  "Rohkem valikuid",
+                  "More options",
+                  "Más opciones",
+                  "Aukera gehiago",
+                  "Higit pang opsyon",
+                  "Plus d'options",
+                  "Tuilleadh roghanna",
+                  "Máis opcións",
+                  "Opsi lainnya",
+                  "Fleiri valkostir",
+                  "Izinketho eziningi",
+                  "Altre opzioni",
+                  "Chaguo zaidi",
+                  "Papildu opcijas",
+                  "Daugiau parinkčių",
+                  "További lehetőségek",
+                  "Lagi pilihan",
+                  "Meer opties",
+                  "Flere alternativer",
+                  "Boshqa variantlar",
+                  "Więcej opcji",
+                  "Mais opções",
+                  "Mai multe opțiuni",
+                  "Opsione të tjera",
+                  "Ďalšie možnosti",
+                  "Več možnosti",
+                  "Још opcija",
+                  "Lisäasetukset",
+                  "Fler alternativ",
+                  "Lựa chọn khác",
+                  "Daha fazla seçenek",
+                  "Περισσότερες επιλογές",
+                  "Дадатковыя параметры",
+                  "Още опции",
+                  "Кошумча параметрлер",
+                  "Повеќе опции",
+                  "Бусад сонголт",
+                  "Другие варианты",
+                  "Још опција",
+                  "Більше варіантів"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "name": "DO_CONSENT"
+      },
+      {
+        "name": "SAVE_CONSENT"
+      }
+    ]
+  },
+  "rule_youtube_consent_domain_nl": {
+    "detectors": [
+      {
+        "presentMatcher": [
+          {
+            "type": "url",
+            "url": ["consent.youtube.com"]
+          },
+          {
+            "type": "css",
+            "target": {
+              "selector": "button",
+              "textFilter": [
+                "Confirm your settings",
+                "Bevestig je instellingen",
+                "Confirmer vos paramètres",
+                "Einstellungen bestätigen",
+                "Reject all",
+                "Alles afwijzen",
+                "Tout refuser",
+                "Alle ablehnen"
+              ]
+            }
+          }
+        ],
+        "showingMatcher": [
+          {
+            "type": "css",
+            "target": {
+              "selector": "button",
+              "textFilter": [
+                "Confirm your settings",
+                "Bevestig je instellingen",
+                "Confirmer vos paramètres",
+                "Einstellungen bestätigen",
+                "Reject all",
+                "Alles afwijzen",
+                "Tout refuser",
+                "Alle ablehnen"
+              ],
+              "displayFilter": true
+            }
+          }
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "HIDE_CMP"
+      },
+      {
+        "name": "OPEN_OPTIONS"
+      },
+      {
+        "name": "DO_CONSENT",
+        "action": {
+          "type": "list",
+          "actions": [
+            {
+              "type": "waitcss",
+              "target": {
+                "selector": "button[aria-label=\"Turn off YouTube History\"], button[aria-label=\"YouTube-geschiedenis uitzetten\"], button[aria-label=\"Désactiver l'historique YouTube\"], button[aria-label=\"YouTube-Verlauf deaktivieren\"]"
+              },
+              "retries": 8,
+              "waitTime": 250
+            },
+            {
+              "type": "consent",
+              "consents": [
+                {
+                  "type": "E",
+                  "description": "YouTube History (personalized recommendations)",
+                  "trueAction": {
+                    "type": "click",
+                    "target": {
+                      "selector": "button[aria-label=\"Turn on YouTube History\"], button[aria-label=\"YouTube-geschiedenis aanzetten\"], button[aria-label=\"Activer l'historique YouTube\"], button[aria-label=\"YouTube-Verlauf aktivieren\"]"
+                    }
+                  },
+                  "falseAction": {
+                    "type": "click",
+                    "target": {
+                      "selector": "button[aria-label=\"Turn off YouTube History\"], button[aria-label=\"YouTube-geschiedenis uitzetten\"], button[aria-label=\"Désactiver l'historique YouTube\"], button[aria-label=\"YouTube-Verlauf deaktivieren\"]"
+                    }
+                  }
+                },
+                {
+                  "type": "F",
+                  "description": "Ad personalization on YouTube",
+                  "trueAction": {
+                    "type": "click",
+                    "target": {
+                      "selector": "button[aria-label=\"Turn on Ad personalization on YouTube\"], button[aria-label=\"Advertentiepersonalisatie op YouTube aanzetten\"], button[aria-label=\"Activer la personnalisation des annonces sur YouTube\"], button[aria-label=\"Anzeigenpersonalisierung auf YouTube aktivieren\"]"
+                    }
+                  },
+                  "falseAction": {
+                    "type": "click",
+                    "target": {
+                      "selector": "button[aria-label=\"Turn off Ad personalization on YouTube\"], button[aria-label=\"Advertentiepersonalisatie op YouTube uitzetten\"], button[aria-label=\"Désactiver la personnalisation des annonces sur YouTube\"], button[aria-label=\"Anzeigenpersonalisierung auf YouTube deaktivieren\"]"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "name": "SAVE_CONSENT",
+        "action": {
+          "type": "ifallownone",
+          "trueAction": {
+            "type": "click",
+            "target": {
+              "selector": "button",
+              "textFilter": [
+                "Alles afwijzen",
+                "Reject all",
+                "Tout refuser",
+                "Alle ablehnen"
+              ]
+            }
+          },
+          "falseAction": {
+            "type": "click",
+            "target": {
+              "selector": "button",
+              "textFilter": [
+                "Bevestig je instellingen",
+                "Confirm your settings",
+                "Confirmer vos paramètres",
+                "Einstellungen bestätigen"
+              ]
+            }
           }
         }
       }
