@@ -96,6 +96,10 @@ export default class Action {
         console.warn("Missing getNumSteps on: "+this.constructor.name);
         return 0;
     }
+
+    getConsentTypes() {
+        return [];
+    }
 }
 
 class ListAction extends Action {
@@ -122,6 +126,16 @@ class ListAction extends Action {
         });
 
         return steps;
+    }
+
+    getConsentTypes() {
+        let types = [];
+
+        this.actions.forEach((action)=>{
+            types = types.concat(action.getConsentTypes());
+        });
+
+        return types;
     }
 }
 
@@ -274,6 +288,10 @@ class ConsentAction extends Action {
     getNumSteps() {
         return 1;
     }
+
+    getConsentTypes() {
+        return this.consents.map((consent) => consent.type).filter((type) => type != null);
+    }
 }
 
 class IfCssAction extends Action {
@@ -315,6 +333,20 @@ class IfCssAction extends Action {
         }
 
         return Math.round(steps / 2);
+    }
+
+    getConsentTypes() {
+        let types = [];
+
+        if(this.trueAction != null) {
+            types = types.concat(this.trueAction.getConsentTypes());
+        }
+
+        if(this.falseAction != null) {
+            types = types.concat(this.falseAction.getConsentTypes());
+        }
+
+        return types;
     }
 }
 
@@ -443,6 +475,14 @@ class ForEachAction extends Action {
         }
 
         return 0;
+    }
+
+    getConsentTypes() {
+        if(this.action != null) {
+            return this.action.getConsentTypes();
+        }
+
+        return [];
     }
 }
 
@@ -714,6 +754,20 @@ class IfAllowAllAction extends Action {
 
         return Math.round(steps / 2);
     }
+
+    getConsentTypes() {
+        let types = [];
+
+        if(this.trueAction != null) {
+            types = types.concat(this.trueAction.getConsentTypes());
+        }
+
+        if(this.falseAction != null) {
+            types = types.concat(this.falseAction.getConsentTypes());
+        }
+
+        return types;
+    }
 }
 
 class IfAllowNoneAction extends Action {
@@ -765,6 +819,20 @@ class IfAllowNoneAction extends Action {
 
         return Math.round(steps / 2);
     }
+
+    getConsentTypes() {
+        let types = [];
+
+        if(this.trueAction != null) {
+            types = types.concat(this.trueAction.getConsentTypes());
+        }
+
+        if(this.falseAction != null) {
+            types = types.concat(this.falseAction.getConsentTypes());
+        }
+
+        return types;
+    }
 }
 
 class RunRootedAction extends Action {
@@ -813,6 +881,14 @@ class RunRootedAction extends Action {
 
         return 0;
     }
+
+    getConsentTypes() {
+        if(this.action != null) {
+            return this.action.getConsentTypes();
+        }
+
+        return [];
+    }
 }
 
 class RunMethodAction extends Action {
@@ -848,5 +924,13 @@ class RunMethodAction extends Action {
         }
 
         return 0;
+    }
+
+    getConsentTypes() {
+        if(this.cmp.hasMethod(this.config.method)) {
+            return this.cmp.getConsentTypesForMethod(this.config.method);
+        }
+
+        return [];
     }
 }

@@ -185,19 +185,27 @@ export default class CMP {
         return 0;
     }
 
+    getConsentTypesForMethod(method) {
+        let action = this.methods.get(method);
+
+        if(action != null) {
+            return action.getConsentTypes();
+        }
+
+        return [];
+    }
+
     getConsentCategoryTypes() {
         const action = this.methods.get("DO_CONSENT");
 
-        if (action == null || !Array.isArray(action.consents)) {
+        if (action == null) {
             return [];
         }
 
         const types = [];
         const seen = new Set();
 
-        for (const consent of action.consents) {
-            const type = consent.type;
-
+        for (const type of action.getConsentTypes()) {
             if (type && !seen.has(type)) {
                 seen.add(type);
                 types.push(type);
