@@ -1,0 +1,53 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"rule_ryanair_com": {
+		"detectors": [
+			{
+				"presentMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "#cookie-popup-with-overlay"
+					}
+				},
+				"showingMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "#cookie-popup-with-overlay",
+						"displayFilter": true
+					}
+				}
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": "[data-ref='cookie.no-thanks']"
+							},
+							"retries": 10,
+							"waitTime": 500
+						},
+						{
+							"type": "click",
+							"target": {
+								"selector": "[data-ref='cookie.no-thanks']"
+							}
+						}
+					]
+				}
+			}
+		]
+	}
+}

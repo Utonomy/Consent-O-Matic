@@ -1,0 +1,80 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"rule_omroepbrabant_nl": {
+		"detectors": [
+			{
+				"presentMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "dialog.consent-manager_consent-manager__k9CFn"
+					}
+				},
+				"showingMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "dialog.consent-manager_consent-manager__k9CFn",
+						"displayFilter": true
+					}
+				}
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": "dialog.consent-manager_consent-manager__k9CFn button",
+								"textFilter": "Instellingen aanpassen"
+							},
+							"retries": 10,
+							"waitTime": 500
+						},
+						{
+							"type": "click",
+							"target": {
+								"selector": "dialog.consent-manager_consent-manager__k9CFn button",
+								"textFilter": "Instellingen aanpassen"
+							}
+						},
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": ".cookie-preferences-dialog_dialog__ZSbvx"
+							},
+							"retries": 10,
+							"waitTime": 500
+						}
+					]
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "click",
+					"target": {
+						"selector": ".cookie-preferences-dialog_dialog__ZSbvx button",
+						"textFilter": "Accepteer geselecteerde"
+					}
+				}
+			}
+		]
+	}
+}

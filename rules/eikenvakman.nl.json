@@ -1,25 +1,18 @@
 {
 	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
-	"coolblue.nl": {
+	"eikenvakman.nl": {
 		"detectors": [
 			{
-				"presentMatcher": [
-					{
-						"type": "url",
-						"url": "kaartje2go.nl",
-						"negated": true
-					},
-					{
-						"type": "css",
-						"target": {
-							"selector": "#cookie-banner-2025-form"
-						}
+				"presentMatcher": {
+					"type": "css",
+					"target": {
+						"selector": ".wsa-cookielaw"
 					}
-				],
+				},
 				"showingMatcher": {
 					"type": "css",
 					"target": {
-						"selector": "#cookie-banner-2025-form",
+						"selector": ".wsa-cookielaw",
 						"displayFilter": true
 					}
 				}
@@ -36,16 +29,9 @@
 			{
 				"name": "DO_CONSENT",
 				"action": {
-					"type": "list",
-					"actions": []
-				}
-			},
-			{
-				"name": "SAVE_CONSENT",
-				"action": {
 					"type": "click",
 					"target": {
-						"selector": "button[name=\"accept_cookie\"][value=\"selection\"]"
+						"selector": ".cc-right a.btn.submit"
 					}
 				}
 			}

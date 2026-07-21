@@ -1,0 +1,124 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "bmw.nl": {
+        "detectors": [
+            {
+                "presentMatcher": [
+                    {
+                        "type": "url",
+                        "url": ["bmw.nl"]
+                    },
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "section.consentDrawer"
+                        },
+                        "parent": {
+                            "selector": "epaas-consent-drawer-shell"
+                        }
+                    }
+                ],
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "section.consentDrawer",
+                        "displayFilter": true
+                    },
+                    "parent": {
+                        "selector": "epaas-consent-drawer-shell"
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "click",
+                            "target": {
+                                "selector": ".buttonsDefault .personalize-button",
+                                "displayFilter": true
+                            },
+                            "parent": {
+                                "selector": "epaas-consent-drawer-shell"
+                            }
+                        },
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": ".save-button",
+                                "displayFilter": true
+                            },
+                            "parent": {
+                                "selector": "epaas-consent-drawer-shell"
+                            },
+                            "retries": 40,
+                            "waitTime": 200
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "runrooted",
+                    "parent": {
+                        "selector": "epaas-consent-drawer-shell"
+                    },
+                    "target": {
+                        "selector": "epaas-policy-page-shell"
+                    },
+                    "action": {
+                        "type": "consent",
+                        "consents": [
+                            {
+                                "type": "F",
+                                "matcher": {
+                                    "type": "onoff",
+                                    "onMatcher": {
+                                        "target": {
+                                            "selector": "input[aria-labelledby='advertisingToggleLabel']:checked"
+                                        }
+                                    },
+                                    "offMatcher": {
+                                        "target": {
+                                            "selector": "input[aria-labelledby='advertisingToggleLabel']:not(:checked)"
+                                        }
+                                    }
+                                },
+                                "toggleAction": {
+                                    "type": "click",
+                                    "target": {
+                                        "selector": "input[aria-labelledby='advertisingToggleLabel']"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": ".save-button"
+                    },
+                    "parent": {
+                        "selector": "epaas-consent-drawer-shell"
+                    }
+                }
+            }
+        ]
+    }
+}

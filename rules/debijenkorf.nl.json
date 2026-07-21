@@ -1,0 +1,49 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "debijenkorf.nl": {
+        "detectors": [
+            {
+                "presentMatcher": [
+                    {
+                        "type": "url",
+                        "url": ["debijenkorf.nl"]
+                    },
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "dialog button",
+                            "textFilter": ["Niet akkoord"]
+                        }
+                    }
+                ],
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "dialog button",
+                        "textFilter": ["Niet akkoord"],
+                        "displayFilter": true
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "dialog button",
+                        "textFilter": ["Niet akkoord"]
+                    }
+                }
+            }
+        ]
+    }
+}

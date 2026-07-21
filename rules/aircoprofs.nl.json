@@ -1,0 +1,127 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "aircoprofs_nl": {
+        "detectors": [
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "aside[aria-label='Cookie-instellingen']"
+                    }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "aside[aria-label='Cookie-instellingen']"
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "button",
+                        "textFilter": ["Instellingen"]
+                    },
+                    "parent": {
+                        "selector": "aside[aria-label='Cookie-instellingen']"
+                    }
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "consent",
+                    "consents": [
+                        {
+                            "type": "A",
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "label:nth-of-type(2) input[type='checkbox']"
+                                },
+                                "parent": {
+                                    "selector": "div[role='dialog']"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "label:nth-of-type(2) input[type='checkbox']"
+                                },
+                                "parent": {
+                                    "selector": "div[role='dialog']"
+                                }
+                            }
+                        },
+                        {
+                            "type": "B",
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "label:nth-of-type(3) input[type='checkbox']"
+                                },
+                                "parent": {
+                                    "selector": "div[role='dialog']"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "label:nth-of-type(3) input[type='checkbox']"
+                                },
+                                "parent": {
+                                    "selector": "div[role='dialog']"
+                                }
+                            }
+                        },
+                        {
+                            "type": "F",
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "label:nth-of-type(4) input[type='checkbox']"
+                                },
+                                "parent": {
+                                    "selector": "div[role='dialog']"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "label:nth-of-type(4) input[type='checkbox']"
+                                },
+                                "parent": {
+                                    "selector": "div[role='dialog']"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "button",
+                        "textFilter": ["Selectie opslaan"]
+                    },
+                    "parent": {
+                        "selector": "div[role='dialog']"
+                    }
+                }
+            }
+        ]
+    }
+}

@@ -1,25 +1,18 @@
 {
 	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
-	"coolblue.nl": {
+	"bever.nl": {
 		"detectors": [
 			{
-				"presentMatcher": [
-					{
-						"type": "url",
-						"url": "kaartje2go.nl",
-						"negated": true
-					},
-					{
-						"type": "css",
-						"target": {
-							"selector": "#cookie-banner-2025-form"
-						}
+				"presentMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "[data-testid=\"cookie-message-modal\"]"
 					}
-				],
+				},
 				"showingMatcher": {
 					"type": "css",
 					"target": {
-						"selector": "#cookie-banner-2025-form",
+						"selector": "[data-testid=\"cookie-message-modal\"]",
 						"displayFilter": true
 					}
 				}
@@ -34,6 +27,15 @@
 				}
 			},
 			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "click",
+					"target": {
+						"selector": "[data-testid=\"cookie-preferences-link\"]"
+					}
+				}
+			},
+			{
 				"name": "DO_CONSENT",
 				"action": {
 					"type": "list",
@@ -45,7 +47,7 @@
 				"action": {
 					"type": "click",
 					"target": {
-						"selector": "button[name=\"accept_cookie\"][value=\"selection\"]"
+						"selector": "[data-testid=\"save-cookie-preferences-button\"]"
 					}
 				}
 			}

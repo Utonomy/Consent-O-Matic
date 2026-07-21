@@ -1,0 +1,98 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"rule_a_meubel_nl": {
+		"detectors": [
+			{
+				"presentMatcher": {
+					"type": "css",
+					"target": {
+						"selector": ".js-cookies-alert"
+					}
+				},
+				"showingMatcher": {
+					"type": "css",
+					"target": {
+						"selector": ".js-cookies-alert",
+						"displayFilter": true
+					}
+				}
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": ".js-cookies-alert [data-tab-open='marketing']"
+							}
+						},
+						{
+							"type": "click",
+							"target": {
+								"selector": ".js-cookies-alert [data-tab-open='statistics']"
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"type": "F",
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": ".js-cookies-alert [data-checkbox='marketing']"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": ".js-cookies-alert [data-checkbox='marketing']"
+								}
+							}
+						},
+						{
+							"type": "B",
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": ".js-cookies-alert [data-checkbox='statistics']"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": ".js-cookies-alert [data-checkbox='statistics']"
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "click",
+					"target": {
+						"selector": ".js-cookies-alert .cookie-buttons > .js-cookie-confirm:not(.js-confirm-all)"
+					}
+				}
+			}
+		]
+	}
+}

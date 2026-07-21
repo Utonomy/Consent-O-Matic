@@ -1,0 +1,108 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"rule_omoda_nl": {
+		"detectors": [
+			{
+				"presentMatcher": {
+					"type": "css",
+					"target": {
+						"selector": ".js-cookiebar"
+					}
+				},
+				"showingMatcher": {
+					"type": "css",
+					"target": {
+						"selector": ".js-cookiebar",
+						"displayFilter": true
+					}
+				}
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": ".js-cookiebar .js-cookie-firstscreen"
+							},
+							"retries": 10,
+							"waitTime": 500
+						},
+						{
+							"type": "click",
+							"target": {
+								"selector": ".js-cookiebar .js-cookie-firstscreen"
+							}
+						},
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": "#cookie-switcher-analytics"
+							},
+							"retries": 10,
+							"waitTime": 500
+						}
+					]
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"type": "B",
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "#cookie-switcher-analytics"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "#cookie-switcher-analytics"
+								}
+							}
+						},
+						{
+							"type": "F",
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "#cookie-switcher-marketing"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "#cookie-switcher-marketing"
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "click",
+					"target": {
+						"selector": ".js-cookiebar [data-track-button='cookies-save-preferences-button']"
+					}
+				}
+			}
+		]
+	}
+}

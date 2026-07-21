@@ -1,0 +1,109 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"rule_the_fizz_com": {
+		"detectors": [
+			{
+				"presentMatcher": {
+					"type": "css",
+					"target": {
+						"selector": ".brlbs-cmpnt-dialog-box"
+					}
+				},
+				"showingMatcher": {
+					"type": "css",
+					"target": {
+						"selector": ".brlbs-cmpnt-dialog-box",
+						"displayFilter": true
+					}
+				}
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": "#statistics"
+							},
+							"retries": 10,
+							"waitTime": 500
+						}
+					]
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"type": "B",
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "#statistics"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "#statistics"
+								}
+							}
+						},
+						{
+							"type": "F",
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "#marketing"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "#marketing"
+								}
+							}
+						},
+						{
+							"type": "E",
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "#external-media"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "#external-media"
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "click",
+					"target": {
+						"selector": "#CookieBoxSaveButton"
+					}
+				}
+			}
+		]
+	}
+}

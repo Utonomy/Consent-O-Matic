@@ -1,0 +1,159 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "emerce.nl": {
+        "detectors": [
+            {
+                "presentMatcher": [
+                    {
+                        "type": "url",
+                        "url": ["emerce.nl"]
+                    },
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "dialog[aria-modal='true']"
+                        }
+                    }
+                ],
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "dialog[aria-modal='true']",
+                        "displayFilter": true
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "a[role='button']",
+                                "textFilter": ["individueel instellen"],
+                                "displayFilter": true
+                            },
+                            "retries": 40,
+                            "waitTime": 200
+                        },
+                        {
+                            "type": "click",
+                            "target": {
+                                "selector": "a[role='button']",
+                                "textFilter": ["individueel instellen"]
+                            }
+                        },
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "a[role='button']",
+                                "textFilter": ["Aangepaste keuzes opslaan"],
+                                "displayFilter": true
+                            },
+                            "retries": 40,
+                            "waitTime": 200
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "consent",
+                    "consents": [
+                        {
+                            "type": "B",
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "input[type='checkbox']"
+                                },
+                                "parent": {
+                                    "selector": "label",
+                                    "textFilter": ["Functioneel"]
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "input[type='checkbox']"
+                                },
+                                "parent": {
+                                    "selector": "label",
+                                    "textFilter": ["Functioneel"]
+                                }
+                            }
+                        },
+                        {
+                            "type": "D",
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "input[type='checkbox']"
+                                },
+                                "parent": {
+                                    "selector": "label",
+                                    "textFilter": ["Statistieken"]
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "input[type='checkbox']"
+                                },
+                                "parent": {
+                                    "selector": "label",
+                                    "textFilter": ["Statistieken"]
+                                }
+                            }
+                        },
+                        {
+                            "type": "F",
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "input[type='checkbox']"
+                                },
+                                "parent": {
+                                    "selector": "label",
+                                    "textFilter": ["Marketing"]
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "input[type='checkbox']"
+                                },
+                                "parent": {
+                                    "selector": "label",
+                                    "textFilter": ["Marketing"]
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "a[role='button']",
+                        "textFilter": ["Aangepaste keuzes opslaan"]
+                    }
+                }
+            }
+        ]
+    }
+}
