@@ -1,0 +1,180 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "mercedes-benz.nl": {
+        "detectors": [
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": ".cmm-cookie-banner__wrapper"
+                    },
+                    "parent": {
+                        "selector": "cmm-cookie-banner"
+                    }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": ".cmm-cookie-banner__wrapper",
+                        "displayFilter": true
+                    },
+                    "parent": {
+                        "selector": "cmm-cookie-banner"
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "hide",
+                            "target": {
+                                "selector": "cmm-cookie-banner"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "runrooted",
+                    "target": {
+                        "selector": "wb7-button[data-test=\"toggle-cookie-details\"]"
+                    },
+                    "parent": {
+                        "selector": "cmm-cookie-banner"
+                    },
+                    "action": {
+                        "type": "click",
+                        "target": {
+                            "selector": "button[part=\"button\"]",
+                            "displayFilter": true
+                        }
+                    }
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "consent",
+                    "consents": [
+                        {
+                            "type": "B",
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "input.cmm-checkbox-input--category[data-category=\"Analyse en statistiek\"]"
+                                },
+                                "parent": {
+                                    "selector": "cmm-cookie-banner"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "input.cmm-checkbox-input--category[data-category=\"Analyse en statistiek\"]"
+                                },
+                                "parent": {
+                                    "selector": "cmm-cookie-banner"
+                                }
+                            }
+                        },
+                        {
+                            "type": "F",
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "input.cmm-checkbox-input--category[data-category=\"Marketing\"]"
+                                },
+                                "parent": {
+                                    "selector": "cmm-cookie-banner"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "input.cmm-checkbox-input--category[data-category=\"Marketing\"]"
+                                },
+                                "parent": {
+                                    "selector": "cmm-cookie-banner"
+                                }
+                            }
+                        },
+                        {
+                            "type": "E",
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "input.cmm-checkbox-input--category[data-category=\"Ook te gebruiken door bepaalde Mercedes-Benz bedrijven*\"]"
+                                },
+                                "parent": {
+                                    "selector": "cmm-cookie-banner"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "input.cmm-checkbox-input--category[data-category=\"Ook te gebruiken door bepaalde Mercedes-Benz bedrijven*\"]"
+                                },
+                                "parent": {
+                                    "selector": "cmm-cookie-banner"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "runrooted",
+                            "target": {
+                                "selector": "wb7-button[data-test=\"handle-confirm-selection-button\"]"
+                            },
+                            "parent": {
+                                "selector": "cmm-cookie-banner"
+                            },
+                            "action": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "button[part=\"button\"]",
+                                    "displayFilter": true
+                                }
+                            }
+                        },
+                        {
+                            "type": "wait",
+                            "waitTime": 2500
+                        },
+                        {
+                            "type": "hide",
+                            "target": {
+                                "selector": "cmm-cookie-banner"
+                            },
+                            "forceHide": true
+                        },
+                        {
+                            "type": "wait",
+                            "waitTime": 500
+                        },
+                        {
+                            "type": "hide",
+                            "target": {
+                                "selector": "cmm-cookie-banner"
+                            },
+                            "forceHide": true
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

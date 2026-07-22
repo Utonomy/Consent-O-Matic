@@ -8,8 +8,10 @@
           "target": {
             "selector": "div[role=\"alertdialog\"]",
             "childFilter": {
-              "selector": "button.sparky-button",
-              "textFilter": "Weigeren"
+              "target": {
+                "selector": "button.sparky-button",
+                "textFilter": "Weigeren"
+              }
             }
           }
         },
@@ -19,8 +21,10 @@
             "selector": "div[role=\"alertdialog\"]",
             "displayFilter": true,
             "childFilter": {
-              "selector": "button.sparky-button",
-              "textFilter": "Weigeren"
+              "target": {
+                "selector": "button.sparky-button",
+                "textFilter": "Weigeren"
+              }
             }
           }
         }

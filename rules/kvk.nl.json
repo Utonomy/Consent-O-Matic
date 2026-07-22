@@ -1,0 +1,94 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "kvk.nl": {
+        "detectors": [
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "form[data-ui-test-class=\"cookie-modal\"]"
+                    }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "form[data-ui-test-class=\"cookie-modal\"]",
+                        "displayFilter": true
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "hide",
+                            "target": {
+                                "selector": "form[data-ui-test-class=\"cookie-modal\"]"
+                            },
+                            "forceHide": true
+                        },
+                        {
+                            "type": "hide",
+                            "target": {
+                                "selector": ".kvk-modal-overlay"
+                            },
+                            "forceHide": true
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "consent",
+                    "consents": [
+                        {
+                            "type": "F",
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "input[name=\"allowTrackingCookiesKvK\"]"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "input[name=\"allowTrackingCookiesKvK\"]"
+                                }
+                            }
+                        },
+                        {
+                            "type": "E",
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "input[name=\"allowPreferenceCookiesKvK\"]"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "input[name=\"allowPreferenceCookiesKvK\"]"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "[data-ui-test-class=\"custom-button\"]",
+                        "displayFilter": true
+                    }
+                }
+            }
+        ]
+    }
+}

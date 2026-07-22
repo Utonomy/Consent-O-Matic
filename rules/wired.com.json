@@ -1,0 +1,109 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "wired.com": {
+        "detectors": [
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "#fides-banner, #fides-consent-content"
+                    }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "#fides-banner, #fides-consent-content",
+                        "displayFilter": true
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "hide",
+                            "target": {
+                                "selector": "#fides-overlay"
+                            },
+                            "forceHide": true
+                        },
+                        {
+                            "type": "hide",
+                            "target": {
+                                "selector": "#fides-banner"
+                            },
+                            "forceHide": true
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "#fides-manage-preferences-button"
+                    }
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "#fides-reject-all-button",
+                        "displayFilter": true
+                    }
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "wait",
+                            "waitTime": 1000
+                        },
+                        {
+                            "type": "hide",
+                            "target": {
+                                "selector": "#fides-overlay"
+                            },
+                            "forceHide": true
+                        },
+                        {
+                            "type": "hide",
+                            "target": {
+                                "selector": "#fides-banner"
+                            },
+                            "forceHide": true
+                        },
+                        {
+                            "type": "wait",
+                            "waitTime": 500
+                        },
+                        {
+                            "type": "hide",
+                            "target": {
+                                "selector": "#fides-banner"
+                            },
+                            "forceHide": true
+                        },
+                        {
+                            "type": "click",
+                            "target": {
+                                "selector": ".fides-close-button",
+                                "displayFilter": true
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

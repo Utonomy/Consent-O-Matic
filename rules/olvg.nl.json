@@ -1,0 +1,57 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "olvg_nl": {
+        "detectors": [
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "#gdpr-selection-screen"
+                    }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "#gdpr-selection-screen"
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "click",
+                            "target": {
+                                "selector": "#gdpr-permissionlevel-1"
+                            },
+                            "parent": {
+                                "selector": "#gdpr-selection-screen"
+                            }
+                        },
+                        {
+                            "type": "click",
+                            "target": {
+                                "selector": "button",
+                                "textFilter": ["Opslaan"]
+                            },
+                            "parent": {
+                                "selector": "#gdpr-selection-screen"
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

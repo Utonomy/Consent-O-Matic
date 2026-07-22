@@ -1,0 +1,113 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "scaleway.com": {
+        "detectors": [
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "[role=\"dialog\"][aria-labelledby=\"dialog-native-title\"]"
+                    }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "[role=\"dialog\"][aria-labelledby=\"dialog-native-title\"]",
+                        "displayFilter": true
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "hide",
+                            "target": {
+                                "selector": "[role=\"dialog\"][aria-labelledby=\"dialog-native-title\"]"
+                            },
+                            "forceHide": true
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "[class*=\"_preferences_\"]"
+                    }
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "consent",
+                    "consents": [
+                        {
+                            "type": "B",
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "input[type=\"checkbox\"]"
+                                },
+                                "parent": {
+                                    "selector": "[class*=\"_setting_\"]",
+                                    "textFilter": ["Analytics"]
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "input[type=\"checkbox\"]"
+                                },
+                                "parent": {
+                                    "selector": "[class*=\"_setting_\"]",
+                                    "textFilter": ["Analytics"]
+                                }
+                            }
+                        },
+                        {
+                            "type": "F",
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "input[type=\"checkbox\"]"
+                                },
+                                "parent": {
+                                    "selector": "[class*=\"_setting_\"]",
+                                    "textFilter": ["Marketing"]
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "input[type=\"checkbox\"]"
+                                },
+                                "parent": {
+                                    "selector": "[class*=\"_setting_\"]",
+                                    "textFilter": ["Marketing"]
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "button",
+                        "textFilter": ["Save settings"],
+                        "displayFilter": true
+                    }
+                }
+            }
+        ]
+    }
+}

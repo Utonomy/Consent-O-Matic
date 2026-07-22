@@ -1,0 +1,70 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"bunq.com": {
+		"detectors": [
+			{
+				"presentMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "[data-framer-cookie-banner-container]"
+					}
+				},
+				"showingMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "[data-framer-cookie-banner-container]",
+						"displayFilter": true
+					}
+				}
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "click",
+					"target": {
+						"selector": "[data-framer-cookie-banner-container] button",
+						"textFilter": ["Customize"]
+					}
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": "[data-framer-cookie-banner-container] button",
+								"textFilter": ["Save Preferences"]
+							}
+						},
+						{
+							"type": "waitcss",
+							"negated": true,
+							"target": {
+								"selector": "[data-framer-cookie-banner-container]"
+							}
+						}
+					]
+				}
+			}
+		]
+	}
+}

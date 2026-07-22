@@ -1,0 +1,70 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"ubereats.com": {
+		"detectors": [
+			{
+				"presentMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "#privacy-cookie-banners-root"
+					}
+				},
+				"showingMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "#privacy-cookie-banners-root",
+						"displayFilter": true
+					}
+				}
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "click",
+					"target": {
+						"selector": "#privacy-cookie-banners-root button",
+						"textFilter": ["Cookie settings"]
+					}
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": "#privacy-cookie-banners-root button",
+								"textFilter": ["Reject"]
+							}
+						},
+						{
+							"type": "waitcss",
+							"negated": true,
+							"target": {
+								"selector": "#privacy-cookie-banners-root"
+							}
+						}
+					]
+				}
+			}
+		]
+	}
+}

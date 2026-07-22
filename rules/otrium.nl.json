@@ -1,0 +1,104 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "otrium_nl": {
+        "detectors": [
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "[data-testid='consent-manager-banner']"
+                    }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "[data-testid='consent-manager-banner']"
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "[data-testid='hyper-link-button']"
+                    },
+                    "parent": {
+                        "selector": "[data-testid='consent-manager-banner']"
+                    }
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "consent",
+                    "consents": [
+                        {
+                            "type": "B",
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "input[name='analytics']"
+                                },
+                                "parent": {
+                                    "selector": "[data-testid='consent-manager-banner']"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "input[name='analytics']"
+                                },
+                                "parent": {
+                                    "selector": "[data-testid='consent-manager-banner']"
+                                }
+                            }
+                        },
+                        {
+                            "type": "F",
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "input[name='marketing']"
+                                },
+                                "parent": {
+                                    "selector": "[data-testid='consent-manager-banner']"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "input[name='marketing']"
+                                },
+                                "parent": {
+                                    "selector": "[data-testid='consent-manager-banner']"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "[data-testid='consent-manager-save-btn']"
+                    },
+                    "parent": {
+                        "selector": "[data-testid='consent-manager-banner']"
+                    }
+                }
+            }
+        ]
+    }
+}

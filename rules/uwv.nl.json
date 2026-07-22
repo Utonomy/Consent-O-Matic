@@ -1,0 +1,84 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "uwv.nl": {
+        "detectors": [
+            {
+                "presentMatcher": [
+                    {
+                        "type": "url",
+                        "url": ["uwv.nl"]
+                    },
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "#pw-consent-rejectAllButton-label"
+                        }
+                    }
+                ],
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "#pw-consent-rejectAllButton-label",
+                        "displayFilter": true
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "consent",
+                    "consents": [
+                        {
+                            "type": "B",
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "#pw-consent-consent-type-ab_testing_and_personalization-input"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "#pw-consent-consent-type-ab_testing_and_personalization-input"
+                                }
+                            }
+                        },
+                        {
+                            "type": "F",
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "#pw-consent-consent-type-custom_consent-input"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "#pw-consent-consent-type-custom_consent-input"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "#pw-consent-savePreferencesButton-label"
+                    }
+                }
+            }
+        ]
+    }
+}
