@@ -92,12 +92,12 @@ export default class Action {
         });
     }
 
-    getNumSteps() {
+    getNumSteps(visited = new Set()) {
         console.warn("Missing getNumSteps on: "+this.constructor.name);
         return 0;
     }
 
-    getConsentTypes() {
+    getConsentTypes(visited = new Set()) {
         return [];
     }
 }
@@ -118,21 +118,21 @@ class ListAction extends Action {
         }
     }
 
-    getNumSteps() {
+    getNumSteps(visited = new Set()) {
         let steps = 0;
 
         this.actions.forEach((action)=>{
-            steps += action.getNumSteps();
+            steps += action.getNumSteps(visited);
         });
 
         return steps;
     }
 
-    getConsentTypes() {
+    getConsentTypes(visited = new Set()) {
         let types = [];
 
         this.actions.forEach((action)=>{
-            types = types.concat(action.getConsentTypes());
+            types = types.concat(action.getConsentTypes(visited));
         });
 
         return types;
@@ -321,29 +321,29 @@ class IfCssAction extends Action {
         }
     }
 
-    getNumSteps() {
+    getNumSteps(visited = new Set()) {
         let steps = 0;
 
         if(this.trueAction != null) {
-            steps += this.trueAction.getNumSteps();
+            steps += this.trueAction.getNumSteps(visited);
         }
 
         if(this.falseAction != null) {
-            steps += this.falseAction.getNumSteps();
+            steps += this.falseAction.getNumSteps(visited);
         }
 
         return Math.round(steps / 2);
     }
 
-    getConsentTypes() {
+    getConsentTypes(visited = new Set()) {
         let types = [];
 
         if(this.trueAction != null) {
-            types = types.concat(this.trueAction.getConsentTypes());
+            types = types.concat(this.trueAction.getConsentTypes(visited));
         }
 
         if(this.falseAction != null) {
-            types = types.concat(this.falseAction.getConsentTypes());
+            types = types.concat(this.falseAction.getConsentTypes(visited));
         }
 
         return types;
@@ -469,17 +469,17 @@ class ForEachAction extends Action {
         }
     }
 
-    getNumSteps() {
+    getNumSteps(visited = new Set()) {
         if(this.action != null) {
-            return this.action.getNumSteps();
+            return this.action.getNumSteps(visited);
         }
 
         return 0;
     }
 
-    getConsentTypes() {
+    getConsentTypes(visited = new Set()) {
         if(this.action != null) {
-            return this.action.getConsentTypes();
+            return this.action.getConsentTypes(visited);
         }
 
         return [];
@@ -741,29 +741,29 @@ class IfAllowAllAction extends Action {
         }
     }
 
-    getNumSteps() {
+    getNumSteps(visited = new Set()) {
         let steps = 0;
 
         if(this.trueAction != null) {
-            steps += this.trueAction.getNumSteps();
+            steps += this.trueAction.getNumSteps(visited);
         }
 
         if(this.falseAction != null) {
-            steps += this.falseAction.getNumSteps();
+            steps += this.falseAction.getNumSteps(visited);
         }
 
         return Math.round(steps / 2);
     }
 
-    getConsentTypes() {
+    getConsentTypes(visited = new Set()) {
         let types = [];
 
         if(this.trueAction != null) {
-            types = types.concat(this.trueAction.getConsentTypes());
+            types = types.concat(this.trueAction.getConsentTypes(visited));
         }
 
         if(this.falseAction != null) {
-            types = types.concat(this.falseAction.getConsentTypes());
+            types = types.concat(this.falseAction.getConsentTypes(visited));
         }
 
         return types;
@@ -806,29 +806,29 @@ class IfAllowNoneAction extends Action {
         }
     }
 
-    getNumSteps() {
+    getNumSteps(visited = new Set()) {
         let steps = 0;
 
         if(this.trueAction != null) {
-            steps += this.trueAction.getNumSteps();
+            steps += this.trueAction.getNumSteps(visited);
         }
 
         if(this.falseAction != null) {
-            steps += this.falseAction.getNumSteps();
+            steps += this.falseAction.getNumSteps(visited);
         }
 
         return Math.round(steps / 2);
     }
 
-    getConsentTypes() {
+    getConsentTypes(visited = new Set()) {
         let types = [];
 
         if(this.trueAction != null) {
-            types = types.concat(this.trueAction.getConsentTypes());
+            types = types.concat(this.trueAction.getConsentTypes(visited));
         }
 
         if(this.falseAction != null) {
-            types = types.concat(this.falseAction.getConsentTypes());
+            types = types.concat(this.falseAction.getConsentTypes(visited));
         }
 
         return types;
@@ -874,17 +874,17 @@ class RunRootedAction extends Action {
         }
     }
 
-    getNumSteps() {
+    getNumSteps(visited = new Set()) {
         if(this.action != null) {
-            return this.action.getNumSteps();
+            return this.action.getNumSteps(visited);
         }
 
         return 0;
     }
 
-    getConsentTypes() {
+    getConsentTypes(visited = new Set()) {
         if(this.action != null) {
-            return this.action.getConsentTypes();
+            return this.action.getConsentTypes(visited);
         }
 
         return [];
@@ -918,17 +918,17 @@ class RunMethodAction extends Action {
         await this.cmp.runMethod(methodName, params);
     }
 
-    getNumSteps() {
+    getNumSteps(visited = new Set()) {
         if(this.cmp.hasMethod(this.config.method)) {
-            return this.cmp.getNumStepsForMethod(this.config.method);
+            return this.cmp.getNumStepsForMethod(this.config.method, visited);
         }
 
         return 0;
     }
 
-    getConsentTypes() {
+    getConsentTypes(visited = new Set()) {
         if(this.cmp.hasMethod(this.config.method)) {
-            return this.cmp.getConsentTypesForMethod(this.config.method);
+            return this.cmp.getConsentTypesForMethod(this.config.method, visited);
         }
 
         return [];

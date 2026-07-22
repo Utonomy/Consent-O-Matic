@@ -175,21 +175,33 @@ export default class CMP {
         }
     }
 
-    getNumStepsForMethod(method) {
+    getNumStepsForMethod(method, visited = new Set()) {
         let action = this.methods.get(method);
 
         if(action != null) {
-            return action.getNumSteps();
+            if(visited.has(method)) {
+                //Cyclic runmethod reference, stop recursing
+                return 0;
+            }
+            visited.add(method);
+
+            return action.getNumSteps(visited);
         }
 
         return 0;
     }
 
-    getConsentTypesForMethod(method) {
+    getConsentTypesForMethod(method, visited = new Set()) {
         let action = this.methods.get(method);
 
         if(action != null) {
-            return action.getConsentTypes();
+            if(visited.has(method)) {
+                //Cyclic runmethod reference, stop recursing
+                return [];
+            }
+            visited.add(method);
+
+            return action.getConsentTypes(visited);
         }
 
         return [];
