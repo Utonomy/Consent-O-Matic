@@ -157,9 +157,14 @@ export default class ConsentEngine {
 
             clearInterval(self.domScannerIntervalID);
 
+            // A genuine interaction failure (thrown during OPEN_OPTIONS/DO_CONSENT/etc.)
+            // already reports handledCallback({error: true}) immediately from its own
+            // catch block, above. Reaching this timeout means every detected CMP's
+            // presentMatcher matched but isShowing() never did - i.e. nothing was ever
+            // actually attempted, so this is not a handling failure.
             self.handledCallback({
                 handled: false,
-                error: self.triedCMPs.size > 0
+                error: false
             });
             this.stopObserver();
         }, stopTimeoutMs);
