@@ -1,0 +1,127 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "hotelspecials_nl": {
+        "detectors": [
+            {
+                "presentMatcher": [
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "#consentModal"
+                        }
+                    },
+                    {
+                        "type": "url",
+                        "url": "hotelspecials.nl"
+                    }
+                ],
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "#consentModal"
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "hide",
+                    "target": {
+                        "selector": "#consentModal"
+                    }
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": ".consent-modal__actions__options"
+                    }
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "consent",
+                    "consents": [
+                        {
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "#consent-Essential"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "#consent-Essential"
+                                }
+                            },
+                            "type": "A"
+                        },
+                        {
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "#consent-Analytics"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "#consent-Analytics"
+                                }
+                            },
+                            "type": "B"
+                        },
+                        {
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "#consent-Personalization"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "#consent-Personalization"
+                                }
+                            },
+                            "type": "E"
+                        },
+                        {
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "#consent-Marketing"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "#consent-Marketing"
+                                }
+                            },
+                            "type": "F"
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": ".consent-modal__actions__accept",
+                        "textFilter": [
+                            "Bewaar voorkeuren"
+                        ]
+                    }
+                }
+            }
+        ]
+    }
+}

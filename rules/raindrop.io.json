@@ -1,0 +1,29 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "raindrop.io": {
+        "detectors": [
+            {
+                "presentMatcher": [
+                    {
+                        "type": "url",
+                        "url": "raindrop.io"
+                    }
+                ]
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP"
+            },
+            {
+                "name": "OPEN_OPTIONS"
+            },
+            {
+                "name": "DO_CONSENT"
+            },
+            {
+                "name": "SAVE_CONSENT"
+            }
+        ]
+    }
+}
