@@ -313,10 +313,16 @@
                             }
                         },
                         {
-                            "type": "click",
+                            "type": "ifcss",
                             "target": {
-                                "selector": "#CybotCookiebotDialogBodyButtonDecline",
-                                "displayFilter": true
+                                "selector": "#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowallSelection"
+                            },
+                            "falseAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "#CybotCookiebotDialogBodyButtonDecline",
+                                    "displayFilter": true
+                                }
                             }
                         },
                         {
