@@ -1,0 +1,257 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "hotelspecials.nl": {
+        "detectors": [
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "#consentModal"
+                    }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "#consentModal"
+                    }
+                }
+            },
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "#app-user-consent script[type=\"text/props\"]"
+                    }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "#app-user-consent script[type=\"text/props\"]"
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "slide",
+                            "target": {
+                                "selector": "body"
+                            },
+                            "dragTarget": {
+                                "selector": "body"
+                            },
+                            "axis": "y"
+                        },
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "#consentModal .consent-modal__actions__essential"
+                            },
+                            "retries": 10,
+                            "waitTime": 300
+                        },
+                        {
+                            "type": "slide",
+                            "target": {
+                                "selector": "body"
+                            },
+                            "dragTarget": {
+                                "selector": "body"
+                            },
+                            "axis": "y"
+                        },
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "#consentModal .consent-modal__actions__essential"
+                            },
+                            "retries": 10,
+                            "waitTime": 300
+                        },
+                        {
+                            "type": "slide",
+                            "target": {
+                                "selector": "body"
+                            },
+                            "dragTarget": {
+                                "selector": "body"
+                            },
+                            "axis": "y"
+                        },
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "#consentModal .consent-modal__actions__essential"
+                            },
+                            "retries": 10,
+                            "waitTime": 300
+                        },
+                        {
+                            "type": "slide",
+                            "target": {
+                                "selector": "body"
+                            },
+                            "dragTarget": {
+                                "selector": "body"
+                            },
+                            "axis": "y"
+                        },
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "#consentModal .consent-modal__actions__essential"
+                            },
+                            "retries": 10,
+                            "waitTime": 300
+                        },
+                        {
+                            "type": "slide",
+                            "target": {
+                                "selector": "body"
+                            },
+                            "dragTarget": {
+                                "selector": "body"
+                            },
+                            "axis": "y"
+                        },
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "#consentModal .consent-modal__actions__essential"
+                            },
+                            "retries": 10,
+                            "waitTime": 300
+                        },
+                        {
+                            "type": "slide",
+                            "target": {
+                                "selector": "body"
+                            },
+                            "dragTarget": {
+                                "selector": "body"
+                            },
+                            "axis": "y"
+                        },
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "#consentModal .consent-modal__actions__essential"
+                            },
+                            "retries": 10,
+                            "waitTime": 300
+                        },
+                        {
+                            "type": "slide",
+                            "target": {
+                                "selector": "body"
+                            },
+                            "dragTarget": {
+                                "selector": "body"
+                            },
+                            "axis": "y"
+                        },
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "#consentModal .consent-modal__actions__essential"
+                            },
+                            "retries": 10,
+                            "waitTime": 300
+                        },
+                        {
+                            "type": "slide",
+                            "target": {
+                                "selector": "body"
+                            },
+                            "dragTarget": {
+                                "selector": "body"
+                            },
+                            "axis": "y"
+                        },
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "#consentModal .consent-modal__actions__essential"
+                            },
+                            "retries": 10,
+                            "waitTime": 300
+                        },
+                        {
+                            "type": "slide",
+                            "target": {
+                                "selector": "body"
+                            },
+                            "dragTarget": {
+                                "selector": "body"
+                            },
+                            "axis": "y"
+                        },
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "#consentModal .consent-modal__actions__essential"
+                            },
+                            "retries": 10,
+                            "waitTime": 300
+                        },
+                        {
+                            "type": "slide",
+                            "target": {
+                                "selector": "body"
+                            },
+                            "dragTarget": {
+                                "selector": "body"
+                            },
+                            "axis": "y"
+                        },
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "#consentModal .consent-modal__actions__essential"
+                            },
+                            "retries": 10,
+                            "waitTime": 300
+                        },
+                        {
+                            "type": "wait",
+                            "waitTime": 400
+                        },
+                        {
+                            "type": "click",
+                            "target": {
+                                "selector": "#consentModal .consent-modal__actions__essential"
+                            }
+                        },
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "#consentModal .consent-modal__actions__essential"
+                            },
+                            "retries": 10,
+                            "waitTime": 300,
+                            "negated": true
+                        },
+                        {
+                            "type": "click",
+                            "target": {
+                                "selector": "#consentModal .consent-modal__actions__essential"
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

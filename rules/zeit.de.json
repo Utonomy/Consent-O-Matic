@@ -1,0 +1,40 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "zeit.de": {
+        "detectors": [
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": ".message-container.zpm-privacy-manager"
+                    }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": ".message-container.zpm-privacy-manager",
+                        "displayFilter": true
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": ".sp_choice_type_REJECT_ALL"
+                    }
+                }
+            }
+        ]
+    }
+}

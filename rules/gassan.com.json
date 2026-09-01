@@ -1,0 +1,97 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "gassan.com": {
+        "detectors": [
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": { "selector": "[data-test-id=\"cookie-notice\"]" }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "[data-test-id=\"cookie-notice\"]",
+                        "displayFilter": true
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": { "type": "list", "actions": [] }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "click",
+                            "target": {
+                                "selector": "[data-test-id=\"cookie-select-preferences\"]"
+                            }
+                        },
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "[data-test-id=\"cookie-settings-modal\"]",
+                                "displayFilter": true
+                            },
+                            "retries": 40,
+                            "waitTime": 200
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "consent",
+                    "consents": [
+                        {
+                            "type": "D",
+                            "matcher": {
+                                "type": "onoff",
+                                "onMatcher": {
+                                    "target": { "selector": "#personal:checked" }
+                                },
+                                "offMatcher": {
+                                    "target": { "selector": "#personal:not(:checked)" }
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": { "selector": "#personal" }
+                            }
+                        },
+                        {
+                            "type": "B",
+                            "matcher": {
+                                "type": "onoff",
+                                "onMatcher": {
+                                    "target": { "selector": "#analytical:checked" }
+                                },
+                                "offMatcher": {
+                                    "target": { "selector": "#analytical:not(:checked)" }
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": { "selector": "#analytical" }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": { "selector": "button" },
+                    "parent": { "selector": "[data-test-id=\"cookie-settings-modal\"]" }
+                }
+            }
+        ]
+    }
+}

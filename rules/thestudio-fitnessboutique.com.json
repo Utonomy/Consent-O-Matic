@@ -1,0 +1,99 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "thestudio-fitnessboutique.com": {
+        "detectors": [
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": ".gdpr-cookie-banner, .cookie-banner-mount-point"
+                    }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": ".gdpr-cookie-banner .sqs-cookie-banner-v2-cta-container",
+                        "displayFilter": true
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": ".gdpr-cookie-banner button.manage"
+                    }
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": ".manage-cookies-overlay .toggle-wrapper input[type=\"checkbox\"]",
+                                "displayFilter": true
+                            }
+                        },
+                        {
+                            "type": "consent",
+                            "consents": [
+                                {
+                                    "type": "B",
+                                    "matcher": {
+                                        "type": "checkbox",
+                                        "target": {
+                                            "selector": ".category-selection:nth-of-type(2) input[type=\"checkbox\"]"
+                                        }
+                                    },
+                                    "toggleAction": {
+                                        "type": "click",
+                                        "target": {
+                                            "selector": ".category-selection:nth-of-type(2) input[type=\"checkbox\"]"
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "F",
+                                    "matcher": {
+                                        "type": "checkbox",
+                                        "target": {
+                                            "selector": ".category-selection:nth-of-type(3) input[type=\"checkbox\"]"
+                                        }
+                                    },
+                                    "toggleAction": {
+                                        "type": "click",
+                                        "target": {
+                                            "selector": ".category-selection:nth-of-type(3) input[type=\"checkbox\"]"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": ".manage-cookies-overlay button.save"
+                    }
+                }
+            }
+        ]
+    }
+}

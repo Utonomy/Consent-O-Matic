@@ -1,0 +1,206 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "thingsilikethingsilove.com": {
+        "detectors": [
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "pandectes-cmp[aria-label=\"Cookie consent\"]"
+                    }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "parent": {
+                        "selector": "pandectes-cmp"
+                    },
+                    "target": {
+                        "selector": "button.filled.deny.primary",
+                        "displayFilter": true
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "click",
+                            "parent": {
+                                "selector": "pandectes-cmp"
+                            },
+                            "target": {
+                                "selector": "button.outlined.preferences.secondary"
+                            }
+                        },
+                        {
+                            "type": "waitcss",
+                            "parent": {
+                                "selector": "pandectes-cmp"
+                            },
+                            "target": {
+                                "selector": "#toggler-1",
+                                "displayFilter": true
+                            },
+                            "retries": 40,
+                            "waitTime": 200
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "consent",
+                    "consents": [
+                        {
+                            "type": "D",
+                            "description": "Preferences",
+                            "matcher": {
+                                "type": "onoff",
+                                "onMatcher": {
+                                    "parent": {
+                                        "selector": "pandectes-cmp"
+                                    },
+                                    "target": {
+                                        "selector": "#toggler-1[aria-checked=\"true\"]"
+                                    }
+                                },
+                                "offMatcher": {
+                                    "parent": {
+                                        "selector": "pandectes-cmp"
+                                    },
+                                    "target": {
+                                        "selector": "#toggler-1[aria-checked=\"false\"]"
+                                    }
+                                }
+                            },
+                            "trueAction": {
+                                "type": "click",
+                                "parent": {
+                                    "selector": "pandectes-cmp"
+                                },
+                                "target": {
+                                    "selector": "#toggler-1"
+                                }
+                            },
+                            "falseAction": {
+                                "type": "click",
+                                "parent": {
+                                    "selector": "pandectes-cmp"
+                                },
+                                "target": {
+                                    "selector": "#toggler-1"
+                                }
+                            }
+                        },
+                        {
+                            "type": "B",
+                            "description": "Analytics",
+                            "matcher": {
+                                "type": "onoff",
+                                "onMatcher": {
+                                    "parent": {
+                                        "selector": "pandectes-cmp"
+                                    },
+                                    "target": {
+                                        "selector": "#toggler-2[aria-checked=\"true\"]"
+                                    }
+                                },
+                                "offMatcher": {
+                                    "parent": {
+                                        "selector": "pandectes-cmp"
+                                    },
+                                    "target": {
+                                        "selector": "#toggler-2[aria-checked=\"false\"]"
+                                    }
+                                }
+                            },
+                            "trueAction": {
+                                "type": "click",
+                                "parent": {
+                                    "selector": "pandectes-cmp"
+                                },
+                                "target": {
+                                    "selector": "#toggler-2"
+                                }
+                            },
+                            "falseAction": {
+                                "type": "click",
+                                "parent": {
+                                    "selector": "pandectes-cmp"
+                                },
+                                "target": {
+                                    "selector": "#toggler-2"
+                                }
+                            }
+                        },
+                        {
+                            "type": "F",
+                            "description": "Marketing",
+                            "matcher": {
+                                "type": "onoff",
+                                "onMatcher": {
+                                    "parent": {
+                                        "selector": "pandectes-cmp"
+                                    },
+                                    "target": {
+                                        "selector": "#toggler-3[aria-checked=\"true\"]"
+                                    }
+                                },
+                                "offMatcher": {
+                                    "parent": {
+                                        "selector": "pandectes-cmp"
+                                    },
+                                    "target": {
+                                        "selector": "#toggler-3[aria-checked=\"false\"]"
+                                    }
+                                }
+                            },
+                            "trueAction": {
+                                "type": "click",
+                                "parent": {
+                                    "selector": "pandectes-cmp"
+                                },
+                                "target": {
+                                    "selector": "#toggler-3"
+                                }
+                            },
+                            "falseAction": {
+                                "type": "click",
+                                "parent": {
+                                    "selector": "pandectes-cmp"
+                                },
+                                "target": {
+                                    "selector": "#toggler-3"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "click",
+                    "parent": {
+                        "selector": "pandectes-cmp"
+                    },
+                    "target": {
+                        "selector": "button.outlined.custom.secondary"
+                    }
+                }
+            }
+        ]
+    }
+}

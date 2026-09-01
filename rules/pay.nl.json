@@ -1,0 +1,157 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "pay.nl": {
+        "detectors": [
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "#hs-eu-cookie-confirmation"
+                    }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "#hs-eu-cookie-confirmation",
+                        "displayFilter": true
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "click",
+                            "target": {
+                                "selector": "#hs-eu-cookie-settings-button"
+                            }
+                        },
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "#hs-modal-save-settings"
+                            },
+                            "retries": 50,
+                            "waitTime": 200
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "consent",
+                    "consents": [
+                        {
+                            "type": "B",
+                            "description": "Analytics cookies",
+                            "matcher": {
+                                "type": "onoff",
+                                "onMatcher": {
+                                    "target": {
+                                        "selector": "#hs-category-analytics-checked:not(.hs-hidden)"
+                                    }
+                                },
+                                "offMatcher": {
+                                    "target": {
+                                        "selector": "#hs-category-analytics-unchecked:not(.hs-hidden)"
+                                    }
+                                }
+                            },
+                            "trueAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "#hs-category-toggle-analytics"
+                                }
+                            },
+                            "falseAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "#hs-category-toggle-analytics"
+                                }
+                            }
+                        },
+                        {
+                            "type": "E",
+                            "description": "Advertisement cookies",
+                            "matcher": {
+                                "type": "onoff",
+                                "onMatcher": {
+                                    "target": {
+                                        "selector": "#hs-category-advertisement-checked:not(.hs-hidden)"
+                                    }
+                                },
+                                "offMatcher": {
+                                    "target": {
+                                        "selector": "#hs-category-advertisement-unchecked:not(.hs-hidden)"
+                                    }
+                                }
+                            },
+                            "trueAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "#hs-category-toggle-advertisement"
+                                }
+                            },
+                            "falseAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "#hs-category-toggle-advertisement"
+                                }
+                            }
+                        },
+                        {
+                            "type": "F",
+                            "description": "Functionality cookies",
+                            "matcher": {
+                                "type": "onoff",
+                                "onMatcher": {
+                                    "target": {
+                                        "selector": "#hs-category-functionality-checked:not(.hs-hidden)"
+                                    }
+                                },
+                                "offMatcher": {
+                                    "target": {
+                                        "selector": "#hs-category-functionality-unchecked:not(.hs-hidden)"
+                                    }
+                                }
+                            },
+                            "trueAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "#hs-category-toggle-functionality"
+                                }
+                            },
+                            "falseAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "#hs-category-toggle-functionality"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "#hs-modal-save-settings"
+                    }
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,112 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "bovag.nl": {
+        "detectors": [
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "[class*=\"cookiebar__\"]"
+                    }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "[class*=\"cookiebar-visible__\"]"
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "click",
+                    "parent": {
+                        "selector": "[class*=\"cookiebar__\"]"
+                    },
+                    "target": {
+                        "selector": "button",
+                        "textFilter": ["Aanpassen"]
+                    }
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "consent",
+                    "consents": [
+                        {
+                            "type": "A",
+                            "description": "Functioneel (necessary, locked on)",
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "#functional"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "#functional"
+                                }
+                            }
+                        },
+                        {
+                            "type": "B",
+                            "description": "Analytics (locked on by this site, best-effort toggle)",
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "#analytics"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "#analytics"
+                                }
+                            }
+                        },
+                        {
+                            "type": "F",
+                            "description": "Tracking (ad selection)",
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "#tracking"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "#tracking"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "click",
+                    "parent": {
+                        "selector": "[class*=\"cookiebar__\"]"
+                    },
+                    "target": {
+                        "selector": "button",
+                        "textFilter": ["Opslaan"]
+                    }
+                }
+            }
+        ]
+    }
+}

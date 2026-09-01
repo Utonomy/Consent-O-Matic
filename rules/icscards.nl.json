@@ -1,0 +1,40 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "icscards.nl": {
+        "detectors": [
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "[data-testid=\"rootContainer\"]"
+                    }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "[data-testid=\"actionButton-reject\"]",
+                        "displayFilter": true
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "[data-testid=\"actionButton-reject\"]"
+                    }
+                }
+            }
+        ]
+    }
+}

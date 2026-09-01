@@ -16,7 +16,8 @@
                     {
                         "type": "css",
                         "target": {
-                            "selector": ".global-gdpr-btn-wrap"
+                            "selector": "#gdpr-new-container",
+                            "displayFilter": true
                         }
                     }
                 ]
@@ -24,116 +25,26 @@
         ],
         "methods": [
             {
-                "name": "HIDE_CMP"
-            },
-            {
-                "action": {
-                    "type": "click",
-                    "target": {
-                        "selector": ".btn-more"
-                    }
-                },
-                "name": "OPEN_OPTIONS"
-            },
-            {
+                "name": "HIDE_CMP",
                 "action": {
                     "type": "list",
-                    "actions": [
-                        {
-                            "type": "consent",
-                            "consents": [
-                                {
-                                    "matcher": {
-                                        "type": "css",
-                                        "target": {
-                                            "selector": ".gdpr-content:nth-of-type(3) > .gdpr-dialog-switcher"
-                                        }
-                                    },
-                                    "trueAction": {
-                                        "type": "click",
-                                        "target": {
-                                            "selector": ".gdpr-content:nth-of-type(3) > .gdpr-dialog-switcher"
-                                        }
-                                    },
-                                    "type": "B"
-                                }
-                            ]
-                        },
-                        {
-                            "type": "consent",
-                            "consents": [
-                                {
-                                    "matcher": {
-                                        "type": "css",
-                                        "target": {
-                                            "selector": ".gdpr-content:nth-of-type(4) > .gdpr-dialog-switcher"
-                                        }
-                                    },
-                                    "trueAction": {
-                                        "type": "click",
-                                        "target": {
-                                            "selector": ".gdpr-content:nth-of-type(4) > .gdpr-dialog-switcher"
-                                        }
-                                    },
-                                    "type": "F"
-                                }
-                            ]
-                        },
-                        {
-                            "type": "consent",
-                            "consents": [
-                                {
-                                    "matcher": {
-                                        "type": "css",
-                                        "target": {
-                                            "selector": ".gdpr-content:nth-of-type(5) > .gdpr-dialog-switcher"
-                                        }
-                                    },
-                                    "trueAction": {
-                                        "type": "click",
-                                        "target": {
-                                            "selector": ".gdpr-content:nth-of-type(5) > .gdpr-dialog-switcher"
-                                        }
-                                    },
-                                    "type": "E"
-                                }
-                            ]
-                        },
-                        {
-                            "type": "consent",
-                            "consents": [
-                                {
-                                    "matcher": {
-                                        "type": "css",
-                                        "target": {
-                                            "selector": ".gdpr-content:nth-of-type(6) > .gdpr-dialog-switcher"
-                                        }
-                                    },
-                                    "trueAction": {
-                                        "type": "click",
-                                        "target": {
-                                            "selector": ".gdpr-content:nth-of-type(6) > .gdpr-dialog-switcher"
-                                        }
-                                    },
-                                    "type": "X"
-                                }
-                            ]
-                        }
-                    ]
-                },
-                "name": "DO_CONSENT"
+                    "actions": []
+                }
             },
             {
                 "action": {
                     "type": "click",
                     "target": {
-                        "selector": ".gdpr-dialog-btn-group > .btn-save"
+                        "selector": "#gdpr-new-container button",
+                        "textFilter": [
+                            "Cookies weigeren",
+                            "Reject all",
+                            "Decline all",
+                            "Reject"
+                        ]
                     }
                 },
-                "name": "SAVE_CONSENT"
-            },
-            {
-                "name": "UTILITY"
+                "name": "DO_CONSENT"
             }
         ]
     }
