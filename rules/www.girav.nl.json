@@ -1,0 +1,157 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "www.girav.nl": {
+        "detectors": [
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "#_ec-dialog"
+                    }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "#_ec-title",
+                        "displayFilter": true
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "click",
+                            "target": {
+                                "selector": "._ec-learn-more"
+                            }
+                        },
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "#_ec-groups input._ec-checkbox[value=\"marketing\"]"
+                            },
+                            "retries": 50,
+                            "waitTime": 200
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "consent",
+                    "consents": [
+                        {
+                            "type": "F",
+                            "description": "Marketing",
+                            "matcher": {
+                                "type": "onoff",
+                                "onMatcher": {
+                                    "target": {
+                                        "selector": "input._ec-checkbox[value=\"marketing\"]:checked"
+                                    }
+                                },
+                                "offMatcher": {
+                                    "target": {
+                                        "selector": "input._ec-checkbox[value=\"marketing\"]:not(:checked)"
+                                    }
+                                }
+                            },
+                            "trueAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "input._ec-checkbox[value=\"marketing\"]"
+                                }
+                            },
+                            "falseAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "input._ec-checkbox[value=\"marketing\"]"
+                                }
+                            }
+                        },
+                        {
+                            "type": "E",
+                            "description": "Preferences",
+                            "matcher": {
+                                "type": "onoff",
+                                "onMatcher": {
+                                    "target": {
+                                        "selector": "input._ec-checkbox[value=\"preferences\"]:checked"
+                                    }
+                                },
+                                "offMatcher": {
+                                    "target": {
+                                        "selector": "input._ec-checkbox[value=\"preferences\"]:not(:checked)"
+                                    }
+                                }
+                            },
+                            "trueAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "input._ec-checkbox[value=\"preferences\"]"
+                                }
+                            },
+                            "falseAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "input._ec-checkbox[value=\"preferences\"]"
+                                }
+                            }
+                        },
+                        {
+                            "type": "B",
+                            "description": "Analytics",
+                            "matcher": {
+                                "type": "onoff",
+                                "onMatcher": {
+                                    "target": {
+                                        "selector": "input._ec-checkbox[value=\"analytics\"]:checked"
+                                    }
+                                },
+                                "offMatcher": {
+                                    "target": {
+                                        "selector": "input._ec-checkbox[value=\"analytics\"]:not(:checked)"
+                                    }
+                                }
+                            },
+                            "trueAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "input._ec-checkbox[value=\"analytics\"]"
+                                }
+                            },
+                            "falseAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "input._ec-checkbox[value=\"analytics\"]"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "._ec-save"
+                    }
+                }
+            }
+        ]
+    }
+}

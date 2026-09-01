@@ -1,0 +1,116 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "glampings.com": {
+        "detectors": [
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": { "selector": "#consent_modal" }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "target": { "selector": "#consent_modal.visible" }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": { "type": "list", "actions": [] }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "click",
+                            "target": { "selector": "#consent_modal a.settings" }
+                        },
+                        {
+                            "type": "waitcss",
+                            "target": { "selector": "#consent_modal input#consent_analytics_storage" },
+                            "retries": 50,
+                            "waitTime": 200
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "consent",
+                    "consents": [
+                        {
+                            "type": "B",
+                            "matcher": {
+                                "type": "onoff",
+                                "onMatcher": {
+                                    "target": { "selector": "#consent_analytics_storage:checked" }
+                                },
+                                "offMatcher": {
+                                    "target": { "selector": "#consent_analytics_storage:not(:checked)" }
+                                }
+                            },
+                            "trueAction": {
+                                "type": "click",
+                                "target": { "selector": "#consent_analytics_storage" }
+                            },
+                            "falseAction": {
+                                "type": "click",
+                                "target": { "selector": "#consent_analytics_storage" }
+                            }
+                        },
+                        {
+                            "type": "D",
+                            "matcher": {
+                                "type": "onoff",
+                                "onMatcher": {
+                                    "target": { "selector": "#consent_functionality_storage:checked" }
+                                },
+                                "offMatcher": {
+                                    "target": { "selector": "#consent_functionality_storage:not(:checked)" }
+                                }
+                            },
+                            "trueAction": {
+                                "type": "click",
+                                "target": { "selector": "#consent_functionality_storage" }
+                            },
+                            "falseAction": {
+                                "type": "click",
+                                "target": { "selector": "#consent_functionality_storage" }
+                            }
+                        },
+                        {
+                            "type": "F",
+                            "matcher": {
+                                "type": "onoff",
+                                "onMatcher": {
+                                    "target": { "selector": "#consent_ad_all:checked" }
+                                },
+                                "offMatcher": {
+                                    "target": { "selector": "#consent_ad_all:not(:checked)" }
+                                }
+                            },
+                            "trueAction": {
+                                "type": "click",
+                                "target": { "selector": "#consent_ad_all" }
+                            },
+                            "falseAction": {
+                                "type": "click",
+                                "target": { "selector": "#consent_ad_all" }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": { "selector": "#consent_modal button.reject.confirm.button" }
+                }
+            }
+        ]
+    }
+}

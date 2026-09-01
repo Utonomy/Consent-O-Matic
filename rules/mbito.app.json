@@ -1,0 +1,158 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "mbito.app": {
+        "detectors": [
+            {
+                "presentMatcher": [
+                    {
+                        "type": "url",
+                        "url": ["mbito.app"]
+                    },
+                    {
+                        "type": "css",
+                        "parent": {
+                            "selector": "#cst-shadow-host"
+                        },
+                        "target": {
+                            "selector": "#ot-cookie-banner"
+                        }
+                    }
+                ],
+                "showingMatcher": {
+                    "type": "css",
+                    "parent": {
+                        "selector": "#cst-shadow-host"
+                    },
+                    "target": {
+                        "selector": "#ot-cookie-banner",
+                        "displayFilter": true
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "click",
+                            "parent": {
+                                "selector": "#cst-shadow-host"
+                            },
+                            "target": {
+                                "selector": "#cookies-preferences"
+                            }
+                        },
+                        {
+                            "type": "waitcss",
+                            "parent": {
+                                "selector": "#cst-shadow-host"
+                            },
+                            "target": {
+                                "selector": "#switch-analytics",
+                                "displayFilter": true
+                            },
+                            "retries": 40,
+                            "waitTime": 200
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "consent",
+                    "consents": [
+                        {
+                            "type": "D",
+                            "description": "Preferences",
+                            "matcher": {
+                                "type": "checkbox",
+                                "parent": {
+                                    "selector": "#cst-shadow-host"
+                                },
+                                "target": {
+                                    "selector": "#switch-preferences"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "parent": {
+                                    "selector": "#cst-shadow-host"
+                                },
+                                "target": {
+                                    "selector": "#switch-preferences"
+                                }
+                            }
+                        },
+                        {
+                            "type": "F",
+                            "description": "Marketing",
+                            "matcher": {
+                                "type": "checkbox",
+                                "parent": {
+                                    "selector": "#cst-shadow-host"
+                                },
+                                "target": {
+                                    "selector": "#switch-marketing"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "parent": {
+                                    "selector": "#cst-shadow-host"
+                                },
+                                "target": {
+                                    "selector": "#switch-marketing"
+                                }
+                            }
+                        },
+                        {
+                            "type": "B",
+                            "description": "Analytics",
+                            "matcher": {
+                                "type": "checkbox",
+                                "parent": {
+                                    "selector": "#cst-shadow-host"
+                                },
+                                "target": {
+                                    "selector": "#switch-analytics"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "parent": {
+                                    "selector": "#cst-shadow-host"
+                                },
+                                "target": {
+                                    "selector": "#switch-analytics"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "click",
+                    "parent": {
+                        "selector": "#cst-shadow-host"
+                    },
+                    "target": {
+                        "selector": ".cookies-btn.btn-select"
+                    }
+                }
+            }
+        ]
+    }
+}

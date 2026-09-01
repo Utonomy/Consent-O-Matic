@@ -1,0 +1,120 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "casamundo.nl": {
+        "detectors": [
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "[data-test=\"cookie-consent-notification\"]"
+                    }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "[data-test=\"cookie-consent-notification\"]",
+                        "displayFilter": true
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "click",
+                            "target": {
+                                "selector": "[data-test=\"settings-button\"]"
+                            }
+                        },
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "[data-test=\"cookie-consent-modal\"]",
+                                "displayFilter": true
+                            },
+                            "retries": 40,
+                            "waitTime": 200
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "consent",
+                    "consents": [
+                        {
+                            "type": "D",
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "input[type=\"checkbox\"]"
+                                },
+                                "parent": {
+                                    "selector": "[data-test=\"tab-button\"]",
+                                    "textFilter": ["Analytische cookies"]
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "[role=\"checkbox\"]"
+                                },
+                                "parent": {
+                                    "selector": "[data-test=\"tab-button\"]",
+                                    "textFilter": ["Analytische cookies"]
+                                }
+                            }
+                        },
+                        {
+                            "type": "F",
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "input[type=\"checkbox\"]"
+                                },
+                                "parent": {
+                                    "selector": "[data-test=\"tab-button\"]",
+                                    "textFilter": ["Marketingcookies"]
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "[role=\"checkbox\"]"
+                                },
+                                "parent": {
+                                    "selector": "[data-test=\"tab-button\"]",
+                                    "textFilter": ["Marketingcookies"]
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "[data-test=\"accept-button\"]"
+                    },
+                    "parent": {
+                        "selector": "[data-test=\"cookie-consent-modal\"]"
+                    }
+                }
+            }
+        ]
+    }
+}
