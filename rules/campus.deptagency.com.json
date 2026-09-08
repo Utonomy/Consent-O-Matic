@@ -1,0 +1,107 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "campus.deptagency.com": {
+        "detectors": [
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "[role=\"dialog\"]",
+                        "textFilter": "necessary cookies"
+                    }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "[role=\"dialog\"]",
+                        "textFilter": "necessary cookies",
+                        "displayFilter": true
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": { "type": "list", "actions": [] }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "click",
+                    "parent": { "selector": "[role=\"dialog\"]", "displayFilter": true },
+                    "target": { "selector": "button", "textFilter": "select" }
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "waitcss",
+                            "target": { "selector": "#cookies_functional" },
+                            "retries": 50,
+                            "waitTime": 200
+                        },
+                        {
+                            "type": "consent",
+                            "consents": [
+                                {
+                                    "type": "B",
+                                    "description": "Functional: cookies that enhance the functionality of the site.",
+                                    "matcher": {
+                                        "type": "checkbox",
+                                        "target": { "selector": "#cookies_functional" }
+                                    },
+                                    "toggleAction": {
+                                        "type": "click",
+                                        "target": { "selector": "#cookies_functional" }
+                                    }
+                                },
+                                {
+                                    "type": "D",
+                                    "description": "Marketing: technologies that personalize ads and content on the website.",
+                                    "matcher": {
+                                        "type": "checkbox",
+                                        "target": { "selector": "#cookies_marketing" }
+                                    },
+                                    "toggleAction": {
+                                        "type": "click",
+                                        "target": { "selector": "#cookies_marketing" }
+                                    }
+                                },
+                                {
+                                    "type": "F",
+                                    "description": "Advertising: cookies from advertisers that track browsing activity.",
+                                    "matcher": {
+                                        "type": "checkbox",
+                                        "target": { "selector": "#cookies_advertising" }
+                                    },
+                                    "toggleAction": {
+                                        "type": "click",
+                                        "target": { "selector": "#cookies_advertising" }
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "click",
+                    "parent": {
+                        "selector": "[role=\"dialog\"]",
+                        "textFilter": "wanna get some cookies"
+                    },
+                    "target": {
+                        "selector": "button[type=\"submit\"]",
+                        "textFilter": "accept selection"
+                    }
+                }
+            }
+        ]
+    }
+}

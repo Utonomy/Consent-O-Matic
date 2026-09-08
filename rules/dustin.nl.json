@@ -1,0 +1,136 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"dustin.nl": {
+		"detectors": [
+			{
+				"presentMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "#cookie-banner"
+					}
+				},
+				"showingMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "#cookie-banner",
+						"displayFilter": true
+					}
+				}
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": "button",
+								"textFilter": ["Cookies beheren"]
+							},
+							"parent": {
+								"selector": "#cookie-banner"
+							}
+						},
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": "input[value=\"analytics\"]",
+								"displayFilter": true
+							},
+							"retries": 40,
+							"waitTime": 300
+						}
+					]
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"type": "A",
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "input[value=\"necessary\"]"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "input[value=\"necessary\"]"
+								}
+							}
+						},
+						{
+							"type": "B",
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "input[value=\"analytics\"]"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "input[value=\"analytics\"]"
+								}
+							}
+						},
+						{
+							"type": "E",
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "input[value=\"personalization\"]"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "input[value=\"personalization\"]"
+								}
+							}
+						},
+						{
+							"type": "F",
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "input[value=\"marketing\"]"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "input[value=\"marketing\"]"
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "click",
+					"target": {
+						"selector": "button",
+						"textFilter": ["Geselecteerde cookies accepteren"]
+					}
+				}
+			}
+		]
+	}
+}

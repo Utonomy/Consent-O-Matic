@@ -1,0 +1,102 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "zeit.de": {
+        "detectors": [
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": ".message-container.zpm-privacy-manager",
+                        "iframeFilter": true
+                    }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": ".message-container.zpm-privacy-manager",
+                        "iframeFilter": true
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": ".sp_choice_type_REJECT_ALL",
+                                "displayFilter": true
+                            },
+                            "retries": 20,
+                            "waitTime": 500
+                        },
+                        {
+                            "type": "click",
+                            "target": {
+                                "selector": ".sp_choice_type_REJECT_ALL",
+                                "displayFilter": true
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "zeit.de_open_settings": {
+        "detectors": [
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": ".message-container .btn-settings",
+                        "iframeFilter": true
+                    }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": ".message-container .btn-settings",
+                        "iframeFilter": true
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "UTILITY",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": ".message-container .btn-settings",
+                                "displayFilter": true
+                            },
+                            "retries": 10,
+                            "waitTime": 300
+                        },
+                        {
+                            "type": "click",
+                            "target": {
+                                "selector": ".message-container .btn-settings",
+                                "displayFilter": true
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

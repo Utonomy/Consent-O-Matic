@@ -1,0 +1,153 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "vipio.com": {
+        "detectors": [
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": ".vc[data-controller=\"cookie-bar\"]"
+                    }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": ".vc.show[data-controller=\"cookie-bar\"]"
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "click",
+                            "target": {
+                                "selector": "[data-cookie-bar-target=\"customize\"]"
+                            }
+                        },
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "#Analytics"
+                            },
+                            "retries": 50,
+                            "waitTime": 200
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "consent",
+                    "consents": [
+                        {
+                            "type": "B",
+                            "matcher": {
+                                "type": "onoff",
+                                "onMatcher": {
+                                    "target": {
+                                        "selector": "#Analytics:checked"
+                                    }
+                                },
+                                "offMatcher": {
+                                    "target": {
+                                        "selector": "#Analytics:not(:checked)"
+                                    }
+                                }
+                            },
+                            "trueAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "#Analytics"
+                                }
+                            },
+                            "falseAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "#Analytics"
+                                }
+                            }
+                        },
+                        {
+                            "type": "E",
+                            "matcher": {
+                                "type": "onoff",
+                                "onMatcher": {
+                                    "target": {
+                                        "selector": "#Preferences:checked"
+                                    }
+                                },
+                                "offMatcher": {
+                                    "target": {
+                                        "selector": "#Preferences:not(:checked)"
+                                    }
+                                }
+                            },
+                            "trueAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "#Preferences"
+                                }
+                            },
+                            "falseAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "#Preferences"
+                                }
+                            }
+                        },
+                        {
+                            "type": "F",
+                            "matcher": {
+                                "type": "onoff",
+                                "onMatcher": {
+                                    "target": {
+                                        "selector": "#Marketing:checked"
+                                    }
+                                },
+                                "offMatcher": {
+                                    "target": {
+                                        "selector": "#Marketing:not(:checked)"
+                                    }
+                                }
+                            },
+                            "trueAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "#Marketing"
+                                }
+                            },
+                            "falseAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "#Marketing"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "[data-cookie-bar-target=\"acceptSelection\"]"
+                    }
+                }
+            }
+        ]
+    }
+}

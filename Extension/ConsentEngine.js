@@ -262,7 +262,8 @@ export default class ConsentEngine {
                                 handled: true,
                                 cmpName: cmp.name,
                                 clicks: self.numClicks,
-                                consentCategories: cmp.getConsentCategoryTypes()
+                                consentCategories: cmp.getConsentCategoryTypes(),
+                                isUtility: true
                             });
 
                             self.checkRunning = false;
@@ -343,7 +344,8 @@ export default class ConsentEngine {
                                     handled: true,
                                     cmpName: cmp.name,
                                     clicks: self.numClicks,
-                                    consentCategories: cmp.getConsentCategoryTypes()
+                                    consentCategories: cmp.getConsentCategoryTypes(),
+                                    isUtility: false
                                 });
                             } catch (e) {
                                 console.log("Error during consent handling:", e);

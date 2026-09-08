@@ -7,7 +7,7 @@
                     {
                         "type": "css",
                         "target": {
-                            "selector": "#cmNotifyBanner[aria-label='Consent Banner']"
+                            "selector": "#cmNotifyBanner"
                         }
                     }
                 ],
@@ -15,7 +15,7 @@
                     {
                         "type": "css",
                         "target": {
-                            "selector": "#cmNotifyBanner[aria-label='Consent Banner']",
+                            "selector": "#cmNotifyBanner",
                             "displayFilter": true
                         }
                     }
@@ -47,67 +47,10 @@
                 "action": {
                     "type": "click",
                     "target": {
-                        "selector": "#cmManage"
+                        "selector": "#cmReject"
                     }
-                },
-                "name": "OPEN_OPTIONS"
-            },
-            {
-                "action": {
-                    "type": "list",
-                    "actions": [
-                        {
-                            "type": "consent",
-                            "consents": [
-                                {
-                                    "matcher": {
-                                        "type": "checkbox",
-                                        "target": {
-                                            "selector": "#PersonalisationSlide"
-                                        }
-                                    },
-                                    "toggleAction": {
-                                        "type": "click",
-                                        "target": {
-                                            "selector": "#PersonalisationSlide"
-                                        }
-                                    },
-                                    "type": "A"
-                                }
-                            ]
-                        },
-                        {
-                            "type": "consent",
-                            "consents": [
-                                {
-                                    "matcher": {
-                                        "type": "checkbox",
-                                        "target": {
-                                            "selector": "[id='Targeting and AdvertisingSlide']"
-                                        }
-                                    },
-                                    "toggleAction": {
-                                        "type": "click",
-                                        "target": {
-                                            "selector": "[id='Targeting and AdvertisingSlide']"
-                                        }
-                                    },
-                                    "type": "F"
-                                }
-                            ]
-                        }
-                    ]
                 },
                 "name": "DO_CONSENT"
-            },
-            {
-                "action": {
-                    "type": "click",
-                    "target": {
-                        "selector": "#cmSave"
-                    }
-                },
-                "name": "SAVE_CONSENT"
             },
             {
                 "name": "UTILITY"

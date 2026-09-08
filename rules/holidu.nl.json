@@ -1,0 +1,125 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "holidu.nl": {
+        "detectors": [
+            {
+                "presentMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "#cookie-selector button[data-testid=\"CookiesCheckbox__SaveAllButton\"]"
+                    }
+                },
+                "showingMatcher": {
+                    "type": "css",
+                    "target": {
+                        "selector": "#cookie-selector button[data-testid=\"CookiesCheckbox__SaveAllButton\"]",
+                        "displayFilter": true
+                    }
+                }
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": { "type": "list", "actions": [] }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "click",
+                            "target": {
+                                "selector": "button[data-testid=\"OverviewContent__CookiePreferencesLink\"]"
+                            }
+                        },
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "svg[data-testid=\"CookiesCheckbox__marketing\"]"
+                            },
+                            "retries": 10,
+                            "waitTime": 300
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "consent",
+                    "consents": [
+                        {
+                            "type": "E",
+                            "description": "Marketing cookies",
+                            "matcher": {
+                                "type": "onoff",
+                                "onMatcher": {
+                                    "target": {
+                                        "selector": "svg[data-testid=\"CookiesCheckbox__marketing\"].text-gray-400"
+                                    }
+                                },
+                                "offMatcher": {
+                                    "target": {
+                                        "selector": "svg[data-testid=\"CookiesCheckbox__marketing\"].text-gray-300"
+                                    }
+                                }
+                            },
+                            "trueAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "svg[data-testid=\"CookiesCheckbox__marketing\"]"
+                                }
+                            },
+                            "falseAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "svg[data-testid=\"CookiesCheckbox__marketing\"]"
+                                }
+                            }
+                        },
+                        {
+                            "type": "B",
+                            "description": "Analytics cookies",
+                            "matcher": {
+                                "type": "onoff",
+                                "onMatcher": {
+                                    "target": {
+                                        "selector": "svg[data-testid=\"CookiesCheckbox__analytics\"].text-gray-400"
+                                    }
+                                },
+                                "offMatcher": {
+                                    "target": {
+                                        "selector": "svg[data-testid=\"CookiesCheckbox__analytics\"].text-gray-300"
+                                    }
+                                }
+                            },
+                            "trueAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "svg[data-testid=\"CookiesCheckbox__analytics\"]"
+                                }
+                            },
+                            "falseAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "svg[data-testid=\"CookiesCheckbox__analytics\"]"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "button[data-testid=\"CookiesCheckbox__SaveButton\"]"
+                    }
+                }
+            }
+        ]
+    }
+}

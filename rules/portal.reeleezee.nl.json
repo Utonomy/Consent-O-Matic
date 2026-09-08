@@ -1,0 +1,7 @@
+{
+  "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+  "portal.reeleezee.nl": {
+    "detectors": [],
+    "methods": []
+  }
+}

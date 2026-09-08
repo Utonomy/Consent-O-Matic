@@ -1,0 +1,137 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "pictureinsect.com": {
+        "detectors": [
+            {
+                "presentMatcher": [
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": ".privacy-footer"
+                        }
+                    }
+                ],
+                "showingMatcher": [
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": ".privacy-footer",
+                            "displayFilter": true
+                        }
+                    }
+                ]
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "click",
+                            "target": {
+                                "selector": ".privacy-setting"
+                            }
+                        },
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": ".privacy-popup .confirm-button",
+                                "displayFilter": true
+                            },
+                            "retries": 50,
+                            "waitTime": 200
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "consent",
+                    "consents": [
+                        {
+                            "type": "B",
+                            "matcher": {
+                                "type": "onoff",
+                                "onMatcher": {
+                                    "target": {
+                                        "selector": ".switch-btn.switch-btn-revert"
+                                    },
+                                    "parent": {
+                                        "selector": ".privacy-popup .items > .item:nth-child(2)"
+                                    }
+                                },
+                                "offMatcher": {
+                                    "target": {
+                                        "selector": ".switch-btn.switch-btn-action"
+                                    },
+                                    "parent": {
+                                        "selector": ".privacy-popup .items > .item:nth-child(2)"
+                                    }
+                                }
+                            },
+                            "falseAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": ".switch-btn"
+                                },
+                                "parent": {
+                                    "selector": ".privacy-popup .items > .item:nth-child(2)"
+                                }
+                            }
+                        },
+                        {
+                            "type": "F",
+                            "matcher": {
+                                "type": "onoff",
+                                "onMatcher": {
+                                    "target": {
+                                        "selector": ".switch-btn.switch-btn-revert"
+                                    },
+                                    "parent": {
+                                        "selector": ".privacy-popup .items > .item:nth-child(3)"
+                                    }
+                                },
+                                "offMatcher": {
+                                    "target": {
+                                        "selector": ".switch-btn.switch-btn-action"
+                                    },
+                                    "parent": {
+                                        "selector": ".privacy-popup .items > .item:nth-child(3)"
+                                    }
+                                }
+                            },
+                            "falseAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": ".switch-btn"
+                                },
+                                "parent": {
+                                    "selector": ".privacy-popup .items > .item:nth-child(3)"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": ".privacy-popup .confirm-button"
+                    }
+                }
+            }
+        ]
+    }
+}

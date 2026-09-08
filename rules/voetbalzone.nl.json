@@ -3,13 +3,22 @@
     "voetbalzone_nl": {
         "detectors": [
             {
-                "presentMatcher": {
-                    "type": "css",
-                    "target": {
-                        "selector": ".sp_choice_type_11",
-                        "iframeFilter": true
+                "presentMatcher": [
+                    {
+                        "type": "url",
+                        "url": [
+                            "zeit.de"
+                        ],
+                        "negated": true
+                    },
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": ".sp_choice_type_11",
+                            "iframeFilter": true
+                        }
                     }
-                },
+                ],
                 "showingMatcher": {
                     "type": "css",
                     "target": {
@@ -56,13 +65,22 @@
     "voetbalzone_nl_privacy_manager": {
         "detectors": [
             {
-                "presentMatcher": {
-                    "type": "css",
-                    "target": {
-                        "selector": ".pm-switch, button.sp_choice_type_SAVE_AND_EXIT",
-                        "iframeFilter": true
+                "presentMatcher": [
+                    {
+                        "type": "url",
+                        "url": [
+                            "zeit.de"
+                        ],
+                        "negated": true
+                    },
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": ".pm-switch, button.sp_choice_type_SAVE_AND_EXIT",
+                            "iframeFilter": true
+                        }
                     }
-                },
+                ],
                 "showingMatcher": {
                     "type": "css",
                     "target": {
