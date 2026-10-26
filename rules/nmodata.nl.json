@@ -1,0 +1,91 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"nmodata.nl": {
+		"detectors": [
+			{
+				"presentMatcher": [
+					{
+						"type": "url",
+						"url": [
+							"(^|[/.])nmodata\\.nl($|[/:])"
+						],
+						"regexp": true
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": "section.border-cookieBar"
+						}
+					}
+				],
+				"showingMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "section.border-cookieBar footer button",
+						"textFilter": [
+							"Alleen essentiële cookies"
+						],
+						"displayFilter": true
+					}
+				}
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"matcher": {
+								"type": "css",
+								"target": {
+									"selector": "section.border-cookieBar[data-upod-analytics-accepted]"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "section.border-cookieBar footer button",
+									"textFilter": [
+										"Accepteer alle cookies"
+									]
+								}
+							},
+							"type": "B"
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "ifcss",
+					"target": {
+						"selector": "section.border-cookieBar footer button",
+						"textFilter": [
+							"Alleen essentiële cookies"
+						],
+						"displayFilter": true
+					},
+					"trueAction": {
+						"type": "click",
+						"target": {
+							"selector": "section.border-cookieBar footer button",
+							"textFilter": [
+								"Alleen essentiële cookies"
+							]
+						}
+					}
+				}
+			}
+		]
+	}
+}

@@ -1,0 +1,113 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"desaensetandmeesters.nl": {
+		"detectors": [
+			{
+				"presentMatcher": [
+					{
+						"type": "url",
+						"url": "(^|[/.])desaensetandmeesters\\.nl($|[/:])",
+						"regexp": true
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": ".cookie-warning-modal#cookie"
+						}
+					}
+				],
+				"showingMatcher": [
+					{
+						"type": "css",
+						"target": {
+							"selector": ".cookie-warning-modal#cookie.show",
+							"displayFilter": true
+						}
+					}
+				]
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": "#cookie #show-custom-settings"
+							}
+						},
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": "#settings #input-cookie-consent-marketing",
+								"displayFilter": false
+							},
+							"retries": 10,
+							"waitTime": 300
+						}
+					]
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "#settings #input-cookie-consent-statistical"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "#settings label[for='input-cookie-consent-statistical']"
+								}
+							},
+							"type": "B"
+						},
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "#settings #input-cookie-consent-marketing"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "#settings label[for='input-cookie-consent-marketing']"
+								}
+							},
+							"type": "F"
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "click",
+					"target": {
+						"selector": "#settings #save-custom-settings"
+					}
+				}
+			},
+			{
+				"name": "UTILITY"
+			}
+		]
+	}
+}

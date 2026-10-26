@@ -1,0 +1,101 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"deslegte.com": {
+		"detectors": [
+			{
+				"presentMatcher": [
+					{
+						"type": "url",
+						"url": [
+							"(^|[/.])deslegte\\.com($|[/:])"
+						],
+						"regexp": true
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": ".cookieconsent #cookie_category_marketing"
+						}
+					}
+				],
+				"showingMatcher": [
+					{
+						"type": "css",
+						"target": {
+							"selector": ".cookieconsent:not(.hidden) .cookieconsent-buttons input[type='submit']",
+							"displayFilter": true
+						}
+					}
+				]
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": ".cookieconsent .cookieconsent-buttons button.button--textual"
+							}
+						},
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": ".cookieconsent.cookieconsent--settings-visible #cookie_category_marketing"
+							},
+							"retries": 20,
+							"waitTime": 250
+						}
+					]
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": ".cookieconsent #cookie_category_marketing"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": ".cookieconsent label[for='cookie_category_marketing']"
+								}
+							},
+							"type": "F"
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": ".cookieconsent .cookieconsent-buttons input[type='submit']"
+							}
+						}
+					]
+				}
+			}
+		]
+	}
+}

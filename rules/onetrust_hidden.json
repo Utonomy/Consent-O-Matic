@@ -7,7 +7,7 @@
                     {
                         "type": "css",
                         "target": {
-                            "selector": ".optanon-toggle-display:not([data-m*='footer_privacysettings']):not([class*='PageFooterdesktop'])"
+                            "selector": ".optanon-toggle-display:not([data-m*='footer_privacysettings']):not([class*='PageFooterdesktop']):not(.optanon-show-settings-button):not(.optanon-alert-box-wrapper .optanon-toggle-display)"
                         }
                     }
                 ],
@@ -15,7 +15,7 @@
                     {
                         "type": "css",
                         "target": {
-                            "selector": ".optanon-toggle-display:not([data-m*='footer_privacysettings']):not([class*='PageFooterdesktop'])",
+                            "selector": ".optanon-toggle-display:not([data-m*='footer_privacysettings']):not([class*='PageFooterdesktop']):not(.optanon-show-settings-button):not(.optanon-alert-box-wrapper .optanon-toggle-display)",
                             "displayFilter": true
                         }
                     }

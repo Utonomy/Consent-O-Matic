@@ -1,0 +1,126 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"claude.ai": {
+		"detectors": [
+			{
+				"presentMatcher": [
+					{
+						"type": "url",
+						"url": [
+							"(^|[/.])claude\\.ai($|[/:])"
+						],
+						"regexp": true
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": "[data-testid='consent-banner']"
+						}
+					}
+				],
+				"showingMatcher": [
+					{
+						"type": "css",
+						"target": {
+							"selector": "[data-testid='consent-banner']",
+							"displayFilter": true
+						}
+					}
+				]
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": "[data-testid='consent-banner'] [data-testid='consent-customize']"
+							}
+						},
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": "[data-testid='consent-banner'] [data-testid='consent-option-marketing'] [role='switch']"
+							},
+							"retries": 20,
+							"waitTime": 250
+						}
+					]
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"matcher": {
+								"type": "css",
+								"target": {
+									"selector": "[data-testid='consent-banner'] [data-testid='consent-option-analytics'] [role='switch'][aria-checked='true']"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "[data-testid='consent-banner'] [data-testid='consent-option-analytics'] [role='switch']"
+								}
+							},
+							"type": "B"
+						},
+						{
+							"matcher": {
+								"type": "css",
+								"target": {
+									"selector": "[data-testid='consent-banner'] [data-testid='consent-option-marketing'] [role='switch'][aria-checked='true']"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "[data-testid='consent-banner'] [data-testid='consent-option-marketing'] [role='switch']"
+								}
+							},
+							"type": "F"
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": "[data-testid='consent-banner'] [data-testid='consent-save']"
+							}
+						},
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": "[data-testid='consent-banner']",
+								"displayFilter": true
+							},
+							"retries": 20,
+							"waitTime": 250,
+							"negated": true
+						}
+					]
+				}
+			}
+		]
+	}
+}

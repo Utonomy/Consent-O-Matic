@@ -5,6 +5,11 @@
             {
                 "presentMatcher": [
                     {
+                        "type": "url",
+                        "url": "(^|[/.])bladcadeau\\.nl($|[/:])",
+                        "regexp": true
+                    },
+                    {
                         "type": "css",
                         "target": {
                             "selector": "#pg-modal"

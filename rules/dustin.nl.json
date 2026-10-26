@@ -3,12 +3,19 @@
 	"dustin.nl": {
 		"detectors": [
 			{
-				"presentMatcher": {
-					"type": "css",
-					"target": {
-						"selector": "#cookie-banner"
+				"presentMatcher": [
+					{
+						"type": "url",
+						"url": "(^|[/.])dustin\\.",
+						"regexp": true
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": "#cookie-banner"
+						}
 					}
-				},
+				],
 				"showingMatcher": {
 					"type": "css",
 					"target": {

@@ -1,0 +1,126 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"informatique.nl": {
+		"detectors": [
+			{
+				"presentMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "#staticBackdrop #CookieSettings"
+					}
+				},
+				"showingMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "#staticBackdrop.show #CookieSettings"
+					}
+				}
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": "#staticBackdrop a[href=\"#CookieSettings\"]"
+							}
+						},
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": "#staticBackdrop #CookieSettings.show"
+							},
+							"retries": 10,
+							"waitTime": 300
+						}
+					]
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "#staticBackdrop #CookieSettings input[name=\"preferences\"]"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "#staticBackdrop #CookieSettings input[name=\"preferences\"]"
+								}
+							},
+							"type": "D"
+						},
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "#staticBackdrop #CookieSettings input[name=\"statistics\"]"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "#staticBackdrop #CookieSettings input[name=\"statistics\"]"
+								}
+							},
+							"type": "B"
+						},
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "#staticBackdrop #CookieSettings input[name=\"marketing\"]"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "#staticBackdrop #CookieSettings input[name=\"marketing\"]"
+								}
+							},
+							"type": "F"
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "ifcss",
+					"target": {
+						"selector": "#staticBackdrop #CookieSettings input[name=\"preferences\"]:checked, #staticBackdrop #CookieSettings input[name=\"statistics\"]:checked, #staticBackdrop #CookieSettings input[name=\"marketing\"]:checked"
+					},
+					"trueAction": {
+						"type": "click",
+						"target": {
+							"selector": "#staticBackdrop .modal-footer button.btn-primary"
+						}
+					},
+					"falseAction": {
+						"type": "click",
+						"target": {
+							"selector": "#staticBackdrop .modal-footer button.btn-secondary"
+						}
+					}
+				}
+			}
+		]
+	}
+}

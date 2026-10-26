@@ -1,0 +1,127 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"my-jewellery.com": {
+		"detectors": [
+			{
+				"presentMatcher": [
+					{
+						"type": "url",
+						"url": ["(^|[/.])my-jewellery\\.com($|[/:])"],
+						"regexp": true
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": "[data-testid=\"cookie-banner-customize-button\"]"
+						}
+					}
+				],
+				"showingMatcher": [
+					{
+						"type": "css",
+						"target": {
+							"selector": "[data-testid=\"cookie-banner-customize-button\"]",
+							"displayFilter": true
+						}
+					}
+				]
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": "[data-testid=\"cookie-banner-customize-button\"]"
+							}
+						},
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": "[data-testid=\"cookie-banner-settings-targeting-checkbox\"]"
+							},
+							"retries": 10,
+							"waitTime": 300
+						}
+					]
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"matcher": {
+								"type": "css",
+								"target": {
+									"selector": "[data-testid=\"cookie-banner-settings-analytics-checkbox\"][aria-checked=\"true\"]"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "[data-testid=\"cookie-banner-settings-analytics-checkbox\"]"
+								}
+							},
+							"type": "B"
+						},
+						{
+							"matcher": {
+								"type": "css",
+								"target": {
+									"selector": "[data-testid=\"cookie-banner-settings-personalisation-checkbox\"][aria-checked=\"true\"]"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "[data-testid=\"cookie-banner-settings-personalisation-checkbox\"]"
+								}
+							},
+							"type": "E"
+						},
+						{
+							"matcher": {
+								"type": "css",
+								"target": {
+									"selector": "[data-testid=\"cookie-banner-settings-targeting-checkbox\"][aria-checked=\"true\"]"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "[data-testid=\"cookie-banner-settings-targeting-checkbox\"]"
+								}
+							},
+							"type": "F"
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "click",
+					"target": {
+						"selector": "[data-testid=\"cookie-banner-settings-save-button\"]"
+					}
+				}
+			},
+			{
+				"name": "UTILITY"
+			}
+		]
+	}
+}

@@ -1,0 +1,123 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"hostnet.nl": {
+		"detectors": [
+			{
+				"presentMatcher": [
+					{
+						"type": "css",
+						"target": {
+							"selector": "#cookie-banner #CybotCookiebotDialogBodyLevelButtonMarketing"
+						}
+					}
+				],
+				"showingMatcher": [
+					{
+						"type": "css",
+						"target": {
+							"selector": "#cookie-banner.open",
+							"displayFilter": true
+						}
+					}
+				]
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": "#cookie-toggle-prefs"
+							}
+						},
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": "#cookie-prefs #CybotCookiebotDialogBodyLevelButtonMarketing",
+								"displayFilter": true
+							},
+							"retries": 10,
+							"waitTime": 300
+						}
+					]
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "#cookie-banner #CybotCookiebotDialogBodyLevelButtonPreferences"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "#cookie-banner #CybotCookiebotDialogBodyLevelButtonPreferences"
+								}
+							},
+							"type": "D"
+						},
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "#cookie-banner #CybotCookiebotDialogBodyLevelButtonStatistics"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "#cookie-banner #CybotCookiebotDialogBodyLevelButtonStatistics"
+								}
+							},
+							"type": "B"
+						},
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "#cookie-banner #CybotCookiebotDialogBodyLevelButtonMarketing"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "#cookie-banner #CybotCookiebotDialogBodyLevelButtonMarketing"
+								}
+							},
+							"type": "F"
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "click",
+					"target": {
+						"selector": "#cookie-banner #CybotCookiebotDialogBodyLevelButtonAccept"
+					}
+				}
+			},
+			{
+				"name": "UTILITY"
+			}
+		]
+	}
+}

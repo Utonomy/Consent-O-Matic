@@ -5,6 +5,11 @@
       {
         "presentMatcher": [
           {
+            "type": "url",
+            "url": "(^|[/.])nordnet\\.",
+            "regexp": true
+          },
+          {
             "type": "css",
             "target": {
               "selector": "div[role=dialog][aria-labelledby=\"cookie-consent-title\"]"

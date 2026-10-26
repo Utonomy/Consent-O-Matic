@@ -3,13 +3,20 @@
     "campus.deptagency.com": {
         "detectors": [
             {
-                "presentMatcher": {
-                    "type": "css",
-                    "target": {
-                        "selector": "[role=\"dialog\"]",
-                        "textFilter": "necessary cookies"
+                "presentMatcher": [
+                    {
+                        "type": "url",
+                        "url": ["(^|[/.])campus\\.(deptagency\\.com|dept\\.global)($|[/:])"],
+                        "regexp": true
+                    },
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "[role=\"dialog\"]",
+                            "textFilter": "necessary cookies"
+                        }
                     }
-                },
+                ],
                 "showingMatcher": {
                     "type": "css",
                     "target": {

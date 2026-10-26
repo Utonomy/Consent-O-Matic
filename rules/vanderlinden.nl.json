@@ -1,0 +1,142 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"vanderlinden.nl": {
+		"detectors": [
+			{
+				"presentMatcher": [
+					{
+						"type": "url",
+						"url": ["(^|[/.])vanderlinden\\.nl($|[/:])"],
+						"regexp": true
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": "#ch2-dialog"
+						}
+					}
+				],
+				"showingMatcher": [
+					{
+						"type": "css",
+						"target": {
+							"selector": "#ch2-dialog .ch2-open-settings-btn",
+							"displayFilter": true
+						}
+					}
+				]
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": "#ch2-dialog .ch2-open-settings-btn"
+							}
+						},
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": "#ch2-settings-dialog.ch2-visible input#c2-c-2"
+							},
+							"retries": 10,
+							"waitTime": 300
+						}
+					]
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "#ch2-settings-dialog input#c2-c-2"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "#ch2-settings-dialog input#c2-c-2"
+								}
+							},
+							"type": "D"
+						},
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "#ch2-settings-dialog input#c2-c-3"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "#ch2-settings-dialog input#c2-c-3"
+								}
+							},
+							"type": "B"
+						},
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "#ch2-settings-dialog input#c2-c-4"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "#ch2-settings-dialog input#c2-c-4"
+								}
+							},
+							"type": "F"
+						},
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "#ch2-settings-dialog input#c2-c-5"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "#ch2-settings-dialog input#c2-c-5"
+								}
+							},
+							"type": "X"
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "click",
+					"target": {
+						"selector": "#ch2-settings-dialog .ch2-save-settings-btn"
+					}
+				}
+			},
+			{
+				"name": "UTILITY"
+			}
+		]
+	}
+}

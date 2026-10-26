@@ -1,0 +1,100 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"studiostoutshop.nl": {
+		"detectors": [
+			{
+				"presentMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "[data-testid=\"consent-bar-container\"]"
+					}
+				},
+				"showingMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "[data-testid=\"consent-bar-open-settings\"]",
+						"displayFilter": true
+					}
+				}
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": "[data-testid=\"consent-bar-open-settings\"]"
+							}
+						},
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": "[data-testid=\"consent-modal\"] input[name^=\"consentToggle_\"]"
+							},
+							"retries": 10,
+							"waitTime": 300
+						}
+					]
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "[data-testid=\"consent-modal\"] input[name=\"consentToggle_analytical\"]"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "[data-testid=\"consent-modal\"] [data-testid=\"consent-toggle-consent-analytical\"] input"
+								}
+							},
+							"type": "B"
+						},
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "[data-testid=\"consent-modal\"] input[name=\"consentToggle_marketing\"]"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "[data-testid=\"consent-modal\"] [data-testid=\"consent-toggle-consent-marketing\"] input"
+								}
+							},
+							"type": "F"
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "click",
+					"target": {
+						"selector": "[data-testid=\"consent-modal\"] [data-testid=\"consent-button-accept-selection\"]"
+					}
+				}
+			}
+		]
+	}
+}

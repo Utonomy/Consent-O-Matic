@@ -1,0 +1,151 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"desenio.nl": {
+		"detectors": [
+			{
+				"presentMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "section[id^=\"synapse-cookie-banner\"]"
+					}
+				},
+				"showingMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "section[id^=\"synapse-cookie-banner\"] button.button-secondary",
+						"displayFilter": true
+					}
+				}
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": "section[id^=\"synapse-cookie-banner\"] button.button-secondary"
+							}
+						},
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": "form[aria-labelledby^=\"synapse-cookie-banner\"] button[role=\"switch\"]"
+							},
+							"retries": 10,
+							"waitTime": 300
+						}
+					]
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"matcher": {
+								"type": "css",
+								"parent": {
+									"selector": "form[aria-labelledby^=\"synapse-cookie-banner\"] div.flex-row:has(> button[role=\"switch\"])",
+									"textFilter": [
+										"Analyse en statistieken"
+									]
+								},
+								"target": {
+									"selector": "button[role=\"switch\"][aria-checked=\"true\"]"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"parent": {
+									"selector": "form[aria-labelledby^=\"synapse-cookie-banner\"] div.flex-row:has(> button[role=\"switch\"])",
+									"textFilter": [
+										"Analyse en statistieken"
+									]
+								},
+								"target": {
+									"selector": "button[role=\"switch\"]:not([disabled])"
+								}
+							},
+							"type": "B"
+						},
+						{
+							"matcher": {
+								"type": "css",
+								"parent": {
+									"selector": "form[aria-labelledby^=\"synapse-cookie-banner\"] div.flex-row:has(> button[role=\"switch\"])",
+									"textFilter": [
+										"Personalisatie"
+									]
+								},
+								"target": {
+									"selector": "button[role=\"switch\"][aria-checked=\"true\"]"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"parent": {
+									"selector": "form[aria-labelledby^=\"synapse-cookie-banner\"] div.flex-row:has(> button[role=\"switch\"])",
+									"textFilter": [
+										"Personalisatie"
+									]
+								},
+								"target": {
+									"selector": "button[role=\"switch\"]:not([disabled])"
+								}
+							},
+							"type": "E"
+						},
+						{
+							"matcher": {
+								"type": "css",
+								"parent": {
+									"selector": "form[aria-labelledby^=\"synapse-cookie-banner\"] div.flex-row:has(> button[role=\"switch\"])",
+									"textFilter": [
+										"Marketing"
+									]
+								},
+								"target": {
+									"selector": "button[role=\"switch\"][aria-checked=\"true\"]"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"parent": {
+									"selector": "form[aria-labelledby^=\"synapse-cookie-banner\"] div.flex-row:has(> button[role=\"switch\"])",
+									"textFilter": [
+										"Marketing"
+									]
+								},
+								"target": {
+									"selector": "button[role=\"switch\"]:not([disabled])"
+								}
+							},
+							"type": "F"
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "click",
+					"target": {
+						"selector": "form[aria-labelledby^=\"synapse-cookie-banner\"] button[id$=\"-save\"]"
+					}
+				}
+			}
+		]
+	}
+}

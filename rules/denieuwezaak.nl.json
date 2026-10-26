@@ -1,0 +1,80 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"denieuwezaak.nl": {
+		"detectors": [
+			{
+				"presentMatcher": [
+					{
+						"type": "url",
+						"url": "(^|[/.])denieuwezaak\\.nl($|[/:])",
+						"regexp": true
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": "#cookiebanner a.c-btn.c-btn-secondary"
+						}
+					}
+				],
+				"showingMatcher": [
+					{
+						"type": "css",
+						"target": {
+							"selector": "#cookiebanner .cookiebanner-wrap",
+							"displayFilter": true
+						}
+					}
+				]
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"trueAction": {
+								"type": "click",
+								"target": {
+									"selector": "#cookiebanner a.c-btn.c-btn-primary"
+								}
+							},
+							"falseAction": {
+								"type": "click",
+								"target": {
+									"selector": "#cookiebanner a.c-btn.c-btn-secondary"
+								}
+							},
+							"type": "F"
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "UTILITY"
+			}
+		]
+	}
+}

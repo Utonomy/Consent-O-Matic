@@ -59,6 +59,13 @@
                         {
                             "type": "click",
                             "target": {
+                                "selector": "#cookiebanner .m-button-group__item--settings",
+                                "displayFilter": true
+                            }
+                        },
+                        {
+                            "type": "click",
+                            "target": {
                                 "selector": "[data-toggle='collapse']",
                                 "displayFilter": true
                             }
@@ -87,7 +94,7 @@
                                             "selector": "#CybotCookiebotDialogBodyLevelButtonPreferences, [name='preferences']"
                                         }
                                     },
-                                    "type": "A"
+                                    "type": "D"
                                 },
                                 {
                                     "matcher": {

@@ -1,0 +1,156 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"11teamsports.com": {
+		"detectors": [
+			{
+				"presentMatcher": [
+					{
+						"type": "url",
+						"url": [
+							"(^|[/.])11teamsports\\.[a-z]+($|[/:])"
+						],
+						"regexp": true
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": ".cookie-permission-container .js-cookie-configuration-button"
+						}
+					}
+				],
+				"showingMatcher": [
+					{
+						"type": "css",
+						"target": {
+							"selector": ".cookie-permission-container .js-cookie-configuration-button",
+							"displayFilter": true
+						}
+					}
+				]
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": ".cookie-permission-container .js-cookie-configuration-button button"
+							}
+						},
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": ".offcanvas.is-open .js-offcanvas-cookie-submit"
+							},
+							"retries": 20,
+							"waitTime": 250
+						}
+					]
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": ".offcanvas.is-open input[data-cookie='exponea']"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": ".offcanvas.is-open input[data-cookie='exponea']"
+								}
+							},
+							"type": "F"
+						},
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": ".offcanvas.is-open input[data-cookie='matomo']"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": ".offcanvas.is-open input[data-cookie='matomo']"
+								}
+							},
+							"type": "B"
+						},
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": ".offcanvas.is-open input[data-cookie='google-analytics-enabled']"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": ".offcanvas.is-open input[data-cookie='google-analytics-enabled']"
+								}
+							},
+							"type": "B"
+						},
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": ".offcanvas.is-open input[data-cookie='wishlist-enabled']"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": ".offcanvas.is-open input[data-cookie='wishlist-enabled']"
+								}
+							},
+							"type": "D"
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": ".offcanvas.is-open .js-offcanvas-cookie-submit"
+							}
+						},
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": ".cookie-permission-container .js-cookie-configuration-button",
+								"displayFilter": true
+							},
+							"retries": 20,
+							"waitTime": 250,
+							"negated": true
+						}
+					]
+				}
+			}
+		]
+	}
+}

@@ -3,12 +3,19 @@
     "hu.nl": {
         "detectors": [
             {
-                "presentMatcher": {
-                    "type": "css",
-                    "target": {
-                        "selector": "#cookiebanner, #CybotCookiebotDialogBodyLevelButtonAccept"
+                "presentMatcher": [
+                    {
+                        "type": "url",
+                        "url": "(^|[/.])hu\\.nl($|[/:])",
+                        "regexp": true
+                    },
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "#cookiebanner, #CybotCookiebotDialogBodyLevelButtonAccept"
+                        }
                     }
-                },
+                ],
                 "showingMatcher": {
                     "type": "css",
                     "target": {

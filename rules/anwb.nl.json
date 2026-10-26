@@ -1,0 +1,116 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"anwb.nl": {
+		"detectors": [
+			{
+				"presentMatcher": [
+					{
+						"type": "url",
+						"url": ["(^|[/.])anwb\\.nl($|[/:])"],
+						"regexp": true
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": "button[data-test='button-tertiary']",
+							"textFilter": ["Cookievoorkeuren instellen"]
+						}
+					}
+				],
+				"showingMatcher": [
+					{
+						"type": "css",
+						"target": {
+							"selector": "button[data-test='button-tertiary']",
+							"textFilter": ["Cookievoorkeuren instellen"],
+							"displayFilter": true
+						}
+					}
+				]
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": "button[data-test='button-tertiary']",
+								"textFilter": ["Cookievoorkeuren instellen"]
+							}
+						},
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": "input[name='level'][value='3']"
+							},
+							"retries": 10,
+							"waitTime": 300
+						}
+					]
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "input[name='level'][value='2']"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "input[name='level'][value='2']"
+								}
+							},
+							"type": "E"
+						},
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "input[name='level'][value='3']"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "input[name='level'][value='3']"
+								}
+							},
+							"type": "F"
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "click",
+					"target": {
+						"selector": "button[data-test='button-tertiary']",
+						"textFilter": ["Voorkeuren opslaan"]
+					}
+				}
+			},
+			{
+				"name": "UTILITY"
+			}
+		]
+	}
+}

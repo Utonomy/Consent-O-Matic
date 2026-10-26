@@ -1,0 +1,205 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"paulaschoice.nl": {
+		"detectors": [
+			{
+				"presentMatcher": [
+					{
+						"type": "url",
+						"url": "(^|[/.])paulaschoice\\.",
+						"regexp": true
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": "div[role='dialog'][aria-label='Clarip Cookie Consent Banner']"
+						}
+					}
+				],
+				"showingMatcher": [
+					{
+						"type": "css",
+						"target": {
+							"selector": "div[role='dialog'][aria-label='Clarip Cookie Consent Banner']",
+							"displayFilter": true
+						}
+					}
+				]
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "ifallownone",
+					"trueAction": {
+						"type": "click",
+						"target": {
+							"selector": "div[role='dialog'][aria-label='Clarip Cookie Consent Banner'] button.cc-dismiss"
+						}
+					},
+					"falseAction": {
+						"type": "click",
+						"target": {
+							"selector": "div[role='dialog'][aria-label='Clarip Cookie Consent Banner'] button#consent-management-tool"
+						}
+					}
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "UTILITY"
+			}
+		]
+	},
+	"paulaschoice.nl_clarip": {
+		"detectors": [
+			{
+				"presentMatcher": [
+					{
+						"type": "url",
+						"url": "(^|[/.])paulaschoice\\.",
+						"regexp": true
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": "#cookie-manager-details input#advertising-checkbox.category-toggle"
+						}
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": "#save-cookie-options"
+						}
+					}
+				],
+				"showingMatcher": [
+					{
+						"type": "css",
+						"target": {
+							"selector": "#save-cookie-options",
+							"displayFilter": true
+						}
+					}
+				]
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "#cookie-manager-details input#functional-checkbox"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "#cookie-manager-details input#functional-checkbox + span.switch"
+								}
+							},
+							"type": "D"
+						},
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "#cookie-manager-details input#analytics-checkbox"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "#cookie-manager-details input#analytics-checkbox + span.switch"
+								}
+							},
+							"type": "B"
+						},
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "#cookie-manager-details input#advertising-checkbox"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "#cookie-manager-details input#advertising-checkbox + span.switch"
+								}
+							},
+							"type": "F"
+						},
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "#cookie-manager-details input#other-checkbox"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "#cookie-manager-details input#other-checkbox + span.switch"
+								}
+							},
+							"type": "X"
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "click",
+					"target": {
+						"selector": "#save-cookie-options"
+					}
+				}
+			},
+			{
+				"name": "UTILITY"
+			}
+		]
+	}
+}

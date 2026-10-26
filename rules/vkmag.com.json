@@ -1,0 +1,266 @@
+{
+	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"vkmag.com": {
+		"detectors": [
+			{
+				"presentMatcher": [
+					{
+						"type": "url",
+						"url": [
+							"(^|[/.])vkmag\\.com($|[/:])"
+						],
+						"regexp": true
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": "#cmpbox"
+						}
+					}
+				],
+				"showingMatcher": [
+					{
+						"type": "css",
+						"target": {
+							"selector": "#cmpbox.cmpboxWelcomeGDPR .cmpboxbtncustom",
+							"displayFilter": true
+						}
+					}
+				]
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": "#cmpbox .cmpboxbtncustom"
+							}
+						},
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": "#cmpbox .cmpboxnaviitem"
+							},
+							"retries": 10,
+							"waitTime": 500
+						}
+					]
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "ifcss",
+							"target": {
+								"selector": "#cmpbox .cmpboxnaviitem[data-cmp-purpose=\"1\"]"
+							},
+							"trueAction": {
+								"type": "list",
+								"actions": [
+									{
+										"type": "click",
+										"target": {
+											"selector": "#cmpbox .cmpboxnaviitem[data-cmp-purpose=\"1\"]"
+										}
+									},
+									{
+										"type": "waitcss",
+										"target": {
+											"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"1\"]"
+										},
+										"retries": 10,
+										"waitTime": 300
+									},
+									{
+										"type": "consent",
+										"consents": [
+											{
+												"matcher": {
+													"type": "css",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"1\"][aria-checked=\"true\"]"
+													}
+												},
+												"toggleAction": {
+													"type": "click",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"1\"]"
+													}
+												},
+												"type": "D"
+											}
+										]
+									}
+								]
+							}
+						},
+						{
+							"type": "ifcss",
+							"target": {
+								"selector": "#cmpbox .cmpboxnaviitem[data-cmp-purpose=\"c50\"]"
+							},
+							"trueAction": {
+								"type": "list",
+								"actions": [
+									{
+										"type": "click",
+										"target": {
+											"selector": "#cmpbox .cmpboxnaviitem[data-cmp-purpose=\"c50\"]"
+										}
+									},
+									{
+										"type": "waitcss",
+										"target": {
+											"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"c50\"]"
+										},
+										"retries": 10,
+										"waitTime": 300
+									},
+									{
+										"type": "consent",
+										"consents": [
+											{
+												"matcher": {
+													"type": "css",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"c50\"][aria-checked=\"true\"]"
+													}
+												},
+												"toggleAction": {
+													"type": "click",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"c50\"]"
+													}
+												},
+												"type": "F"
+											}
+										]
+									}
+								]
+							}
+						},
+						{
+							"type": "ifcss",
+							"target": {
+								"selector": "#cmpbox .cmpboxnaviitem[data-cmp-purpose=\"st1\"]"
+							},
+							"trueAction": {
+								"type": "list",
+								"actions": [
+									{
+										"type": "click",
+										"target": {
+											"selector": "#cmpbox .cmpboxnaviitem[data-cmp-purpose=\"st1\"]"
+										}
+									},
+									{
+										"type": "waitcss",
+										"target": {
+											"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"st1\"]"
+										},
+										"retries": 10,
+										"waitTime": 300
+									},
+									{
+										"type": "consent",
+										"consents": [
+											{
+												"matcher": {
+													"type": "css",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"st1\"][aria-checked=\"true\"]"
+													}
+												},
+												"toggleAction": {
+													"type": "click",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"st1\"]"
+													}
+												},
+												"type": "X"
+											}
+										]
+									}
+								]
+							}
+						},
+						{
+							"type": "ifcss",
+							"target": {
+								"selector": "#cmpbox .cmpboxnaviitem[data-cmp-purpose=\"st42\"]"
+							},
+							"trueAction": {
+								"type": "list",
+								"actions": [
+									{
+										"type": "click",
+										"target": {
+											"selector": "#cmpbox .cmpboxnaviitem[data-cmp-purpose=\"st42\"]"
+										}
+									},
+									{
+										"type": "waitcss",
+										"target": {
+											"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"st42\"]"
+										},
+										"retries": 10,
+										"waitTime": 300
+									},
+									{
+										"type": "consent",
+										"consents": [
+											{
+												"matcher": {
+													"type": "css",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"st42\"][aria-checked=\"true\"]"
+													}
+												},
+												"toggleAction": {
+													"type": "click",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"st42\"]"
+													}
+												},
+												"type": "F"
+											}
+										]
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": "#cmpbox .cmpboxbtnyescustomchoices"
+							}
+						}
+					]
+				}
+			}
+		]
+	}
+}

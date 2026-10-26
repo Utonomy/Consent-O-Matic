@@ -131,6 +131,27 @@
                                     "matcher": {
                                         "type": "checkbox",
                                         "target": {
+                                            "selector": "#purpose-row-SPECIAL_FEATURE_1 input"
+                                        },
+                                        "parent": {
+                                            "selector": "#pg-shadow-host-dom"
+                                        }
+                                    },
+                                    "toggleAction": {
+                                        "type": "click",
+                                        "target": {
+                                            "selector": "#purpose-row-SPECIAL_FEATURE_1 input"
+                                        },
+                                        "parent": {
+                                            "selector": "#pg-shadow-host-dom"
+                                        }
+                                    },
+                                    "type": "F"
+                                },
+                                {
+                                    "matcher": {
+                                        "type": "checkbox",
+                                        "target": {
                                             "selector": "#purpose-row-MARKETING input"
                                         },
                                         "parent": {
@@ -141,6 +162,27 @@
                                         "type": "click",
                                         "target": {
                                             "selector": "#purpose-row-MARKETING input"
+                                        },
+                                        "parent": {
+                                            "selector": "#pg-shadow-host-dom"
+                                        }
+                                    },
+                                    "type": "F"
+                                },
+                                {
+                                    "matcher": {
+                                        "type": "checkbox",
+                                        "target": {
+                                            "selector": "#purpose-row-ONLINE_GAMBLING_ADS input"
+                                        },
+                                        "parent": {
+                                            "selector": "#pg-shadow-host-dom"
+                                        }
+                                    },
+                                    "toggleAction": {
+                                        "type": "click",
+                                        "target": {
+                                            "selector": "#purpose-row-ONLINE_GAMBLING_ADS input"
                                         },
                                         "parent": {
                                             "selector": "#pg-shadow-host-dom"
