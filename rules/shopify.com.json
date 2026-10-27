@@ -1,0 +1,166 @@
+{
+	"$schema": "../rules.schema.json",
+	"shopify.com": {
+		"detectors": [
+			{
+				"presentMatcher": [
+					{
+						"type": "url",
+						"url": [
+							"(^|[/.])shopify\\.com($|[/:])"
+						],
+						"regexp": true
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": "#dux-privacy [data-component-name='reject']"
+						}
+					}
+				],
+				"showingMatcher": [
+					{
+						"type": "css",
+						"target": {
+							"selector": "#dux-privacy [data-component-name='reject']",
+							"displayFilter": true
+						}
+					}
+				]
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": "#dux-privacy [data-component-name='action-row'] > button"
+							}
+						},
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": "#dux-privacy[data-granular-menu-expanded='true'] label[data-component-name='form-switch']"
+							},
+							"retries": 20,
+							"waitTime": 250
+						},
+						{
+							"type": "wait",
+							"waitTime": 500
+						}
+					]
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "label[data-component-name='form-switch'] input[type='checkbox']"
+								},
+								"parent": {
+									"selector": "#dux-privacy div:has(> label[data-component-name='form-switch'])",
+									"textFilter": [
+										"Analytics",
+										"Analyse",
+										"Statisti"
+									]
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "label[data-component-name='form-switch'] input[type='checkbox']"
+								},
+								"parent": {
+									"selector": "#dux-privacy div:has(> label[data-component-name='form-switch'])",
+									"textFilter": [
+										"Analytics",
+										"Analyse",
+										"Statisti"
+									]
+								}
+							},
+							"type": "B"
+						},
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "label[data-component-name='form-switch'] input[type='checkbox']"
+								},
+								"parent": {
+									"selector": "#dux-privacy div:has(> label[data-component-name='form-switch'])",
+									"textFilter": [
+										"Advertentie",
+										"Advertising",
+										"Marketing",
+										"Werbe",
+										"Publicit"
+									]
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "label[data-component-name='form-switch'] input[type='checkbox']"
+								},
+								"parent": {
+									"selector": "#dux-privacy div:has(> label[data-component-name='form-switch'])",
+									"textFilter": [
+										"Advertentie",
+										"Advertising",
+										"Marketing",
+										"Werbe",
+										"Publicit"
+									]
+								}
+							},
+							"type": "F"
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": "#dux-privacy [data-component-name='savePreferences']"
+							}
+						},
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": "#dux-privacy [data-component-name='reject']",
+								"displayFilter": true
+							},
+							"retries": 20,
+							"waitTime": 250,
+							"negated": true
+						}
+					]
+				}
+			}
+		]
+	}
+}

@@ -1,0 +1,80 @@
+{
+	"$schema": "../rules.schema.json",
+	"onlinebibliotheek.nl": {
+		"detectors": [
+			{
+				"presentMatcher": [
+					{
+						"type": "url",
+						"url": "(^|[/.])onlinebibliotheek\\.nl($|[/:])",
+						"regexp": true
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": ".modalwindow:has(.modalwindow-footer button.notok)"
+						}
+					}
+				],
+				"showingMatcher": [
+					{
+						"type": "css",
+						"target": {
+							"selector": ".modalwindow:has(.modalwindow-footer button.notok)",
+							"displayFilter": true
+						}
+					}
+				]
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"trueAction": {
+								"type": "click",
+								"target": {
+									"selector": ".modalwindow:has(.modalwindow-footer button.notok) .modalwindow-footer button.ok"
+								}
+							},
+							"falseAction": {
+								"type": "click",
+								"target": {
+									"selector": ".modalwindow:has(.modalwindow-footer button.notok) .modalwindow-footer button.notok"
+								}
+							},
+							"type": "F"
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "UTILITY"
+			}
+		]
+	}
+}

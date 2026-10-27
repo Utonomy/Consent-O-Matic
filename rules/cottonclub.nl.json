@@ -1,0 +1,116 @@
+{
+	"$schema": "../rules.schema.json",
+	"cottonclub.nl": {
+		"detectors": [
+			{
+				"presentMatcher": [
+					{
+						"type": "url",
+						"url": [
+							"(^|[/.])cottonclub\\.nl($|[/:])"
+						],
+						"regexp": true
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": ".c-cookie-bar .cookie-bar__button-customize"
+						}
+					}
+				],
+				"showingMatcher": [
+					{
+						"type": "css",
+						"target": {
+							"selector": ".c-cookie-bar.cookie-bar--is-visible",
+							"displayFilter": true
+						}
+					}
+				]
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": ".c-cookie-bar .cookie-bar__button-customize"
+							}
+						},
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": ".c-cookie-bar #cookies-marketing"
+							},
+							"retries": 10,
+							"waitTime": 300
+						}
+					]
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": ".c-cookie-bar #cookies-analytics"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": ".c-cookie-bar label[for=\"cookies-analytics\"]"
+								}
+							},
+							"type": "B"
+						},
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": ".c-cookie-bar #cookies-marketing"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": ".c-cookie-bar label[for=\"cookies-marketing\"]"
+								}
+							},
+							"type": "F"
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": ".c-cookie-bar [js-hook-cookies-form-accept]"
+							}
+						}
+					]
+				}
+			}
+		]
+	}
+}

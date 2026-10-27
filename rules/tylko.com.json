@@ -1,0 +1,127 @@
+{
+	"$schema": "../rules.schema.json",
+	"tylko.com": {
+		"detectors": [
+			{
+				"presentMatcher": [
+					{
+						"type": "url",
+						"url": "(^|[/.])tylko\\.com($|[/:])",
+						"regexp": true
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": "[data-testid='cookiebar'] [data-testid='cookies-open-modal']"
+						}
+					}
+				],
+				"showingMatcher": [
+					{
+						"type": "css",
+						"target": {
+							"selector": "[data-testid='cookiebar']",
+							"displayFilter": true
+						}
+					}
+				]
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": "[data-testid='cookiebar'] [data-testid='cookies-open-modal']"
+							}
+						},
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": "[id^='headlessui-dialog-panel'] [data-testid='save cookies settings']"
+							},
+							"retries": 10,
+							"waitTime": 300
+						}
+					]
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "[id^='headlessui-dialog-panel'] div:has(> div > h3):nth-child(2 of div:has(> div > h3)) label[role='checkbox'] input"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "[id^='headlessui-dialog-panel'] div:has(> div > h3):nth-child(2 of div:has(> div > h3)) label[role='checkbox']"
+								}
+							},
+							"type": "B"
+						},
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "[id^='headlessui-dialog-panel'] div:has(> div > h3):nth-child(3 of div:has(> div > h3)) label[role='checkbox'] input"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "[id^='headlessui-dialog-panel'] div:has(> div > h3):nth-child(3 of div:has(> div > h3)) label[role='checkbox']"
+								}
+							},
+							"type": "D"
+						},
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "[id^='headlessui-dialog-panel'] div:has(> div > h3):nth-child(4 of div:has(> div > h3)) label[role='checkbox'] input"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "[id^='headlessui-dialog-panel'] div:has(> div > h3):nth-child(4 of div:has(> div > h3)) label[role='checkbox']"
+								}
+							},
+							"type": "F"
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "click",
+					"target": {
+						"selector": "[id^='headlessui-dialog-panel'] [data-testid='save cookies settings']"
+					}
+				}
+			},
+			{
+				"name": "UTILITY"
+			}
+		]
+	}
+}

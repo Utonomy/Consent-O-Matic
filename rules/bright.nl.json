@@ -1,17 +1,26 @@
 {
-    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "$schema": "../rules.schema.json",
     "bright.nl": {
         "detectors": [
             {
-                "presentMatcher": {
-                    "type": "css",
-                    "target": {
-                        "selector": "#cmpbox"
+                "presentMatcher": [
+                    {
+                        "type": "url",
+                        "url": [
+                            "(^|[/.])bright\\.nl($|[/:])"
+                        ],
+                        "regexp": true
                     },
-                    "parent": {
-                        "selector": "#cmpwrapper"
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "#cmpbox"
+                        },
+                        "parent": {
+                            "selector": "#cmpwrapper"
+                        }
                     }
-                },
+                ],
                 "showingMatcher": {
                     "type": "css",
                     "target": {

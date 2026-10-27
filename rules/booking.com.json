@@ -1,5 +1,5 @@
 {
-    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "$schema": "../rules.schema.json",
     "booking_com": {
         "detectors": [
             {
@@ -58,7 +58,7 @@
                                             "selector": "#ot-group-id-C0002"
                                         }
                                     },
-                                    "type": "A"
+                                    "type": "B"
                                 }
                             ]
                         },
@@ -78,7 +78,7 @@
                                             "selector": "#ot-group-id-C0004"
                                         }
                                     },
-                                    "type": "B"
+                                    "type": "F"
                                 }
                             ]
                         },
@@ -116,9 +116,21 @@
             {
                 "name": "SAVE_CONSENT",
                 "action": {
-                    "type": "click",
+                    "type": "ifcss",
                     "target": {
                         "selector": ".save-preference-btn-handler"
+                    },
+                    "trueAction": {
+                        "type": "click",
+                        "target": {
+                            "selector": ".save-preference-btn-handler"
+                        }
+                    },
+                    "falseAction": {
+                        "type": "click",
+                        "target": {
+                            "selector": "#onetrust-banner-sdk #onetrust-reject-all-handler"
+                        }
                     }
                 }
             },

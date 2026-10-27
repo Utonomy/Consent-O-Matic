@@ -1,14 +1,23 @@
 {
-    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "$schema": "../rules.schema.json",
     "www.meubelzorg.nl": {
         "detectors": [
             {
-                "presentMatcher": {
-                    "type": "css",
-                    "target": {
-                        "selector": "#cmpwrapper"
+                "presentMatcher": [
+                    {
+                        "type": "url",
+                        "url": [
+                            "(^|[/.])meubelzorg\\.nl($|[/:])"
+                        ],
+                        "regexp": true
+                    },
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "#cmpwrapper"
+                        }
                     }
-                },
+                ],
                 "showingMatcher": {
                     "type": "css",
                     "target": {

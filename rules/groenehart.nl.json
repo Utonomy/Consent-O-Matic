@@ -1,0 +1,111 @@
+{
+	"$schema": "../rules.schema.json",
+	"groenehart.nl": {
+		"detectors": [
+			{
+				"presentMatcher": [
+					{
+						"type": "url",
+						"url": [
+							"(^|[/.])groenehart\\.nl($|[/:])"
+						],
+						"regexp": true
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": "dialog.cookie-message__wrapper[data-cookie-bar]"
+						}
+					}
+				],
+				"showingMatcher": [
+					{
+						"type": "css",
+						"target": {
+							"selector": "dialog.cookie-message__wrapper[data-cookie-bar][open]",
+							"displayFilter": true
+						}
+					}
+				]
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": ".cookie-message__button--accept-manual"
+							}
+						},
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": ".cookie-message__wrapper--modal #cookie_type_marketing"
+							},
+							"retries": 20,
+							"waitTime": 300
+						}
+					]
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": ".cookie-message__wrapper--modal #cookie_type_analytical"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": ".cookie-message__wrapper--modal label[for=\"cookie_type_analytical\"]"
+								}
+							},
+							"type": "B"
+						},
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": ".cookie-message__wrapper--modal #cookie_type_marketing"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": ".cookie-message__wrapper--modal label[for=\"cookie_type_marketing\"]"
+								}
+							},
+							"type": "F"
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "click",
+					"target": {
+						"selector": ".cookie-message__wrapper--modal button[data-cookie-save]"
+					}
+				}
+			}
+		]
+	}
+}

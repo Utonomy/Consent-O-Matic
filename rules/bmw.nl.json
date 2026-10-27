@@ -1,5 +1,5 @@
 {
-    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "$schema": "../rules.schema.json",
     "bmw.nl": {
         "detectors": [
             {
@@ -56,14 +56,30 @@
                         {
                             "type": "waitcss",
                             "target": {
-                                "selector": ".save-button",
-                                "displayFilter": true
+                                "selector": "epaas-policy-page-shell"
                             },
                             "parent": {
                                 "selector": "epaas-consent-drawer-shell"
                             },
                             "retries": 40,
                             "waitTime": 200
+                        },
+                        {
+                            "type": "runrooted",
+                            "parent": {
+                                "selector": "epaas-consent-drawer-shell"
+                            },
+                            "target": {
+                                "selector": "epaas-policy-page-shell"
+                            },
+                            "action": {
+                                "type": "waitcss",
+                                "target": {
+                                    "selector": "input[aria-labelledby='advertisingToggleLabel']"
+                                },
+                                "retries": 40,
+                                "waitTime": 200
+                            }
                         }
                     ]
                 }
@@ -110,12 +126,46 @@
             {
                 "name": "SAVE_CONSENT",
                 "action": {
-                    "type": "click",
-                    "target": {
-                        "selector": ".save-button"
-                    },
+                    "type": "runrooted",
                     "parent": {
                         "selector": "epaas-consent-drawer-shell"
+                    },
+                    "target": {
+                        "selector": "epaas-policy-page-shell"
+                    },
+                    "action": {
+                        "type": "ifcss",
+                        "target": {
+                            "selector": "input[aria-labelledby='advertisingToggleLabel']:checked"
+                        },
+                        "trueAction": {
+                            "type": "runrooted",
+                            "ignoreOldRoot": true,
+                            "target": {
+                                "selector": "epaas-consent-drawer-shell"
+                            },
+                            "action": {
+                                "type": "click",
+                                "target": {
+                                    "selector": ".save-button",
+                                    "displayFilter": true
+                                }
+                            }
+                        },
+                        "falseAction": {
+                            "type": "runrooted",
+                            "ignoreOldRoot": true,
+                            "target": {
+                                "selector": "epaas-consent-drawer-shell"
+                            },
+                            "action": {
+                                "type": "click",
+                                "target": {
+                                    "selector": ".reject-button",
+                                    "displayFilter": true
+                                }
+                            }
+                        }
                     }
                 }
             }

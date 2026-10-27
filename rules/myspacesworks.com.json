@@ -1,0 +1,129 @@
+{
+	"$schema": "../rules.schema.json",
+	"myspacesworks.com": {
+		"detectors": [
+			{
+				"presentMatcher": [
+					{
+						"type": "css",
+						"target": {
+							"selector": ".iwg-cookies-consent__wrapper #Cookie_Consent_RejectAll"
+						}
+					}
+				],
+				"showingMatcher": [
+					{
+						"type": "css",
+						"target": {
+							"selector": ".iwg-cookies-consent__wrapper #Cookie_Consent_RejectAll",
+							"displayFilter": true
+						}
+					}
+				]
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": "#Cookie_Consent_ManageLink"
+							}
+						},
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": "#Cookie_Settings_Reject"
+							},
+							"retries": 10,
+							"waitTime": 300
+						}
+					]
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"matcher": {
+								"type": "css",
+								"target": {
+									"selector": "#Cookie_Settings_Accept.primary"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "#Cookie_Settings_Accept"
+								}
+							},
+							"type": "F"
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "ifcss",
+							"target": {
+								"selector": "#Cookie_Settings_Accept.primary"
+							},
+							"falseAction": {
+								"type": "click",
+								"target": {
+									"selector": "#Cookie_Settings_Reject"
+								}
+							}
+						},
+						{
+							"type": "wait",
+							"waitTime": 500
+						},
+						{
+							"type": "ifcss",
+							"target": {
+								"selector": ".iwg-modal-centered-content #Cookie_Settings"
+							},
+							"trueAction": {
+								"type": "click",
+								"target": {
+									"selector": ".iwg-modal-centered-content:has(#Cookie_Settings) .modal-close"
+								}
+							}
+						},
+						{
+							"type": "ifcss",
+							"target": {
+								"selector": ".iwg-cookies-consent__wrapper #Cookie_Consent_RejectAll",
+								"displayFilter": true
+							},
+							"trueAction": {
+								"type": "click",
+								"target": {
+									"selector": "#Cookie_Consent_RejectAll"
+								}
+							}
+						}
+					]
+				}
+			}
+		]
+	}
+}

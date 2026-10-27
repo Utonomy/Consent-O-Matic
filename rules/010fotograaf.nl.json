@@ -1,0 +1,65 @@
+{
+    "$schema": "../rules.schema.json",
+    "010fotograaf.nl": {
+        "detectors": [
+            {
+                "presentMatcher": [
+                    {
+                        "type": "url",
+                        "url": [
+                            "(^|[/.])010fotograaf\\.nl($|[/:])"
+                        ],
+                        "regexp": true
+                    },
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "#oc_cb_wrapper"
+                        }
+                    }
+                ],
+                "showingMatcher": [
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "#oc_cb_wrapper",
+                            "displayFilter": true
+                        }
+                    }
+                ]
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "#oc_cb_btn"
+                    }
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            }
+        ]
+    }
+}

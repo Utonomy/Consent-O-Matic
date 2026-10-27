@@ -1,9 +1,14 @@
 {
-    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "$schema": "../rules.schema.json",
     "bladcadeau.nl": {
         "detectors": [
             {
                 "presentMatcher": [
+                    {
+                        "type": "url",
+                        "url": "(^|[/.])bladcadeau\\.nl($|[/:])",
+                        "regexp": true
+                    },
                     {
                         "type": "css",
                         "target": {

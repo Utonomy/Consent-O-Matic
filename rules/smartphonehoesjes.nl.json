@@ -1,0 +1,95 @@
+{
+	"$schema": "../rules.schema.json",
+	"smartphonehoesjes.nl": {
+		"detectors": [
+			{
+				"presentMatcher": [
+					{
+						"type": "url",
+						"url": [
+							"(^|[/.])smartphonehoesjes\\.nl($|[/:])"
+						],
+						"regexp": true
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": "#consent[data-screenset] a[href='#save']"
+						}
+					}
+				],
+				"showingMatcher": [
+					{
+						"type": "css",
+						"target": {
+							"selector": "#consent[data-screenset] a[href='#save']",
+							"displayFilter": true
+						}
+					}
+				]
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"matcher": {
+								"type": "css",
+								"target": {
+									"selector": "#consent[data-screenset].upod-marketing-accepted"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "#consent[data-screenset] a[href='#accept']"
+								}
+							},
+							"type": "F"
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "ifcss",
+					"target": {
+						"selector": "#consent[data-screenset] a[href='#save']",
+						"displayFilter": true
+					},
+					"trueAction": {
+						"type": "list",
+						"actions": [
+							{
+								"type": "click",
+								"target": {
+									"selector": "#consent[data-screenset] a[href='#save']"
+								}
+							},
+							{
+								"type": "waitcss",
+								"target": {
+									"selector": "#consent[data-screenset] a[href='#save']"
+								},
+								"retries": 20,
+								"waitTime": 250,
+								"negated": true
+							}
+						]
+					}
+				}
+			}
+		]
+	}
+}

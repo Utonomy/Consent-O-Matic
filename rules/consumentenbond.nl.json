@@ -1,0 +1,142 @@
+{
+	"$schema": "../rules.schema.json",
+	"consumentenbond.nl": {
+		"detectors": [
+			{
+				"presentMatcher": [
+					{
+						"type": "url",
+						"url": ["(^|[/.])consumentenbond\\.nl($|[/:])"],
+						"regexp": true
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": "button[data-test=\"settings-button\"]"
+						}
+					}
+				],
+				"showingMatcher": [
+					{
+						"type": "css",
+						"target": {
+							"selector": "button[data-test=\"settings-button\"]",
+							"displayFilter": true
+						}
+					}
+				]
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": "button[data-test=\"settings-button\"]"
+							}
+						},
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": "button[aria-label^=\"Aanpassen consent setting\"]"
+							},
+							"retries": 10,
+							"waitTime": 300
+						}
+					]
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"matcher": {
+								"type": "css",
+								"target": {
+									"selector": "button[aria-label^=\"Aanpassen consent setting YouTube\"][aria-pressed=\"true\"]"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "button[aria-label^=\"Aanpassen consent setting YouTube\"]"
+								}
+							},
+							"type": "X"
+						},
+						{
+							"matcher": {
+								"type": "css",
+								"target": {
+									"selector": "button[aria-label^=\"Aanpassen consent setting Personalisatie\"][aria-pressed=\"true\"]"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "button[aria-label^=\"Aanpassen consent setting Personalisatie\"]"
+								}
+							},
+							"type": "E"
+						},
+						{
+							"matcher": {
+								"type": "css",
+								"target": {
+									"selector": "button[aria-label^=\"Aanpassen consent setting Advertentie\"][aria-pressed=\"true\"]"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "button[aria-label^=\"Aanpassen consent setting Advertentie\"]"
+								}
+							},
+							"type": "F"
+						},
+						{
+							"matcher": {
+								"type": "css",
+								"target": {
+									"selector": "button[aria-label^=\"Aanpassen consent setting Optimalisatie\"][aria-pressed=\"true\"]"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "button[aria-label^=\"Aanpassen consent setting Optimalisatie\"]"
+								}
+							},
+							"type": "B"
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "click",
+					"target": {
+						"selector": "button[aria-label=\"Opslaan en sluiten\"]"
+					}
+				}
+			},
+			{
+				"name": "UTILITY"
+			}
+		]
+	}
+}

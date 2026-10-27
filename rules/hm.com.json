@@ -1,0 +1,116 @@
+{
+	"$schema": "../rules.schema.json",
+	"hm.com": {
+		"detectors": [
+			{
+				"presentMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "dialog.cookie-consent-popup #banner-cookie-setting-btn"
+					}
+				},
+				"showingMatcher": {
+					"type": "css",
+					"target": {
+						"selector": "dialog.cookie-consent-popup #banner-cookie-setting-btn",
+						"displayFilter": true
+					}
+				}
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": "dialog.cookie-consent-popup #banner-cookie-setting-btn"
+							}
+						},
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": "dialog.settings-page #settings-confirm-btn",
+								"displayFilter": true
+							},
+							"retries": 10,
+							"waitTime": 300
+						}
+					]
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "dialog.settings-page #section-2 input[type=\"checkbox\"]"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "dialog.settings-page #section-2 .slider-settings"
+								}
+							},
+							"type": "B"
+						},
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "dialog.settings-page #section-3 input[type=\"checkbox\"]"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "dialog.settings-page #section-3 .slider-settings"
+								}
+							},
+							"type": "D"
+						},
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "dialog.settings-page #section-4 input[type=\"checkbox\"]"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "dialog.settings-page #section-4 .slider-settings"
+								}
+							},
+							"type": "F"
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "click",
+					"target": {
+						"selector": "dialog.settings-page #settings-confirm-btn"
+					}
+				}
+			}
+		]
+	}
+}

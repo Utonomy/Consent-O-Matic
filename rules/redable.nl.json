@@ -1,0 +1,75 @@
+{
+	"$schema": "../rules.schema.json",
+	"redable.nl": {
+		"detectors": [
+			{
+				"presentMatcher": [
+					{
+						"type": "css",
+						"target": {
+							"selector": ".mst__cookie-bar-container .amgdprcookie-button[data-trigger-settings='decline']"
+						}
+					}
+				],
+				"showingMatcher": [
+					{
+						"type": "css",
+						"target": {
+							"selector": ".mst__cookie-bar-container",
+							"displayFilter": true
+						}
+					}
+				]
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"trueAction": {
+								"type": "click",
+								"target": {
+									"selector": ".mst__cookie-bar-container .amgdprcookie-button[data-trigger-settings='agree']"
+								}
+							},
+							"falseAction": {
+								"type": "click",
+								"target": {
+									"selector": ".mst__cookie-bar-container .amgdprcookie-button[data-trigger-settings='decline']"
+								}
+							},
+							"type": "F"
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "UTILITY"
+			}
+		]
+	}
+}

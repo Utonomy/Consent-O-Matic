@@ -1,14 +1,21 @@
 {
-	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"$schema": "../rules.schema.json",
 	"dustin.nl": {
 		"detectors": [
 			{
-				"presentMatcher": {
-					"type": "css",
-					"target": {
-						"selector": "#cookie-banner"
+				"presentMatcher": [
+					{
+						"type": "url",
+						"url": "(^|[/.])dustin\\.",
+						"regexp": true
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": "#cookie-banner"
+						}
 					}
-				},
+				],
 				"showingMatcher": {
 					"type": "css",
 					"target": {

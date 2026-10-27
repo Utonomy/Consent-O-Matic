@@ -1,14 +1,21 @@
 {
-    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "$schema": "../rules.schema.json",
     "hu.nl": {
         "detectors": [
             {
-                "presentMatcher": {
-                    "type": "css",
-                    "target": {
-                        "selector": "#cookiebanner, #CybotCookiebotDialogBodyLevelButtonAccept"
+                "presentMatcher": [
+                    {
+                        "type": "url",
+                        "url": "(^|[/.])hu\\.nl($|[/:])",
+                        "regexp": true
+                    },
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "#cookiebanner, #CybotCookiebotDialogBodyLevelButtonAccept"
+                        }
                     }
-                },
+                ],
                 "showingMatcher": {
                     "type": "css",
                     "target": {

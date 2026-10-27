@@ -1,5 +1,5 @@
 {
-	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"$schema": "../rules.schema.json",
 	"rule_belsimpel_nl": {
 		"detectors": [
 			{
@@ -40,7 +40,7 @@
 						{
 							"type": "waitcss",
 							"target": {
-								"selector": ".js_privacy_options_decline_all_btn"
+								"selector": "#privacy_options_category_marketing"
 							},
 							"retries": 10,
 							"waitTime": 200
@@ -51,9 +51,32 @@
 			{
 				"name": "DO_CONSENT",
 				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"matcher": {
+								"type": "checkbox",
+								"target": {
+									"selector": "#privacy_options_category_marketing"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "#privacy_options_category_marketing"
+								}
+							},
+							"type": "F"
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
 					"type": "click",
 					"target": {
-						"selector": ".js_privacy_options_decline_all_btn"
+						"selector": ".js_privacy_options_save_preferences_btn"
 					}
 				}
 			}

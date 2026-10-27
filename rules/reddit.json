@@ -1,18 +1,18 @@
 {
-    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "$schema": "../rules.schema.json",
     "Reddit": {
         "detectors": [
             {
                 "presentMatcher": [
                     {
                         "type": "url",
-                        "url": ["reddit.com"]
+                        "url": ["(^|[/.])reddit\\.com($|[/:])"],
+                        "regexp": true
                     },
                     {
                         "type": "css",
                         "target": {
-                            "selector": "button",
-                            "textFilter": ["Accept All", "Reject Optional Cookies"]
+                            "selector": "[id^=\"data-protection-consent\"] button[slot=\"secondary-button\"]"
                         }
                     }
                 ],
@@ -20,8 +20,7 @@
                     {
                         "type": "css",
                         "target": {
-                            "selector": "button",
-                            "textFilter": ["Accept All", "Reject Optional Cookies"],
+                            "selector": "[id^=\"data-protection-consent\"] button[slot=\"secondary-button\"]",
                             "displayFilter": true
                         }
                     }
@@ -48,15 +47,13 @@
                     "trueAction": {
                         "type": "click",
                         "target": {
-                            "selector": "button",
-                            "textFilter": ["Accept All"]
+                            "selector": "[id^=\"data-protection-consent\"] button[slot=\"primary-button\"]"
                         }
                     },
                     "falseAction": {
                         "type": "click",
                         "target": {
-                            "selector": "button",
-                            "textFilter": ["Reject Optional Cookies"]
+                            "selector": "[id^=\"data-protection-consent\"] button[slot=\"secondary-button\"]"
                         }
                     }
                 }

@@ -1,0 +1,113 @@
+{
+	"$schema": "../rules.schema.json",
+	"simpel.nl": {
+		"detectors": [
+			{
+				"presentMatcher": [
+					{
+						"type": "url",
+						"url": [
+							"(^|[/.])simpel\\.nl($|[/:])"
+						],
+						"regexp": true
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": "aside#usercentrics-cmp-ui"
+						}
+					}
+				],
+				"showingMatcher": [
+					{
+						"type": "css",
+						"target": {
+							"selector": "#uc-main-dialog"
+						},
+						"parent": {
+							"selector": "aside#usercentrics-cmp-ui"
+						}
+					}
+				]
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": "button#more"
+							},
+							"parent": {
+								"selector": "aside#usercentrics-cmp-ui"
+							}
+						},
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": "button#uc-category-marketing-toggle"
+							},
+							"parent": {
+								"selector": "aside#usercentrics-cmp-ui"
+							},
+							"retries": 20,
+							"waitTime": 200
+						}
+					]
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "consent",
+					"consents": [
+						{
+							"matcher": {
+								"type": "css",
+								"target": {
+									"selector": "button#uc-category-marketing-toggle[aria-checked='true']"
+								},
+								"parent": {
+									"selector": "aside#usercentrics-cmp-ui"
+								}
+							},
+							"toggleAction": {
+								"type": "click",
+								"target": {
+									"selector": "button#uc-category-marketing-toggle"
+								},
+								"parent": {
+									"selector": "aside#usercentrics-cmp-ui"
+								}
+							},
+							"type": "F"
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "click",
+					"target": {
+						"selector": "button#save"
+					},
+					"parent": {
+						"selector": "aside#usercentrics-cmp-ui"
+					}
+				}
+			}
+		]
+	}
+}

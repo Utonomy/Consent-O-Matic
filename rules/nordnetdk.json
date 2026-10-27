@@ -1,9 +1,14 @@
 {
-	"$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+	"$schema": "../rules.schema.json",
   "nordnetdk": {
     "detectors": [
       {
         "presentMatcher": [
+          {
+            "type": "url",
+            "url": "(^|[/.])nordnet\\.",
+            "regexp": true
+          },
           {
             "type": "css",
             "target": {

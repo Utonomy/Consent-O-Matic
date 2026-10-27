@@ -1,12 +1,13 @@
 {
-    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "$schema": "../rules.schema.json",
     "allianzdirect_nl": {
         "detectors": [
             {
                 "presentMatcher": [
                     {
                         "type": "url",
-                        "url": ["allianzdirect.nl"]
+                        "url": ["(^|[/.])allianzdirect\\.nl($|[/:])"],
+                        "regexp": true
                     },
                     {
                         "type": "css",
@@ -37,112 +38,59 @@
             {
                 "name": "OPEN_OPTIONS",
                 "action": {
-                    "type": "click",
-                    "target": {
-                        "selector": ".optanon-toggle-display"
-                    }
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "click",
+                            "target": {
+                                "selector": ".optanon-alert-box-wrapper .optanon-toggle-display"
+                            }
+                        },
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "#optanon-popup-body-content[optanongroupid=\"2\"] input[type=\"checkbox\"]"
+                            },
+                            "retries": 10,
+                            "waitTime": 300
+                        }
+                    ]
                 }
             },
             {
                 "name": "DO_CONSENT",
                 "action": {
-                    "type": "list",
-                    "actions": [
+                    "type": "consent",
+                    "consents": [
                         {
-                            "type": "wait",
-                            "waitTime": 1000
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "#optanon-popup-body-content[optanongroupid=\"2\"] input[type=\"checkbox\"]"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "#optanon-popup-body-content[optanongroupid=\"2\"] input[type=\"checkbox\"]"
+                                }
+                            },
+                            "type": "B"
                         },
                         {
-                            "type": "foreach",
-                            "target": {
-                                "selector": "#optanon-popup-body-content"
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "#optanon-popup-body-content[optanongroupid=\"4\"] input[type=\"checkbox\"]"
+                                }
                             },
-                            "action": {
-                                "type": "list",
-                                "actions": [
-                                    {
-                                        "type": "ifcss",
-                                        "target": {
-                                            "selector": ":scope",
-                                            "textFilter": ["Analytisch", "Statistiek", "Analytics", "Statistics", "Performance"]
-                                        },
-                                        "trueAction": {
-                                            "type": "consent",
-                                            "consents": [
-                                                {
-                                                    "matcher": {
-                                                        "type": "checkbox",
-                                                        "target": {
-                                                            "selector": "input.optanon-status"
-                                                        }
-                                                    },
-                                                    "toggleAction": {
-                                                        "type": "click",
-                                                        "target": {
-                                                            "selector": "input.optanon-status"
-                                                        }
-                                                    },
-                                                    "type": "B"
-                                                }
-                                            ]
-                                        }
-                                    },
-                                    {
-                                        "type": "ifcss",
-                                        "target": {
-                                            "selector": ":scope",
-                                            "textFilter": ["Marketing", "Advertising", "Targeting"]
-                                        },
-                                        "trueAction": {
-                                            "type": "consent",
-                                            "consents": [
-                                                {
-                                                    "matcher": {
-                                                        "type": "checkbox",
-                                                        "target": {
-                                                            "selector": "input.optanon-status"
-                                                        }
-                                                    },
-                                                    "toggleAction": {
-                                                        "type": "click",
-                                                        "target": {
-                                                            "selector": "input.optanon-status"
-                                                        }
-                                                    },
-                                                    "type": "F"
-                                                }
-                                            ]
-                                        }
-                                    },
-                                    {
-                                        "type": "ifcss",
-                                        "target": {
-                                            "selector": ":scope",
-                                            "textFilter": ["Functioneel", "Functional", "Comfort", "Voorkeuren", "Preferences"]
-                                        },
-                                        "trueAction": {
-                                            "type": "consent",
-                                            "consents": [
-                                                {
-                                                    "matcher": {
-                                                        "type": "checkbox",
-                                                        "target": {
-                                                            "selector": "input.optanon-status"
-                                                        }
-                                                    },
-                                                    "toggleAction": {
-                                                        "type": "click",
-                                                        "target": {
-                                                            "selector": "input.optanon-status"
-                                                        }
-                                                    },
-                                                    "type": "A"
-                                                }
-                                            ]
-                                        }
-                                    }
-                                ]
-                            }
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "#optanon-popup-body-content[optanongroupid=\"4\"] input[type=\"checkbox\"]"
+                                }
+                            },
+                            "type": "F"
                         }
                     ]
                 }
@@ -150,13 +98,22 @@
             {
                 "name": "SAVE_CONSENT",
                 "action": {
-                    "type": "click",
-                    "target": {
-                        "selector": "button"
-                    },
-                    "parent": {
-                        "selector": ".optanon-save-settings-button"
-                    }
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "click",
+                            "target": {
+                                "selector": "button"
+                            },
+                            "parent": {
+                                "selector": ".optanon-save-settings-button"
+                            }
+                        },
+                        {
+                            "type": "wait",
+                            "waitTime": 1000
+                        }
+                    ]
                 }
             },
             {

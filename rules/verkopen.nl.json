@@ -1,0 +1,96 @@
+{
+    "$schema": "../rules.schema.json",
+    "verkopen.nl": {
+        "detectors": [
+            {
+                "presentMatcher": [
+                    {
+                        "type": "url",
+                        "url": [
+                            "(^|[/.])verkopen\\.nl($|[/:])"
+                        ],
+                        "regexp": true
+                    },
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "dialog.cf_modal"
+                        },
+                        "parent": {
+                            "selector": ".cf_modal_container"
+                        }
+                    }
+                ],
+                "showingMatcher": [
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "dialog.cf_modal[open]",
+                            "displayFilter": true
+                        },
+                        "parent": {
+                            "selector": ".cf_modal_container"
+                        }
+                    }
+                ]
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "consent",
+                    "consents": [
+                        {
+                            "matcher": {
+                                "type": "checkbox",
+                                "target": {
+                                    "selector": "input.cf-checkbox[data-purpose-id='XFqA']"
+                                },
+                                "parent": {
+                                    "selector": ".cf_modal_container"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "input.cf-checkbox[data-purpose-id='XFqA']"
+                                },
+                                "parent": {
+                                    "selector": ".cf_modal_container"
+                                }
+                            },
+                            "type": "B"
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "click",
+                    "target": {
+                        "selector": "#cf_consent-buttons__save"
+                    },
+                    "parent": {
+                        "selector": ".cf_modal_container"
+                    }
+                }
+            }
+        ]
+    }
+}

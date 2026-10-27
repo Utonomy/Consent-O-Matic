@@ -1,0 +1,367 @@
+{
+	"$schema": "../rules.schema.json",
+	"nieuwrechts.nl": {
+		"detectors": [
+			{
+				"presentMatcher": [
+					{
+						"type": "url",
+						"url": ["(^|[/.])nieuwrechts\\.nl($|[/:])"],
+						"regexp": true
+					},
+					{
+						"type": "css",
+						"target": {
+							"selector": "#cmpbox"
+						}
+					}
+				],
+				"showingMatcher": [
+					{
+						"type": "css",
+						"target": {
+							"selector": "#cmpbox .cmpboxbtncustom",
+							"displayFilter": true
+						}
+					}
+				]
+			}
+		],
+		"methods": [
+			{
+				"name": "HIDE_CMP",
+				"action": {
+					"type": "list",
+					"actions": []
+				}
+			},
+			{
+				"name": "OPEN_OPTIONS",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "click",
+							"target": {
+								"selector": "#cmpbox .cmpboxbtncustom"
+							}
+						},
+						{
+							"type": "waitcss",
+							"target": {
+								"selector": "#cmpbox .cmpboxnaviitem"
+							},
+							"retries": 10,
+							"waitTime": 300
+						}
+					]
+				}
+			},
+			{
+				"name": "DO_CONSENT",
+				"action": {
+					"type": "list",
+					"actions": [
+						{
+							"type": "ifcss",
+							"target": {
+								"selector": "#cmpbox .cmpboxnaviitem[data-cmp-purpose=\"1\"]"
+							},
+							"trueAction": {
+								"type": "list",
+								"actions": [
+									{
+										"type": "click",
+										"target": {
+											"selector": "#cmpbox .cmpboxnaviitem[data-cmp-purpose=\"1\"]"
+										}
+									},
+									{
+										"type": "waitcss",
+										"target": {
+											"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"1\"]"
+										},
+										"retries": 10,
+										"waitTime": 300
+									},
+									{
+										"type": "consent",
+										"consents": [
+											{
+												"matcher": {
+													"type": "css",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"1\"][aria-checked=\"true\"]"
+													}
+												},
+												"toggleAction": {
+													"type": "click",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"1\"]"
+													}
+												},
+												"type": "D"
+											}
+										]
+									}
+								]
+							}
+						},
+						{
+							"type": "ifcss",
+							"target": {
+								"selector": "#cmpbox .cmpboxnaviitem[data-cmp-purpose=\"st1\"]"
+							},
+							"trueAction": {
+								"type": "list",
+								"actions": [
+									{
+										"type": "click",
+										"target": {
+											"selector": "#cmpbox .cmpboxnaviitem[data-cmp-purpose=\"st1\"]"
+										}
+									},
+									{
+										"type": "waitcss",
+										"target": {
+											"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"r1\"]"
+										},
+										"retries": 10,
+										"waitTime": 300
+									},
+									{
+										"type": "consent",
+										"consents": [
+											{
+												"matcher": {
+													"type": "css",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"r1\"][aria-checked=\"true\"]"
+													}
+												},
+												"toggleAction": {
+													"type": "click",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"r1\"]"
+													}
+												},
+												"type": "X"
+											},
+											{
+												"matcher": {
+													"type": "css",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"r2\"][aria-checked=\"true\"]"
+													}
+												},
+												"toggleAction": {
+													"type": "click",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"r2\"]"
+													}
+												},
+												"type": "X"
+											}
+										]
+									}
+								]
+							}
+						},
+						{
+							"type": "ifcss",
+							"target": {
+								"selector": "#cmpbox .cmpboxnaviitem[data-cmp-purpose=\"st42\"]"
+							},
+							"trueAction": {
+								"type": "list",
+								"actions": [
+									{
+										"type": "click",
+										"target": {
+											"selector": "#cmpbox .cmpboxnaviitem[data-cmp-purpose=\"st42\"]"
+										}
+									},
+									{
+										"type": "waitcss",
+										"target": {
+											"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"2\"]"
+										},
+										"retries": 10,
+										"waitTime": 300
+									},
+									{
+										"type": "consent",
+										"consents": [
+											{
+												"matcher": {
+													"type": "css",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"2\"][aria-checked=\"true\"]"
+													}
+												},
+												"toggleAction": {
+													"type": "click",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"2\"]"
+													}
+												},
+												"type": "F"
+											},
+											{
+												"matcher": {
+													"type": "css",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"3\"][aria-checked=\"true\"]"
+													}
+												},
+												"toggleAction": {
+													"type": "click",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"3\"]"
+													}
+												},
+												"type": "F"
+											},
+											{
+												"matcher": {
+													"type": "css",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"4\"][aria-checked=\"true\"]"
+													}
+												},
+												"toggleAction": {
+													"type": "click",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"4\"]"
+													}
+												},
+												"type": "F"
+											},
+											{
+												"matcher": {
+													"type": "css",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"5\"][aria-checked=\"true\"]"
+													}
+												},
+												"toggleAction": {
+													"type": "click",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"5\"]"
+													}
+												},
+												"type": "E"
+											},
+											{
+												"matcher": {
+													"type": "css",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"6\"][aria-checked=\"true\"]"
+													}
+												},
+												"toggleAction": {
+													"type": "click",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"6\"]"
+													}
+												},
+												"type": "E"
+											},
+											{
+												"matcher": {
+													"type": "css",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"7\"][aria-checked=\"true\"]"
+													}
+												},
+												"toggleAction": {
+													"type": "click",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"7\"]"
+													}
+												},
+												"type": "F"
+											},
+											{
+												"matcher": {
+													"type": "css",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"8\"][aria-checked=\"true\"]"
+													}
+												},
+												"toggleAction": {
+													"type": "click",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"8\"]"
+													}
+												},
+												"type": "B"
+											},
+											{
+												"matcher": {
+													"type": "css",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"9\"][aria-checked=\"true\"]"
+													}
+												},
+												"toggleAction": {
+													"type": "click",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"9\"]"
+													}
+												},
+												"type": "B"
+											},
+											{
+												"matcher": {
+													"type": "css",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"10\"][aria-checked=\"true\"]"
+													}
+												},
+												"toggleAction": {
+													"type": "click",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"10\"]"
+													}
+												},
+												"type": "X"
+											},
+											{
+												"matcher": {
+													"type": "css",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"11\"][aria-checked=\"true\"]"
+													}
+												},
+												"toggleAction": {
+													"type": "click",
+													"target": {
+														"selector": "#cmpbox a.cmptogglelink[data-cmp-vendor=\"-1\"][data-cmp-purpose=\"11\"]"
+													}
+												},
+												"type": "E"
+											}
+										]
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "SAVE_CONSENT",
+				"action": {
+					"type": "click",
+					"target": {
+						"selector": "#cmpbox .cmpboxbtnyescustomchoices"
+					}
+				}
+			},
+			{
+				"name": "UTILITY"
+			}
+		]
+	}
+}

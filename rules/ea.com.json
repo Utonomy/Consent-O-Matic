@@ -1,0 +1,189 @@
+{
+    "$schema": "../rules.schema.json",
+    "ea.com": {
+        "detectors": [
+            {
+                "presentMatcher": [
+                    {
+                        "type": "url",
+                        "url": [
+                            "(^|[/.])ea\\.com($|[/:])"
+                        ],
+                        "regexp": true
+                    },
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "#truste-consent-track"
+                        }
+                    }
+                ],
+                "showingMatcher": [
+                    {
+                        "type": "css",
+                        "target": {
+                            "selector": "#truste-consent-track",
+                            "displayFilter": true
+                        }
+                    }
+                ]
+            }
+        ],
+        "methods": [
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": ".trustarc_newcm_container"
+                            },
+                            "retries": 10,
+                            "waitTime": 300
+                        },
+                        {
+                            "type": "ifcss",
+                            "target": {
+                                "selector": ".trustarc_newcm_container"
+                            },
+                            "falseAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "#truste-show-consent"
+                                }
+                            }
+                        },
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "button.switch"
+                            },
+                            "parent": {
+                                "selector": ".trustarc_newcm_container"
+                            },
+                            "retries": 20,
+                            "waitTime": 250
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "DO_CONSENT",
+                "action": {
+                    "type": "consent",
+                    "consents": [
+                        {
+                            "matcher": {
+                                "type": "css",
+                                "target": {
+                                    "selector": "button.switch[aria-label*='unction' i][aria-checked='true'], button.switch[aria-label*='fonction' i][aria-checked='true']"
+                                },
+                                "parent": {
+                                    "selector": ".trustarc_newcm_container"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "button.switch[aria-label*='unction' i], button.switch[aria-label*='fonction' i]"
+                                },
+                                "parent": {
+                                    "selector": ".trustarc_newcm_container"
+                                }
+                            },
+                            "type": "D"
+                        },
+                        {
+                            "matcher": {
+                                "type": "css",
+                                "target": {
+                                    "selector": "button.switch[aria-label*='advert' i][aria-checked='true'], button.switch[aria-label*='werbung' i][aria-checked='true'], button.switch[aria-label*='publicit' i][aria-checked='true'], button.switch[aria-label*='pubblicit' i][aria-checked='true']"
+                                },
+                                "parent": {
+                                    "selector": ".trustarc_newcm_container"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "button.switch[aria-label*='advert' i], button.switch[aria-label*='werbung' i], button.switch[aria-label*='publicit' i], button.switch[aria-label*='pubblicit' i]"
+                                },
+                                "parent": {
+                                    "selector": ".trustarc_newcm_container"
+                                }
+                            },
+                            "type": "F"
+                        },
+                        {
+                            "matcher": {
+                                "type": "css",
+                                "target": {
+                                    "selector": "button.switch[aria-label*='multimedia' i][aria-checked='true']"
+                                },
+                                "parent": {
+                                    "selector": ".trustarc_newcm_container"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "target": {
+                                    "selector": "button.switch[aria-label*='multimedia' i]"
+                                },
+                                "parent": {
+                                    "selector": ".trustarc_newcm_container"
+                                }
+                            },
+                            "type": "X"
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "click",
+                            "target": {
+                                "selector": "button[data-button-key='submit']"
+                            },
+                            "parent": {
+                                "selector": ".trustarc_newcm_container"
+                            }
+                        },
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "button[data-button-key='close']"
+                            },
+                            "parent": {
+                                "selector": ".trustarc_newcm_container"
+                            },
+                            "retries": 20,
+                            "waitTime": 250
+                        },
+                        {
+                            "type": "click",
+                            "target": {
+                                "selector": "button[data-button-key='close']"
+                            },
+                            "parent": {
+                                "selector": ".trustarc_newcm_container"
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

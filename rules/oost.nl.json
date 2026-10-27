@@ -1,25 +1,148 @@
 {
-    "$schema": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "$schema": "../rules.schema.json",
     "oost.nl": {
         "detectors": [
             {
                 "presentMatcher": {
                     "type": "css",
-                    "target": { "selector": "#consent-plugin" }
+                    "target": {
+                        "selector": "#consent-plugin"
+                    }
                 },
                 "showingMatcher": {
                     "type": "css",
-                    "target": { "selector": "#consent-plugin-buttons" }
+                    "target": {
+                        "selector": "#consent-plugin-buttons"
+                    }
                 }
             }
         ],
         "methods": [
-            { "name": "HIDE_CMP", "action": { "type": "list", "actions": [] } },
+            {
+                "name": "HIDE_CMP",
+                "action": {
+                    "type": "list",
+                    "actions": []
+                }
+            },
+            {
+                "name": "OPEN_OPTIONS",
+                "action": {
+                    "type": "list",
+                    "actions": [
+                        {
+                            "type": "click",
+                            "target": {
+                                "selector": "#consent-plugin-buttons button[aria-label=\"Instellingen\"]"
+                            }
+                        },
+                        {
+                            "type": "waitcss",
+                            "target": {
+                                "selector": "#consent-plugin .checkbox-toggle"
+                            },
+                            "retries": 10,
+                            "waitTime": 300
+                        }
+                    ]
+                }
+            },
             {
                 "name": "DO_CONSENT",
                 "action": {
+                    "type": "consent",
+                    "consents": [
+                        {
+                            "matcher": {
+                                "type": "css",
+                                "parent": {
+                                    "selector": "#consent-plugin .checkbox-header",
+                                    "textFilter": [
+                                        "Personalisatie"
+                                    ]
+                                },
+                                "target": {
+                                    "selector": "button.checkbox-toggle.checked"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "parent": {
+                                    "selector": "#consent-plugin .checkbox-header",
+                                    "textFilter": [
+                                        "Personalisatie"
+                                    ]
+                                },
+                                "target": {
+                                    "selector": "button.checkbox-toggle:not(.disabled)"
+                                }
+                            },
+                            "type": "E"
+                        },
+                        {
+                            "matcher": {
+                                "type": "css",
+                                "parent": {
+                                    "selector": "#consent-plugin .checkbox-header",
+                                    "textFilter": [
+                                        "Puzzels"
+                                    ]
+                                },
+                                "target": {
+                                    "selector": "button.checkbox-toggle.checked"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "parent": {
+                                    "selector": "#consent-plugin .checkbox-header",
+                                    "textFilter": [
+                                        "Puzzels"
+                                    ]
+                                },
+                                "target": {
+                                    "selector": "button.checkbox-toggle:not(.disabled)"
+                                }
+                            },
+                            "type": "D"
+                        },
+                        {
+                            "matcher": {
+                                "type": "css",
+                                "parent": {
+                                    "selector": "#consent-plugin .checkbox-header",
+                                    "textFilter": [
+                                        "Social media"
+                                    ]
+                                },
+                                "target": {
+                                    "selector": "button.checkbox-toggle.checked"
+                                }
+                            },
+                            "toggleAction": {
+                                "type": "click",
+                                "parent": {
+                                    "selector": "#consent-plugin .checkbox-header",
+                                    "textFilter": [
+                                        "Social media"
+                                    ]
+                                },
+                                "target": {
+                                    "selector": "button.checkbox-toggle:not(.disabled)"
+                                }
+                            },
+                            "type": "X"
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SAVE_CONSENT",
+                "action": {
                     "type": "click",
-                    "target": { "selector": "button[aria-label=\"Alles weigeren\"]" }
+                    "target": {
+                        "selector": "#consent-plugin-buttons button[aria-label=\"Keuzes opslaan\"]"
+                    }
                 }
             }
         ]
