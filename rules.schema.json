@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/schema",
-    "$id": "https://raw.githubusercontent.com/cavi-au/Consent-O-Matic/master/rules.schema.json",
+    "$id": "https://raw.githubusercontent.com/Utonomy/Consent-O-Matic/master/rules.schema.json",
     "title": "Consent-O-Matic rule schema",
     "type": "object",
     "patternProperties": {
